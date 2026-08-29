@@ -1,0 +1,881 @@
+[setup] lite1 384px | minitrain bs=8 | 15 ep | lr=0.0005 (scaled from 0.001 @bs16) | backbone target 10%
+loading annotations into memory...
+Done (t=1.12s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+  [Dataset COCO] subset=minitrain  train: 25000 images, val: 5000 images, input=384, batch=8, workers=16
+[data] 3125 train batches/ep
+
+##############################################################################
+#  ARM lamp_globalT   (pre-FT reference 0.1092)
+##############################################################################
+  pruned in 28 steps: backbone -10.04%  full -8.80%  minsurv blocks.5.1.conv_dw 80.5%
+
+                                                       
+Loading and preparing results...
+DONE (t=1.32s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=19.80s).
+Accumulating evaluation results...
+DONE (t=5.55s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.109
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.187
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.109
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.041
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.178
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.161
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.137
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.230
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.240
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.079
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.298
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.372
+  post-prune / pre-FT mAP = 0.1092
+  [K1 lamp_globalT] 15 ep, SGD lr=0.0005 m=0.9 wd=4e-05, warmup(1ep, start=0.01) -> cosine T_max=14, eval_every=5 ep
+
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:01<1:03:06,  1.21s/it, loss=0.812, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:01<1:03:06,  1.21s/it, loss=0.673, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:01<1:03:06,  1.21s/it, loss=0.657, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:01<1:03:06,  1.21s/it, loss=0.620, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:01<1:03:06,  1.21s/it, loss=0.596, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:02<1:03:06,  1.21s/it, loss=0.588, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:02<1:03:06,  1.21s/it, loss=0.590, mx=0.8]
+K1 lamp_globalT ep1/15:   0%|          | 1/3125 [00:02<1:03:06,  1.21s/it, loss=0.589, mx=0.8]
+                                                                                               
+    Ep   1/15  loss=0.6591  max_loss=1.29  lr=5.00e-04  (414s)
+
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.518, mx=0.5]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.517, mx=0.5]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.503, mx=0.5]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.534, mx=0.6]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.549, mx=0.6]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.545, mx=0.6]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:01<57:40,  1.11s/it, loss=0.534, mx=0.6]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:02<57:40,  1.11s/it, loss=0.519, mx=0.6]
+K1 lamp_globalT ep2/15:   0%|          | 1/3125 [00:02<57:40,  1.11s/it, loss=0.532, mx=0.6]
+                                                                                               
+    Ep   2/15  loss=0.6317  max_loss=1.16  lr=4.94e-04  (423s)
+
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.971, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.761, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.746, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.739, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.678, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.666, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:01<56:36,  1.09s/it, loss=0.666, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:02<56:36,  1.09s/it, loss=0.657, mx=1.0]
+K1 lamp_globalT ep3/15:   0%|          | 1/3125 [00:02<56:36,  1.09s/it, loss=0.669, mx=1.0]
+                                                                                               
+    Ep   3/15  loss=0.6151  max_loss=1.10  lr=4.75e-04  (429s)
+
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.662, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.625, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.616, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.624, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.617, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.627, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.605, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:01<56:31,  1.09s/it, loss=0.604, mx=0.7]
+K1 lamp_globalT ep4/15:   0%|          | 1/3125 [00:02<56:31,  1.09s/it, loss=0.612, mx=0.7]
+                                                                                               
+    Ep   4/15  loss=0.6087  max_loss=1.13  lr=4.45e-04  (429s)
+
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:01<1:08:57,  1.32s/it, loss=0.558, mx=0.6]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:01<1:08:57,  1.32s/it, loss=0.575, mx=0.6]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:01<1:08:57,  1.32s/it, loss=0.584, mx=0.6]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:01<1:08:57,  1.32s/it, loss=0.537, mx=0.6]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:01<1:08:57,  1.32s/it, loss=0.527, mx=0.6]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:02<1:08:57,  1.32s/it, loss=0.537, mx=0.6]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:02<1:08:57,  1.32s/it, loss=0.566, mx=0.7]
+K1 lamp_globalT ep5/15:   0%|          | 1/3125 [00:02<1:08:57,  1.32s/it, loss=0.567, mx=0.7]
+                                                                                               
+
+eval:   0%|          | 1/625 [00:01<10:33,  1.02s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.49s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=21.22s).
+Accumulating evaluation results...
+DONE (t=4.30s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.300
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.473
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.312
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.102
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.347
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.485
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.271
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.414
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.441
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.171
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.516
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.666
+    Ep   5/15  loss=0.6021  max_loss=1.02  mAP=0.3004  mAP50=0.4725  lr=4.06e-04  (441s + eval 56s) *
+
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:01<1:04:05,  1.23s/it, loss=0.519, mx=0.5]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:01<1:04:05,  1.23s/it, loss=0.485, mx=0.5]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:01<1:04:05,  1.23s/it, loss=0.460, mx=0.5]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:01<1:04:05,  1.23s/it, loss=0.537, mx=0.8]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:01<1:04:05,  1.23s/it, loss=0.541, mx=0.8]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:01<1:04:05,  1.23s/it, loss=0.524, mx=0.8]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:02<1:04:05,  1.23s/it, loss=0.524, mx=0.8]
+K1 lamp_globalT ep6/15:   0%|          | 1/3125 [00:02<1:04:05,  1.23s/it, loss=0.521, mx=0.8]
+                                                                                               
+    Ep   6/15  loss=0.5960  max_loss=1.23  lr=3.58e-04  (431s)
+
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:01<1:05:57,  1.27s/it, loss=0.503, mx=0.5]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:01<1:05:57,  1.27s/it, loss=0.445, mx=0.5]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:01<1:05:57,  1.27s/it, loss=0.553, mx=0.8]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:01<1:05:57,  1.27s/it, loss=0.500, mx=0.8]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:01<1:05:57,  1.27s/it, loss=0.540, mx=0.8]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:01<1:05:57,  1.27s/it, loss=0.532, mx=0.8]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:02<1:05:57,  1.27s/it, loss=0.537, mx=0.8]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:02<1:05:57,  1.27s/it, loss=0.527, mx=0.8]
+K1 lamp_globalT ep7/15:   0%|          | 1/3125 [00:02<1:05:57,  1.27s/it, loss=0.532, mx=0.8]
+                                                                                               
+    Ep   7/15  loss=0.5930  max_loss=1.25  lr=3.06e-04  (421s)
+
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.487, mx=0.5]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.480, mx=0.5]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.540, mx=0.7]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.524, mx=0.7]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.519, mx=0.7]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.509, mx=0.7]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:01<59:33,  1.14s/it, loss=0.554, mx=0.8]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:02<59:33,  1.14s/it, loss=0.555, mx=0.8]
+K1 lamp_globalT ep8/15:   0%|          | 1/3125 [00:02<59:33,  1.14s/it, loss=0.557, mx=0.8]
+                                                                                               
+    Ep   8/15  loss=0.5894  max_loss=1.06  lr=2.50e-04  (428s)
+
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.664, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.562, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.580, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.580, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.545, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.549, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:01<1:00:21,  1.16s/it, loss=0.557, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:02<1:00:21,  1.16s/it, loss=0.545, mx=0.7]
+K1 lamp_globalT ep9/15:   0%|          | 1/3125 [00:02<1:00:21,  1.16s/it, loss=0.542, mx=0.7]
+                                                                                               
+    Ep   9/15  loss=0.5847  max_loss=1.01  lr=1.94e-04  (418s)
+
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:01<1:03:38,  1.22s/it, loss=0.515, mx=0.5]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:01<1:03:38,  1.22s/it, loss=0.606, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:01<1:03:38,  1.22s/it, loss=0.586, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:01<1:03:38,  1.22s/it, loss=0.540, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:01<1:03:38,  1.22s/it, loss=0.527, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:01<1:03:38,  1.22s/it, loss=0.556, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:02<1:03:38,  1.22s/it, loss=0.552, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:02<1:03:38,  1.22s/it, loss=0.567, mx=0.7]
+K1 lamp_globalT ep10/15:   0%|          | 1/3125 [00:02<1:03:38,  1.22s/it, loss=0.564, mx=0.7]
+                                                                                                
+
+eval:   0%|          | 1/625 [00:01<10:32,  1.01s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.42s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=20.08s).
+Accumulating evaluation results...
+DONE (t=4.11s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.302
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.475
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.315
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.102
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.351
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.480
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.270
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.415
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.441
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.177
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.517
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.667
+    Ep  10/15  loss=0.5843  max_loss=1.25  mAP=0.3023  mAP50=0.4750  lr=1.42e-04  (414s + eval 52s) *
+
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.632, mx=0.6]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.691, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.742, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.726, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.682, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.643, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:01<1:00:14,  1.16s/it, loss=0.644, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:02<1:00:14,  1.16s/it, loss=0.616, mx=0.8]
+K1 lamp_globalT ep11/15:   0%|          | 1/3125 [00:02<1:00:14,  1.16s/it, loss=0.593, mx=0.8]
+                                                                                                
+    Ep  11/15  loss=0.5811  max_loss=1.08  lr=9.41e-05  (426s)
+
+K1 lamp_globalT ep12/15:   0%|          | 1/3125 [00:01<1:04:54,  1.25s/it, loss=0.448, mx=0.4]
+K1 lamp_globalT ep12/15:   0%|          | 1/3125 [00:01<1:04:54,  1.25s/it, loss=0.474, mx=0.5]
+K1 lamp_globalT ep12/15:   0%|          | 1/3125 [00:01<1:04:54,  1.25s/it, loss=0.575, mx=0.8]
+K1 lamp_globalT ep12/15:   0%|          | 1/3125 [00:01<1:04:54,  1.25s/it, loss=0.579, mx=0.8]
+K1 lamp_globalT ep12/15:   0%|          | 1/3125 [00:02<1:04:54,  1.25s/it, loss=0.616, mx=0.8]
+K1 lamp_globalT ep12/15:   0%|          | 1/3125 [00:02<1:04:54,  1.25s/it, loss=0.601, mx=0.8]
+                                                                                                
+    Ep  12/15  loss=0.5799  max_loss=1.14  lr=5.45e-05  (430s)
+
+K1 lamp_globalT ep13/15:   0%|          | 1/3125 [00:01<1:05:49,  1.26s/it, loss=0.617, mx=0.6]
+K1 lamp_globalT ep13/15:   0%|          | 1/3125 [00:01<1:05:49,  1.26s/it, loss=0.607, mx=0.6]
+K1 lamp_globalT ep13/15:   0%|          | 1/3125 [00:01<1:05:49,  1.26s/it, loss=0.552, mx=0.6]
+K1 lamp_globalT ep13/15:   0%|          | 1/3125 [00:01<1:05:49,  1.26s/it, loss=0.572, mx=0.6]
+K1 lamp_globalT ep13/15:   0%|          | 1/3125 [00:02<1:05:49,  1.26s/it, loss=0.583, mx=0.6]
+K1 lamp_globalT ep13/15:   0%|          | 1/3125 [00:02<1:05:49,  1.26s/it, loss=0.614, mx=0.8]
+                                                                                                
+    Ep  13/15  loss=0.5751  max_loss=1.14  lr=2.48e-05  (429s)
+
+K1 lamp_globalT ep14/15:   0%|          | 1/3125 [00:01<1:04:26,  1.24s/it, loss=0.574, mx=0.6]
+K1 lamp_globalT ep14/15:   0%|          | 1/3125 [00:01<1:04:26,  1.24s/it, loss=0.517, mx=0.6]
+K1 lamp_globalT ep14/15:   0%|          | 1/3125 [00:01<1:04:26,  1.24s/it, loss=0.486, mx=0.6]
+K1 lamp_globalT ep14/15:   0%|          | 1/3125 [00:01<1:04:26,  1.24s/it, loss=0.502, mx=0.6]
+K1 lamp_globalT ep14/15:   0%|          | 1/3125 [00:02<1:04:26,  1.24s/it, loss=0.529, mx=0.6]
+K1 lamp_globalT ep14/15:   0%|          | 1/3125 [00:02<1:04:26,  1.24s/it, loss=0.547, mx=0.6]
+                                                                                                
+    Ep  14/15  loss=0.5750  max_loss=1.12  lr=6.27e-06  (425s)
+
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.586, mx=0.6]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.560, mx=0.6]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.582, mx=0.6]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.547, mx=0.6]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.574, mx=0.7]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.591, mx=0.7]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:01<58:30,  1.12s/it, loss=0.569, mx=0.7]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:02<58:30,  1.12s/it, loss=0.570, mx=0.7]
+K1 lamp_globalT ep15/15:   0%|          | 1/3125 [00:02<58:30,  1.12s/it, loss=0.555, mx=0.7]
+                                                                                                
+
+eval:   0%|          | 1/625 [00:01<11:10,  1.07s/it]
+                                                       
+Loading and preparing results...
+DONE (t=0.88s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=20.53s).
+Accumulating evaluation results...
+DONE (t=4.02s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.303
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.476
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.314
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.102
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.351
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.484
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.270
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.413
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.441
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.173
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.515
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.666
+    Ep  15/15  loss=0.5768  max_loss=1.04  mAP=0.3027  mAP50=0.4762  lr=0.00e+00  (412s + eval 53s) *
+  [K1 lamp_globalT] Best mAP : 0.3027 @ ep 15/15
+
+eval:   0%|          | 1/625 [00:01<10:44,  1.03s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.41s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.82s).
+Accumulating evaluation results...
+DONE (t=4.77s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.303
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.476
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.314
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.102
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.351
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.484
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.270
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.413
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.441
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.173
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.515
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.666
+
+  ==> lamp_globalT: pre-FT 0.1092 -> post-FT 0.3027 (best 0.3027)  [111 min]
+
+##############################################################################
+#  ARM magnitude_l2_globalT   (pre-FT reference 0.0003)
+##############################################################################
+  pruned in 58 steps: backbone -10.27%  full -9.00%  minsurv blocks.1.2.conv_dw 8.3%
+
+eval:   0%|          | 1/625 [00:01<10:43,  1.03s/it]
+                                                       
+Loading and preparing results...
+DONE (t=0.79s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=21.74s).
+Accumulating evaluation results...
+DONE (t=8.36s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.021
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.021
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.022
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.046
+  post-prune / pre-FT mAP = 0.0003
+  [K1 magnitude_l2_globalT] 15 ep, SGD lr=0.0005 m=0.9 wd=4e-05, warmup(1ep, start=0.01) -> cosine T_max=14, eval_every=5 ep
+
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:01<1:02:55,  1.21s/it, loss=2.568, mx=2.6]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:01<1:02:55,  1.21s/it, loss=2.496, mx=2.6]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:01<1:02:55,  1.21s/it, loss=2.376, mx=2.6]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:01<1:02:55,  1.21s/it, loss=2.351, mx=2.6]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:01<1:02:55,  1.21s/it, loss=2.402, mx=2.6]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:02<1:02:55,  1.21s/it, loss=2.416, mx=2.6]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:02<1:02:55,  1.21s/it, loss=2.523, mx=3.2]
+K1 magnitude_l2_globalT ep1/15:   0%|          | 1/3125 [00:02<1:02:55,  1.21s/it, loss=2.479, mx=3.2]
+                                                                                                       
+    Ep   1/15  loss=1.9395  max_loss=3.17  lr=5.00e-04  (314s)
+
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:01<1:02:04,  1.19s/it, loss=1.696, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:01<1:02:04,  1.19s/it, loss=1.637, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:01<1:02:04,  1.19s/it, loss=1.655, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:01<1:02:04,  1.19s/it, loss=1.600, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:01<1:02:04,  1.19s/it, loss=1.583, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:01<1:02:04,  1.19s/it, loss=1.592, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:02<1:02:04,  1.19s/it, loss=1.597, mx=1.7]
+K1 magnitude_l2_globalT ep2/15:   0%|          | 1/3125 [00:02<1:02:04,  1.19s/it, loss=1.573, mx=1.7]
+                                                                                                       
+    Ep   2/15  loss=1.1760  max_loss=2.09  lr=4.94e-04  (316s)
+
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:01<1:01:30,  1.18s/it, loss=1.283, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:01<1:01:30,  1.18s/it, loss=1.162, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:01<1:01:30,  1.18s/it, loss=1.181, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:01<1:01:30,  1.18s/it, loss=1.110, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:01<1:01:30,  1.18s/it, loss=1.053, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:01<1:01:30,  1.18s/it, loss=1.030, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:02<1:01:30,  1.18s/it, loss=1.040, mx=1.3]
+K1 magnitude_l2_globalT ep3/15:   0%|          | 1/3125 [00:02<1:01:30,  1.18s/it, loss=1.030, mx=1.3]
+                                                                                                       
+    Ep   3/15  loss=0.9825  max_loss=1.67  lr=4.75e-04  (314s)
+
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:01<1:01:40,  1.18s/it, loss=0.944, mx=0.9]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:01<1:01:40,  1.18s/it, loss=0.890, mx=0.9]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:01<1:01:40,  1.18s/it, loss=0.917, mx=1.0]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:01<1:01:40,  1.18s/it, loss=0.934, mx=1.0]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:01<1:01:40,  1.18s/it, loss=0.914, mx=1.0]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:01<1:01:40,  1.18s/it, loss=0.937, mx=1.1]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:02<1:01:40,  1.18s/it, loss=0.931, mx=1.1]
+K1 magnitude_l2_globalT ep4/15:   0%|          | 1/3125 [00:02<1:01:40,  1.18s/it, loss=0.931, mx=1.1]
+                                                                                                       
+    Ep   4/15  loss=0.9324  max_loss=1.54  lr=4.45e-04  (318s)
+
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:01<1:02:15,  1.20s/it, loss=0.839, mx=0.8]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:01<1:02:15,  1.20s/it, loss=0.969, mx=1.1]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:01<1:02:15,  1.20s/it, loss=0.974, mx=1.1]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:01<1:02:15,  1.20s/it, loss=0.965, mx=1.1]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:01<1:02:15,  1.20s/it, loss=0.932, mx=1.1]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:02<1:02:15,  1.20s/it, loss=0.913, mx=1.1]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:02<1:02:15,  1.20s/it, loss=0.939, mx=1.1]
+K1 magnitude_l2_globalT ep5/15:   0%|          | 1/3125 [00:02<1:02:15,  1.20s/it, loss=0.942, mx=1.1]
+                                                                                                       
+
+eval:   0%|          | 1/625 [00:01<11:15,  1.08s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.35s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=17.75s).
+Accumulating evaluation results...
+DONE (t=3.82s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.180
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.301
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.184
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.031
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.171
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.336
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.192
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.292
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.313
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.062
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.332
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.556
+    Ep   5/15  loss=0.8996  max_loss=1.41  mAP=0.1798  mAP50=0.3006  lr=4.06e-04  (316s + eval 56s) *
+
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.835, mx=0.8]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.761, mx=0.8]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.726, mx=0.8]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.833, mx=1.2]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.856, mx=1.2]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:02<1:02:54,  1.21s/it, loss=0.828, mx=1.2]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:02<1:02:54,  1.21s/it, loss=0.850, mx=1.2]
+K1 magnitude_l2_globalT ep6/15:   0%|          | 1/3125 [00:02<1:02:54,  1.21s/it, loss=0.862, mx=1.2]
+                                                                                                       
+    Ep   6/15  loss=0.8734  max_loss=1.54  lr=3.58e-04  (316s)
+
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:01<1:03:00,  1.21s/it, loss=0.863, mx=0.9]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:01<1:03:00,  1.21s/it, loss=0.781, mx=0.9]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:01<1:03:00,  1.21s/it, loss=0.877, mx=1.1]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:01<1:03:00,  1.21s/it, loss=0.825, mx=1.1]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:01<1:03:00,  1.21s/it, loss=0.852, mx=1.1]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:02<1:03:00,  1.21s/it, loss=0.823, mx=1.1]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:02<1:03:00,  1.21s/it, loss=0.830, mx=1.1]
+K1 magnitude_l2_globalT ep7/15:   0%|          | 1/3125 [00:02<1:03:00,  1.21s/it, loss=0.823, mx=1.1]
+                                                                                                       
+    Ep   7/15  loss=0.8576  max_loss=1.50  lr=3.06e-04  (318s)
+
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:01<1:02:05,  1.19s/it, loss=0.713, mx=0.7]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:01<1:02:05,  1.19s/it, loss=0.735, mx=0.8]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:01<1:02:05,  1.19s/it, loss=0.756, mx=0.8]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:01<1:02:05,  1.19s/it, loss=0.723, mx=0.8]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:01<1:02:05,  1.19s/it, loss=0.748, mx=0.8]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:02<1:02:05,  1.19s/it, loss=0.720, mx=0.8]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:02<1:02:05,  1.19s/it, loss=0.756, mx=1.0]
+K1 magnitude_l2_globalT ep8/15:   0%|          | 1/3125 [00:02<1:02:05,  1.19s/it, loss=0.751, mx=1.0]
+                                                                                                       
+    Ep   8/15  loss=0.8444  max_loss=1.42  lr=2.50e-04  (317s)
+
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:01<1:02:11,  1.19s/it, loss=0.926, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:01<1:02:11,  1.19s/it, loss=0.783, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:01<1:02:11,  1.19s/it, loss=0.782, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:01<1:02:11,  1.19s/it, loss=0.802, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:01<1:02:11,  1.19s/it, loss=0.780, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:02<1:02:11,  1.19s/it, loss=0.766, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:02<1:02:11,  1.19s/it, loss=0.768, mx=0.9]
+K1 magnitude_l2_globalT ep9/15:   0%|          | 1/3125 [00:02<1:02:11,  1.19s/it, loss=0.765, mx=0.9]
+                                                                                                       
+    Ep   9/15  loss=0.8326  max_loss=1.46  lr=1.94e-04  (317s)
+
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:01<1:04:06,  1.23s/it, loss=0.706, mx=0.7]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:01<1:04:06,  1.23s/it, loss=0.820, mx=0.9]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:01<1:04:06,  1.23s/it, loss=0.824, mx=0.9]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:01<1:04:06,  1.23s/it, loss=0.835, mx=0.9]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:01<1:04:06,  1.23s/it, loss=0.811, mx=0.9]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:02<1:04:06,  1.23s/it, loss=0.838, mx=1.0]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:02<1:04:06,  1.23s/it, loss=0.813, mx=1.0]
+K1 magnitude_l2_globalT ep10/15:   0%|          | 1/3125 [00:02<1:04:06,  1.23s/it, loss=0.832, mx=1.0]
+                                                                                                        
+
+eval:   0%|          | 1/625 [00:01<11:08,  1.07s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.46s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.24s).
+Accumulating evaluation results...
+DONE (t=3.77s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.199
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.334
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.201
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.041
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.199
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.368
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.203
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.309
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.333
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.080
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.363
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.573
+    Ep  10/15  loss=0.8249  max_loss=1.35  mAP=0.1994  mAP50=0.3344  lr=1.42e-04  (317s + eval 57s) *
+
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:01<1:04:25,  1.24s/it, loss=0.878, mx=0.9]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:01<1:04:25,  1.24s/it, loss=0.911, mx=0.9]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:01<1:04:25,  1.24s/it, loss=0.931, mx=1.0]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:01<1:04:25,  1.24s/it, loss=0.945, mx=1.0]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:01<1:04:25,  1.24s/it, loss=0.891, mx=1.0]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:02<1:04:25,  1.24s/it, loss=0.864, mx=1.0]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:02<1:04:25,  1.24s/it, loss=0.870, mx=1.0]
+K1 magnitude_l2_globalT ep11/15:   0%|          | 1/3125 [00:02<1:04:25,  1.24s/it, loss=0.843, mx=1.0]
+                                                                                                        
+    Ep  11/15  loss=0.8152  max_loss=1.35  lr=9.41e-05  (313s)
+
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:01<1:02:08,  1.19s/it, loss=0.641, mx=0.6]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:01<1:02:08,  1.19s/it, loss=0.695, mx=0.7]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:01<1:02:08,  1.19s/it, loss=0.784, mx=1.0]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:01<1:02:08,  1.19s/it, loss=0.785, mx=1.0]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:01<1:02:08,  1.19s/it, loss=0.807, mx=1.0]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:02<1:02:08,  1.19s/it, loss=0.809, mx=1.0]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:02<1:02:08,  1.19s/it, loss=0.822, mx=1.0]
+K1 magnitude_l2_globalT ep12/15:   0%|          | 1/3125 [00:02<1:02:08,  1.19s/it, loss=0.819, mx=1.0]
+                                                                                                        
+    Ep  12/15  loss=0.8117  max_loss=1.45  lr=5.45e-05  (318s)
+
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:01<1:02:49,  1.21s/it, loss=0.767, mx=0.8]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:01<1:02:49,  1.21s/it, loss=0.741, mx=0.8]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:01<1:02:49,  1.21s/it, loss=0.708, mx=0.8]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:01<1:02:49,  1.21s/it, loss=0.780, mx=1.0]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:01<1:02:49,  1.21s/it, loss=0.800, mx=1.0]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:02<1:02:49,  1.21s/it, loss=0.816, mx=1.0]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:02<1:02:49,  1.21s/it, loss=0.828, mx=1.0]
+K1 magnitude_l2_globalT ep13/15:   0%|          | 1/3125 [00:02<1:02:49,  1.21s/it, loss=0.805, mx=1.0]
+                                                                                                        
+    Ep  13/15  loss=0.8066  max_loss=1.51  lr=2.48e-05  (318s)
+
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.706, mx=0.7]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.670, mx=0.7]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.699, mx=0.8]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.723, mx=0.8]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:01<1:02:54,  1.21s/it, loss=0.770, mx=1.0]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:02<1:02:54,  1.21s/it, loss=0.776, mx=1.0]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:02<1:02:54,  1.21s/it, loss=0.791, mx=1.0]
+K1 magnitude_l2_globalT ep14/15:   0%|          | 1/3125 [00:02<1:02:54,  1.21s/it, loss=0.802, mx=1.0]
+                                                                                                        
+    Ep  14/15  loss=0.8032  max_loss=1.39  lr=6.27e-06  (316s)
+
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:01<1:01:31,  1.18s/it, loss=0.743, mx=0.7]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:01<1:01:31,  1.18s/it, loss=0.726, mx=0.7]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:01<1:01:31,  1.18s/it, loss=0.762, mx=0.8]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:01<1:01:31,  1.18s/it, loss=0.754, mx=0.8]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:01<1:01:31,  1.18s/it, loss=0.776, mx=0.9]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:01<1:01:31,  1.18s/it, loss=0.798, mx=0.9]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:02<1:01:31,  1.18s/it, loss=0.764, mx=0.9]
+K1 magnitude_l2_globalT ep15/15:   0%|          | 1/3125 [00:02<1:01:31,  1.18s/it, loss=0.765, mx=0.9]
+                                                                                                        
+
+eval:   0%|          | 1/625 [00:01<10:53,  1.05s/it]
+                                                       
+Loading and preparing results...
+DONE (t=0.85s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.07s).
+Accumulating evaluation results...
+DONE (t=3.74s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.204
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.340
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.207
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.043
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.202
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.376
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.209
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.316
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.340
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.084
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.371
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.585
+    Ep  15/15  loss=0.8039  max_loss=1.41  mAP=0.2043  mAP50=0.3401  lr=0.00e+00  (314s + eval 57s) *
+  [K1 magnitude_l2_globalT] Best mAP : 0.2043 @ ep 15/15
+
+eval:   0%|          | 1/625 [00:01<11:44,  1.13s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.42s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=17.75s).
+Accumulating evaluation results...
+DONE (t=3.67s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.204
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.340
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.207
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.043
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.202
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.376
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.209
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.316
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.340
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.084
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.371
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.585
+
+  ==> magnitude_l2_globalT: pre-FT 0.0003 -> post-FT 0.2043 (best 0.2043)  [84 min]
+
+##############################################################################
+#  ARM magnitude_l2_globalF   (pre-FT reference 0.0820)
+##############################################################################
+  pruned in 21 steps: backbone -10.30%  full -9.17%  minsurv blocks.1.0.conv_pwl 91.7%
+
+eval:   0%|          | 1/625 [00:01<11:22,  1.09s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.42s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.51s).
+Accumulating evaluation results...
+DONE (t=5.43s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.082
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.138
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.082
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.029
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.128
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.127
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.115
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.195
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.205
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.058
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.246
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.330
+  post-prune / pre-FT mAP = 0.0820
+  [K1 magnitude_l2_globalF] 15 ep, SGD lr=0.0005 m=0.9 wd=4e-05, warmup(1ep, start=0.01) -> cosine T_max=14, eval_every=5 ep
+
+K1 magnitude_l2_globalF ep1/15:   0%|          | 1/3125 [00:01<1:06:04,  1.27s/it, loss=0.790, mx=0.8]
+K1 magnitude_l2_globalF ep1/15:   0%|          | 1/3125 [00:01<1:06:04,  1.27s/it, loss=0.667, mx=0.8]
+K1 magnitude_l2_globalF ep1/15:   0%|          | 1/3125 [00:01<1:06:04,  1.27s/it, loss=0.656, mx=0.8]
+K1 magnitude_l2_globalF ep1/15:   0%|          | 1/3125 [00:01<1:06:04,  1.27s/it, loss=0.632, mx=0.8]
+K1 magnitude_l2_globalF ep1/15:   0%|          | 1/3125 [00:02<1:06:04,  1.27s/it, loss=0.619, mx=0.8]
+K1 magnitude_l2_globalF ep1/15:   0%|          | 1/3125 [00:02<1:06:04,  1.27s/it, loss=0.619, mx=0.8]
+                                                                                                       
+    Ep   1/15  loss=0.7138  max_loss=1.44  lr=5.00e-04  (420s)
+
+K1 magnitude_l2_globalF ep2/15:   0%|          | 1/3125 [00:01<1:05:25,  1.26s/it, loss=0.567, mx=0.6]
+K1 magnitude_l2_globalF ep2/15:   0%|          | 1/3125 [00:01<1:05:25,  1.26s/it, loss=0.563, mx=0.6]
+K1 magnitude_l2_globalF ep2/15:   0%|          | 1/3125 [00:01<1:05:25,  1.26s/it, loss=0.529, mx=0.6]
+K1 magnitude_l2_globalF ep2/15:   0%|          | 1/3125 [00:01<1:05:25,  1.26s/it, loss=0.560, mx=0.7]
+K1 magnitude_l2_globalF ep2/15:   0%|          | 1/3125 [00:02<1:05:25,  1.26s/it, loss=0.579, mx=0.7]
+K1 magnitude_l2_globalF ep2/15:   0%|          | 1/3125 [00:02<1:05:25,  1.26s/it, loss=0.575, mx=0.7]
+                                                                                                       
+    Ep   2/15  loss=0.6648  max_loss=1.22  lr=4.94e-04  (426s)
+
+K1 magnitude_l2_globalF ep3/15:   0%|          | 1/3125 [00:01<1:04:24,  1.24s/it, loss=0.913, mx=0.9]
+K1 magnitude_l2_globalF ep3/15:   0%|          | 1/3125 [00:01<1:04:24,  1.24s/it, loss=0.769, mx=0.9]
+K1 magnitude_l2_globalF ep3/15:   0%|          | 1/3125 [00:01<1:04:24,  1.24s/it, loss=0.754, mx=0.9]
+K1 magnitude_l2_globalF ep3/15:   0%|          | 1/3125 [00:01<1:04:24,  1.24s/it, loss=0.737, mx=0.9]
+K1 magnitude_l2_globalF ep3/15:   0%|          | 1/3125 [00:02<1:04:24,  1.24s/it, loss=0.683, mx=0.9]
+K1 magnitude_l2_globalF ep3/15:   0%|          | 1/3125 [00:02<1:04:24,  1.24s/it, loss=0.678, mx=0.9]
+                                                                                                       
+    Ep   3/15  loss=0.6399  max_loss=1.17  lr=4.75e-04  (424s)
+
+K1 magnitude_l2_globalF ep4/15:   0%|          | 1/3125 [00:01<1:06:14,  1.27s/it, loss=0.719, mx=0.7]
+K1 magnitude_l2_globalF ep4/15:   0%|          | 1/3125 [00:01<1:06:14,  1.27s/it, loss=0.682, mx=0.7]
+K1 magnitude_l2_globalF ep4/15:   0%|          | 1/3125 [00:01<1:06:14,  1.27s/it, loss=0.663, mx=0.7]
+K1 magnitude_l2_globalF ep4/15:   0%|          | 1/3125 [00:01<1:06:14,  1.27s/it, loss=0.660, mx=0.7]
+K1 magnitude_l2_globalF ep4/15:   0%|          | 1/3125 [00:02<1:06:14,  1.27s/it, loss=0.635, mx=0.7]
+K1 magnitude_l2_globalF ep4/15:   0%|          | 1/3125 [00:02<1:06:14,  1.27s/it, loss=0.647, mx=0.7]
+                                                                                                       
+    Ep   4/15  loss=0.6307  max_loss=1.15  lr=4.45e-04  (425s)
+
+K1 magnitude_l2_globalF ep5/15:   0%|          | 1/3125 [00:01<1:06:55,  1.29s/it, loss=0.575, mx=0.6]
+K1 magnitude_l2_globalF ep5/15:   0%|          | 1/3125 [00:01<1:06:55,  1.29s/it, loss=0.619, mx=0.7]
+K1 magnitude_l2_globalF ep5/15:   0%|          | 1/3125 [00:01<1:06:55,  1.29s/it, loss=0.622, mx=0.7]
+K1 magnitude_l2_globalF ep5/15:   0%|          | 1/3125 [00:01<1:06:55,  1.29s/it, loss=0.584, mx=0.7]
+K1 magnitude_l2_globalF ep5/15:   0%|          | 1/3125 [00:02<1:06:55,  1.29s/it, loss=0.560, mx=0.7]
+K1 magnitude_l2_globalF ep5/15:   0%|          | 1/3125 [00:02<1:06:55,  1.29s/it, loss=0.566, mx=0.7]
+                                                                                                       
+
+eval:   0%|          | 1/625 [00:01<11:53,  1.14s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.42s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.74s).
+Accumulating evaluation results...
+DONE (t=3.77s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.292
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.462
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.302
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.107
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.338
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.469
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.264
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.407
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.433
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.168
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.508
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.660
+    Ep   5/15  loss=0.6221  max_loss=1.06  mAP=0.2921  mAP50=0.4617  lr=4.06e-04  (425s + eval 62s) *
+
+K1 magnitude_l2_globalF ep6/15:   0%|          | 1/3125 [00:01<1:07:01,  1.29s/it, loss=0.542, mx=0.5]
+K1 magnitude_l2_globalF ep6/15:   0%|          | 1/3125 [00:01<1:07:01,  1.29s/it, loss=0.493, mx=0.5]
+K1 magnitude_l2_globalF ep6/15:   0%|          | 1/3125 [00:01<1:07:01,  1.29s/it, loss=0.482, mx=0.5]
+K1 magnitude_l2_globalF ep6/15:   0%|          | 1/3125 [00:01<1:07:01,  1.29s/it, loss=0.569, mx=0.8]
+K1 magnitude_l2_globalF ep6/15:   0%|          | 1/3125 [00:02<1:07:01,  1.29s/it, loss=0.571, mx=0.8]
+K1 magnitude_l2_globalF ep6/15:   0%|          | 1/3125 [00:02<1:07:01,  1.29s/it, loss=0.556, mx=0.8]
+                                                                                                       
+    Ep   6/15  loss=0.6148  max_loss=1.18  lr=3.58e-04  (422s)
+
+K1 magnitude_l2_globalF ep7/15:   0%|          | 1/3125 [00:01<1:06:29,  1.28s/it, loss=0.500, mx=0.5]
+K1 magnitude_l2_globalF ep7/15:   0%|          | 1/3125 [00:01<1:06:29,  1.28s/it, loss=0.469, mx=0.5]
+K1 magnitude_l2_globalF ep7/15:   0%|          | 1/3125 [00:01<1:06:29,  1.28s/it, loss=0.559, mx=0.7]
+K1 magnitude_l2_globalF ep7/15:   0%|          | 1/3125 [00:01<1:06:29,  1.28s/it, loss=0.509, mx=0.7]
+K1 magnitude_l2_globalF ep7/15:   0%|          | 1/3125 [00:02<1:06:29,  1.28s/it, loss=0.558, mx=0.8]
+K1 magnitude_l2_globalF ep7/15:   0%|          | 1/3125 [00:02<1:06:29,  1.28s/it, loss=0.550, mx=0.8]
+                                                                                                       
+    Ep   7/15  loss=0.6104  max_loss=1.17  lr=3.06e-04  (423s)
+
+K1 magnitude_l2_globalF ep8/15:   0%|          | 1/3125 [00:01<1:07:10,  1.29s/it, loss=0.539, mx=0.5]
+K1 magnitude_l2_globalF ep8/15:   0%|          | 1/3125 [00:01<1:07:10,  1.29s/it, loss=0.526, mx=0.5]
+K1 magnitude_l2_globalF ep8/15:   0%|          | 1/3125 [00:01<1:07:10,  1.29s/it, loss=0.567, mx=0.6]
+K1 magnitude_l2_globalF ep8/15:   0%|          | 1/3125 [00:01<1:07:10,  1.29s/it, loss=0.540, mx=0.6]
+K1 magnitude_l2_globalF ep8/15:   0%|          | 1/3125 [00:02<1:07:10,  1.29s/it, loss=0.535, mx=0.6]
+K1 magnitude_l2_globalF ep8/15:   0%|          | 1/3125 [00:02<1:07:10,  1.29s/it, loss=0.519, mx=0.6]
+                                                                                                       
+    Ep   8/15  loss=0.6069  max_loss=1.11  lr=2.50e-04  (425s)
+
+K1 magnitude_l2_globalF ep9/15:   0%|          | 1/3125 [00:01<1:05:00,  1.25s/it, loss=0.675, mx=0.7]
+K1 magnitude_l2_globalF ep9/15:   0%|          | 1/3125 [00:01<1:05:00,  1.25s/it, loss=0.571, mx=0.7]
+K1 magnitude_l2_globalF ep9/15:   0%|          | 1/3125 [00:01<1:05:00,  1.25s/it, loss=0.591, mx=0.7]
+K1 magnitude_l2_globalF ep9/15:   0%|          | 1/3125 [00:01<1:05:00,  1.25s/it, loss=0.594, mx=0.7]
+K1 magnitude_l2_globalF ep9/15:   0%|          | 1/3125 [00:02<1:05:00,  1.25s/it, loss=0.561, mx=0.7]
+K1 magnitude_l2_globalF ep9/15:   0%|          | 1/3125 [00:02<1:05:00,  1.25s/it, loss=0.565, mx=0.7]
+                                                                                                       
+    Ep   9/15  loss=0.6007  max_loss=1.04  lr=1.94e-04  (426s)
+
+K1 magnitude_l2_globalF ep10/15:   0%|          | 1/3125 [00:01<1:07:26,  1.30s/it, loss=0.521, mx=0.5]
+K1 magnitude_l2_globalF ep10/15:   0%|          | 1/3125 [00:01<1:07:26,  1.30s/it, loss=0.626, mx=0.7]
+K1 magnitude_l2_globalF ep10/15:   0%|          | 1/3125 [00:01<1:07:26,  1.30s/it, loss=0.604, mx=0.7]
+K1 magnitude_l2_globalF ep10/15:   0%|          | 1/3125 [00:01<1:07:26,  1.30s/it, loss=0.567, mx=0.7]
+K1 magnitude_l2_globalF ep10/15:   0%|          | 1/3125 [00:02<1:07:26,  1.30s/it, loss=0.550, mx=0.7]
+K1 magnitude_l2_globalF ep10/15:   0%|          | 1/3125 [00:02<1:07:26,  1.30s/it, loss=0.587, mx=0.8]
+                                                                                                        
+
+eval:   0%|          | 1/625 [00:01<11:48,  1.13s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.48s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.90s).
+Accumulating evaluation results...
+DONE (t=3.93s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.294
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.465
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.302
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.106
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.336
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.471
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.267
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.408
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.435
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.178
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.509
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.657
+    Ep  10/15  loss=0.6010  max_loss=1.23  mAP=0.2939  mAP50=0.4652  lr=1.42e-04  (424s + eval 64s) *
+
+K1 magnitude_l2_globalF ep11/15:   0%|          | 1/3125 [00:01<1:06:10,  1.27s/it, loss=0.685, mx=0.7]
+K1 magnitude_l2_globalF ep11/15:   0%|          | 1/3125 [00:01<1:06:10,  1.27s/it, loss=0.711, mx=0.7]
+K1 magnitude_l2_globalF ep11/15:   0%|          | 1/3125 [00:01<1:06:10,  1.27s/it, loss=0.723, mx=0.7]
+K1 magnitude_l2_globalF ep11/15:   0%|          | 1/3125 [00:01<1:06:10,  1.27s/it, loss=0.717, mx=0.7]
+K1 magnitude_l2_globalF ep11/15:   0%|          | 1/3125 [00:02<1:06:10,  1.27s/it, loss=0.678, mx=0.7]
+K1 magnitude_l2_globalF ep11/15:   0%|          | 1/3125 [00:02<1:06:10,  1.27s/it, loss=0.648, mx=0.7]
+                                                                                                        
+    Ep  11/15  loss=0.5963  max_loss=1.11  lr=9.41e-05  (420s)
+
+K1 magnitude_l2_globalF ep12/15:   0%|          | 1/3125 [00:01<1:33:00,  1.79s/it, loss=0.483, mx=0.5]
+K1 magnitude_l2_globalF ep12/15:   0%|          | 1/3125 [00:02<1:33:00,  1.79s/it, loss=0.496, mx=0.5]
+K1 magnitude_l2_globalF ep12/15:   0%|          | 1/3125 [00:02<1:33:00,  1.79s/it, loss=0.585, mx=0.8]
+K1 magnitude_l2_globalF ep12/15:   0%|          | 1/3125 [00:02<1:33:00,  1.79s/it, loss=0.592, mx=0.8]
+K1 magnitude_l2_globalF ep12/15:   0%|          | 1/3125 [00:02<1:33:00,  1.79s/it, loss=0.616, mx=0.8]
+K1 magnitude_l2_globalF ep12/15:   0%|          | 1/3125 [00:02<1:33:00,  1.79s/it, loss=0.613, mx=0.8]
+                                                                                                        
+    Ep  12/15  loss=0.5961  max_loss=1.15  lr=5.45e-05  (427s)
+
+K1 magnitude_l2_globalF ep13/15:   0%|          | 1/3125 [00:01<1:07:52,  1.30s/it, loss=0.642, mx=0.6]
+K1 magnitude_l2_globalF ep13/15:   0%|          | 1/3125 [00:01<1:07:52,  1.30s/it, loss=0.636, mx=0.6]
+K1 magnitude_l2_globalF ep13/15:   0%|          | 1/3125 [00:01<1:07:52,  1.30s/it, loss=0.573, mx=0.6]
+K1 magnitude_l2_globalF ep13/15:   0%|          | 1/3125 [00:01<1:07:52,  1.30s/it, loss=0.598, mx=0.7]
+K1 magnitude_l2_globalF ep13/15:   0%|          | 1/3125 [00:02<1:07:52,  1.30s/it, loss=0.622, mx=0.7]
+K1 magnitude_l2_globalF ep13/15:   0%|          | 1/3125 [00:02<1:07:52,  1.30s/it, loss=0.646, mx=0.8]
+                                                                                                        
+    Ep  13/15  loss=0.5915  max_loss=1.11  lr=2.48e-05  (426s)
+
+K1 magnitude_l2_globalF ep14/15:   0%|          | 1/3125 [00:01<1:09:55,  1.34s/it, loss=0.591, mx=0.6]
+K1 magnitude_l2_globalF ep14/15:   0%|          | 1/3125 [00:01<1:09:55,  1.34s/it, loss=0.529, mx=0.6]
+K1 magnitude_l2_globalF ep14/15:   0%|          | 1/3125 [00:01<1:09:55,  1.34s/it, loss=0.504, mx=0.6]
+K1 magnitude_l2_globalF ep14/15:   0%|          | 1/3125 [00:01<1:09:55,  1.34s/it, loss=0.521, mx=0.6]
+K1 magnitude_l2_globalF ep14/15:   0%|          | 1/3125 [00:02<1:09:55,  1.34s/it, loss=0.538, mx=0.6]
+K1 magnitude_l2_globalF ep14/15:   0%|          | 1/3125 [00:02<1:09:55,  1.34s/it, loss=0.554, mx=0.6]
+                                                                                                        
+    Ep  14/15  loss=0.5903  max_loss=1.14  lr=6.27e-06  (423s)
+
+K1 magnitude_l2_globalF ep15/15:   0%|          | 1/3125 [00:01<1:07:31,  1.30s/it, loss=0.602, mx=0.6]
+K1 magnitude_l2_globalF ep15/15:   0%|          | 1/3125 [00:01<1:07:31,  1.30s/it, loss=0.583, mx=0.6]
+K1 magnitude_l2_globalF ep15/15:   0%|          | 1/3125 [00:01<1:07:31,  1.30s/it, loss=0.593, mx=0.6]
+K1 magnitude_l2_globalF ep15/15:   0%|          | 1/3125 [00:01<1:07:31,  1.30s/it, loss=0.554, mx=0.6]
+K1 magnitude_l2_globalF ep15/15:   0%|          | 1/3125 [00:02<1:07:31,  1.30s/it, loss=0.577, mx=0.7]
+K1 magnitude_l2_globalF ep15/15:   0%|          | 1/3125 [00:02<1:07:31,  1.30s/it, loss=0.595, mx=0.7]
+                                                                                                        
+
+eval:   0%|          | 1/625 [00:01<12:13,  1.18s/it]
+                                                       
+Loading and preparing results...
+DONE (t=1.41s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=18.86s).
+Accumulating evaluation results...
+DONE (t=3.85s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.295
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.467
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.304
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.100
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.338
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.475
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.267
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.408
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.434
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.167
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.509
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.660
+    Ep  15/15  loss=0.5929  max_loss=1.06  mAP=0.2952  mAP50=0.4674  lr=0.00e+00  (424s + eval 63s) *
+  [K1 magnitude_l2_globalF] Best mAP : 0.2952 @ ep 15/15
+
+eval:   0%|          | 1/625 [00:01<11:25,  1.10s/it]
+                                                       
+Loading and preparing results...
+DONE (t=0.88s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=19.33s).
+Accumulating evaluation results...
+DONE (t=3.82s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.295
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.467
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.304
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.100
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.338
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.475
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.267
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.408
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.434
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.167
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.509
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.660
+
+  ==> magnitude_l2_globalF: pre-FT 0.0820 -> post-FT 0.2952 (best 0.2952)  [111 min]
+
+
+##############################################################################
+K1 SUMMARY — does the collapse survive recovery fine-tuning?
+##############################################################################
+baseline mAP 0.3220 | lite1 | backbone 10% | 15 ep minitrain bs8 lr0.0005
+                       arm  minsurv   pre-FT  post-FT     best  % of base
+                  lamp g=T    80.5%   0.1092   0.3027   0.3027      94.0%
+          magnitude_l2 g=T     8.3%   0.0003   0.2043   0.2043      63.4%
+          magnitude_l2 g=F    91.7%   0.0820   0.2952   0.2952      91.7%
+
+written: <repo>/outputs/k1_recovery/k1_recovery_summary.json
+[W818 22:46:05.619926207 AllocatorConfig.cpp:28] Warning: PYTORCH_CUDA_ALLOC_CONF is deprecated, use PYTORCH_ALLOC_CONF instead (function operator())

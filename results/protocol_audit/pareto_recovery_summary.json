@@ -1,0 +1,822 @@
+{
+  "what": "Audit K1 carried up the ladder: the same recovery budget at deeper backbone targets (lamp at 20/30/50%, magnitude_l2 at 50%), so the criterion gap can be read against the ratio instead of at the single point K1 measures.",
+  "produced_by": "results/protocol_audit/pareto_recovery.py; captured stdout in results/protocol_audit/pareto_run.log",
+  "baseline_mAP": 0.322,
+  "model": "efficientdet_lite1",
+  "image_size": 384,
+  "finetune": {
+    "epochs": 15,
+    "batch_size": 8,
+    "lr": 0.0005,
+    "subset": "minitrain",
+    "eval_every": 5,
+    "deviations": [
+      "bs 16->8 (4070 OOM at 16)",
+      "lr 1e-3->5e-4 (linear scaling for bs8)",
+      "epochs 100->15 (time budget)"
+    ],
+    "comparable_to": "outputs/k1_recovery (same budget, bb 10%)"
+  },
+  "arms": [
+    {
+      "importance": "lamp",
+      "global_pruning": true,
+      "backbone_target_pct": 20,
+      "steps": 57,
+      "backbone_reduction_pct": 20.17,
+      "full_model_reduction_pct": 17.68,
+      "params_full": 3497419,
+      "params_backbone": 2972621,
+      "min_survival": {
+        "layer": "blocks.5.1.conv_dw",
+        "ratio": 0.6797,
+        "from": 1152,
+        "to": 783
+      },
+      "worst5": [
+        {
+          "layer": "blocks.5.1.conv_dw",
+          "from": 1152,
+          "to": 783,
+          "ratio": 0.6797
+        },
+        {
+          "layer": "blocks.5.1.conv_pw",
+          "from": 1152,
+          "to": 783,
+          "ratio": 0.6797
+        },
+        {
+          "layer": "blocks.6.0.conv_dw",
+          "from": 1152,
+          "to": 793,
+          "ratio": 0.6884
+        },
+        {
+          "layer": "blocks.6.0.conv_pw",
+          "from": 1152,
+          "to": 793,
+          "ratio": 0.6884
+        },
+        {
+          "layer": "blocks.5.2.conv_dw",
+          "from": 1152,
+          "to": 820,
+          "ratio": 0.7118
+        }
+      ],
+      "pre_ft_mAP": 0.06897970510061231,
+      "post_ft_mAP": 0.2966789254698656,
+      "post_ft_mAP50": 0.4647067576341979,
+      "best_ft_mAP": 0.2966789254698656,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.6981809283447266,
+          "max_loss": 1.353417158126831,
+          "lr": 0.0005,
+          "duration_s": 431.18835949897766,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.6571618467330933,
+          "max_loss": 1.181532859802246,
+          "lr": 0.0004937319780454559,
+          "duration_s": 417.64911818504333,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.6363911196660995,
+          "max_loss": 1.1423568725585938,
+          "lr": 0.0004752422169756048,
+          "duration_s": 432.5441269874573,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.6274580210399627,
+          "max_loss": 1.1961147785186768,
+          "lr": 0.00044545787061700754,
+          "duration_s": 437.2904591560364,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.6189234915161133,
+          "max_loss": 1.0835511684417725,
+          "lr": 0.00040587245046468345,
+          "duration_s": 438.64807963371277,
+          "eval": {
+            "mAP": 0.2926477647673708,
+            "mAP_50": 0.45955137047164796,
+            "mAP_75": 0.3040794139983313,
+            "mAP_small": 0.09117808722654326,
+            "mAP_medium": 0.3397945746171105,
+            "mAP_large": 0.46823635766666716,
+            "n_det": 483017
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.6124451671695709,
+          "max_loss": 1.1947792768478394,
+          "lr": 0.0003584709347793896,
+          "duration_s": 444.76993799209595,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.609496271686554,
+          "max_loss": 1.2262582778930664,
+          "lr": 0.00030563023348907864,
+          "duration_s": 440.2817521095276,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.6050197958803177,
+          "max_loss": 1.0633920431137085,
+          "lr": 0.00025,
+          "duration_s": 431.4124011993408,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.6003147051620483,
+          "max_loss": 1.0133056640625,
+          "lr": 0.00019436976651092142,
+          "duration_s": 428.53376054763794,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.599080052447319,
+          "max_loss": 1.1895288228988647,
+          "lr": 0.0001415290652206105,
+          "duration_s": 434.1889262199402,
+          "eval": {
+            "mAP": 0.29515471037535856,
+            "mAP_50": 0.4640829812474559,
+            "mAP_75": 0.3064760879777727,
+            "mAP_small": 0.09680015981378261,
+            "mAP_medium": 0.34410678685646784,
+            "mAP_large": 0.47099834552845177,
+            "n_det": 492587
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.5957225890159606,
+          "max_loss": 1.0793142318725586,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 417.69961977005005,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.5943605774784088,
+          "max_loss": 1.1705913543701172,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 419.1055257320404,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.5897903355264664,
+          "max_loss": 1.1199816465377808,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 428.64943289756775,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.5899911840152741,
+          "max_loss": 1.1339815855026245,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 421.4112436771393,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.5910985735988616,
+          "max_loss": 1.0873489379882812,
+          "lr": 0.0,
+          "duration_s": 443.6707947254181,
+          "eval": {
+            "mAP": 0.2966789254698656,
+            "mAP_50": 0.4647067576341979,
+            "mAP_75": 0.30851938034714727,
+            "mAP_small": 0.09459525149600127,
+            "mAP_medium": 0.34469377563544695,
+            "mAP_large": 0.47916818915192866,
+            "n_det": 490629
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb20pct_lamp_globalT_ft15ep.pt",
+      "wall_min": 112.5
+    },
+    {
+      "importance": "lamp",
+      "global_pruning": true,
+      "backbone_target_pct": 30,
+      "steps": 88,
+      "backbone_reduction_pct": 30.3,
+      "full_model_reduction_pct": 26.56,
+      "params_full": 3119950,
+      "params_backbone": 2595152,
+      "min_survival": {
+        "layer": "blocks.6.0.conv_dw",
+        "ratio": 0.5495,
+        "from": 1152,
+        "to": 633
+      },
+      "worst5": [
+        {
+          "layer": "blocks.6.0.conv_dw",
+          "from": 1152,
+          "to": 633,
+          "ratio": 0.5495
+        },
+        {
+          "layer": "blocks.6.0.conv_pw",
+          "from": 1152,
+          "to": 633,
+          "ratio": 0.5495
+        },
+        {
+          "layer": "blocks.5.1.conv_dw",
+          "from": 1152,
+          "to": 666,
+          "ratio": 0.5781
+        },
+        {
+          "layer": "blocks.5.1.conv_pw",
+          "from": 1152,
+          "to": 666,
+          "ratio": 0.5781
+        },
+        {
+          "layer": "blocks.5.2.conv_dw",
+          "from": 1152,
+          "to": 685,
+          "ratio": 0.5946
+        }
+      ],
+      "pre_ft_mAP": 0.008638534369986997,
+      "post_ft_mAP": 0.28716166018925954,
+      "post_ft_mAP50": 0.4525505018534132,
+      "best_ft_mAP": 0.28716166018925954,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.7532326389408112,
+          "max_loss": 1.3345036506652832,
+          "lr": 0.0005,
+          "duration_s": 430.6567895412445,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.6906570656013489,
+          "max_loss": 1.2690722942352295,
+          "lr": 0.0004937319780454559,
+          "duration_s": 419.708961725235,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.6625154629707336,
+          "max_loss": 1.1611777544021606,
+          "lr": 0.0004752422169756048,
+          "duration_s": 436.06048941612244,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.6525662162399292,
+          "max_loss": 1.1600533723831177,
+          "lr": 0.00044545787061700754,
+          "duration_s": 438.49584698677063,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.6415821060752869,
+          "max_loss": 1.1030713319778442,
+          "lr": 0.00040587245046468345,
+          "duration_s": 432.96421790122986,
+          "eval": {
+            "mAP": 0.27879704025692154,
+            "mAP_50": 0.44015779933333454,
+            "mAP_75": 0.29002060248137224,
+            "mAP_small": 0.09214233083278797,
+            "mAP_medium": 0.31772603322501886,
+            "mAP_large": 0.445974971568463,
+            "n_det": 486941
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.6339177585601806,
+          "max_loss": 1.2067651748657227,
+          "lr": 0.0003584709347793896,
+          "duration_s": 439.0370395183563,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.6303074790477753,
+          "max_loss": 1.3372505903244019,
+          "lr": 0.00030563023348907864,
+          "duration_s": 434.80093717575073,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.6258049169492722,
+          "max_loss": 1.1066795587539673,
+          "lr": 0.00025,
+          "duration_s": 435.5547049045563,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.6202038647270203,
+          "max_loss": 1.0458574295043945,
+          "lr": 0.00019436976651092142,
+          "duration_s": 423.2818331718445,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.6187983297348022,
+          "max_loss": 1.3876712322235107,
+          "lr": 0.0001415290652206105,
+          "duration_s": 423.6047077178955,
+          "eval": {
+            "mAP": 0.28638521010781565,
+            "mAP_50": 0.4522425200375042,
+            "mAP_75": 0.29434336032965613,
+            "mAP_small": 0.0985139884057629,
+            "mAP_medium": 0.32396400834509864,
+            "mAP_large": 0.45732203406183425,
+            "n_det": 494219
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.6144964288711547,
+          "max_loss": 1.142906665802002,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 429.8161551952362,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.6141682823371887,
+          "max_loss": 1.2287893295288086,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 418.3183615207672,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.608401713089943,
+          "max_loss": 1.133425235748291,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 428.03492999076843,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.6090695272731781,
+          "max_loss": 1.1535661220550537,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 421.1042699813843,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.6102200204277038,
+          "max_loss": 1.1358917951583862,
+          "lr": 0.0,
+          "duration_s": 415.32849073410034,
+          "eval": {
+            "mAP": 0.28716166018925954,
+            "mAP_50": 0.4525505018534132,
+            "mAP_75": 0.29702909922436843,
+            "mAP_small": 0.09467620342904452,
+            "mAP_medium": 0.3267856512436929,
+            "mAP_large": 0.4575940561854917,
+            "n_det": 492381
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb30pct_lamp_globalT_ft15ep.pt",
+      "wall_min": 111.7
+    },
+    {
+      "importance": "lamp",
+      "global_pruning": true,
+      "backbone_target_pct": 50,
+      "steps": 156,
+      "backbone_reduction_pct": 50.17,
+      "full_model_reduction_pct": 43.97,
+      "params_full": 2380186,
+      "params_backbone": 1855388,
+      "min_survival": {
+        "layer": "blocks.6.0.conv_dw",
+        "ratio": 0.3464,
+        "from": 1152,
+        "to": 399
+      },
+      "worst5": [
+        {
+          "layer": "blocks.6.0.conv_dw",
+          "from": 1152,
+          "to": 399,
+          "ratio": 0.3464
+        },
+        {
+          "layer": "blocks.6.0.conv_pw",
+          "from": 1152,
+          "to": 399,
+          "ratio": 0.3464
+        },
+        {
+          "layer": "blocks.5.1.conv_dw",
+          "from": 1152,
+          "to": 441,
+          "ratio": 0.3828
+        },
+        {
+          "layer": "blocks.5.1.conv_pw",
+          "from": 1152,
+          "to": 441,
+          "ratio": 0.3828
+        },
+        {
+          "layer": "blocks.5.2.conv_dw",
+          "from": 1152,
+          "to": 454,
+          "ratio": 0.3941
+        }
+      ],
+      "pre_ft_mAP": 0.0013974410726935987,
+      "post_ft_mAP": 0.25546143598919163,
+      "post_ft_mAP50": 0.4041476772672614,
+      "best_ft_mAP": 0.25546143598919163,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.9204294966793061,
+          "max_loss": 1.7057868242263794,
+          "lr": 0.0005,
+          "duration_s": 401.84033036231995,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.7860117567253113,
+          "max_loss": 1.4085596799850464,
+          "lr": 0.0004937319780454559,
+          "duration_s": 423.6640577316284,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.7363708945846558,
+          "max_loss": 1.1940934658050537,
+          "lr": 0.0004752422169756048,
+          "duration_s": 411.03327083587646,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.7196971314620971,
+          "max_loss": 1.2583417892456055,
+          "lr": 0.00044545787061700754,
+          "duration_s": 395.853476524353,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.7043159812259674,
+          "max_loss": 1.1307142972946167,
+          "lr": 0.00040587245046468345,
+          "duration_s": 395.28285551071167,
+          "eval": {
+            "mAP": 0.24018654106029919,
+            "mAP_50": 0.3815168483418142,
+            "mAP_75": 0.24993208464908567,
+            "mAP_small": 0.08227026160242483,
+            "mAP_medium": 0.27091223536931824,
+            "mAP_large": 0.37361759474351525,
+            "n_det": 492467
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.6932927759933472,
+          "max_loss": 1.247192621231079,
+          "lr": 0.0003584709347793896,
+          "duration_s": 393.7300775051117,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.688852834033966,
+          "max_loss": 1.3902782201766968,
+          "lr": 0.00030563023348907864,
+          "duration_s": 394.16885781288147,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.6823836361694335,
+          "max_loss": 1.1891276836395264,
+          "lr": 0.00025,
+          "duration_s": 393.8803355693817,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.675707454252243,
+          "max_loss": 1.153292179107666,
+          "lr": 0.00019436976651092142,
+          "duration_s": 397.14933800697327,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.6732763151836395,
+          "max_loss": 1.45809006690979,
+          "lr": 0.0001415290652206105,
+          "duration_s": 394.9796142578125,
+          "eval": {
+            "mAP": 0.2538456626589057,
+            "mAP_50": 0.4030534311423466,
+            "mAP_75": 0.26205723033604555,
+            "mAP_small": 0.08580345420594492,
+            "mAP_medium": 0.2828705907757936,
+            "mAP_large": 0.3963484605572157,
+            "n_det": 496397
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.6675704955196381,
+          "max_loss": 1.1955153942108154,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 393.59483671188354,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.6678561754608154,
+          "max_loss": 1.2381736040115356,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 393.8404724597931,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.6620829112243652,
+          "max_loss": 1.2236231565475464,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 393.8316159248352,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.6617801713180542,
+          "max_loss": 1.135975956916809,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 395.3503465652466,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.6628464879703522,
+          "max_loss": 1.13594388961792,
+          "lr": 0.0,
+          "duration_s": 395.1393098831177,
+          "eval": {
+            "mAP": 0.25546143598919163,
+            "mAP_50": 0.4041476772672614,
+            "mAP_75": 0.2651577741836177,
+            "mAP_small": 0.08908107587823047,
+            "mAP_medium": 0.2860676445810376,
+            "mAP_large": 0.39790120786241034,
+            "n_det": 494956
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb50pct_lamp_globalT_ft15ep.pt",
+      "wall_min": 104.5
+    },
+    {
+      "importance": "magnitude_l2",
+      "global_pruning": false,
+      "backbone_target_pct": 50,
+      "steps": 121,
+      "backbone_reduction_pct": 50.04,
+      "full_model_reduction_pct": 44.63,
+      "params_full": 2352502,
+      "params_backbone": 1860440,
+      "min_survival": {
+        "layer": "blocks.1.0.conv_pwl",
+        "ratio": 0.6667,
+        "from": 24,
+        "to": 16
+      },
+      "worst5": [
+        {
+          "layer": "blocks.1.0.conv_pwl",
+          "from": 24,
+          "to": 16,
+          "ratio": 0.6667
+        },
+        {
+          "layer": "blocks.1.1.conv_pwl",
+          "from": 24,
+          "to": 16,
+          "ratio": 0.6667
+        },
+        {
+          "layer": "blocks.1.2.conv_pwl",
+          "from": 24,
+          "to": 16,
+          "ratio": 0.6667
+        },
+        {
+          "layer": "blocks.2.0.conv_pwl",
+          "from": 40,
+          "to": 27,
+          "ratio": 0.675
+        },
+        {
+          "layer": "blocks.2.1.conv_pwl",
+          "from": 40,
+          "to": 27,
+          "ratio": 0.675
+        }
+      ],
+      "pre_ft_mAP": 0.00025447898585967616,
+      "post_ft_mAP": 0.2201120464956978,
+      "post_ft_mAP50": 0.35592491070685844,
+      "best_ft_mAP": 0.2201120464956978,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 1.3889332711982727,
+          "max_loss": 2.177995204925537,
+          "lr": 0.0005,
+          "duration_s": 350.3629105091095,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.9863992544364929,
+          "max_loss": 1.7804551124572754,
+          "lr": 0.0004937319780454559,
+          "duration_s": 350.51974177360535,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.8737388457870483,
+          "max_loss": 1.390550136566162,
+          "lr": 0.0004752422169756048,
+          "duration_s": 350.89531230926514,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.8387208273792267,
+          "max_loss": 1.385936975479126,
+          "lr": 0.00044545787061700754,
+          "duration_s": 350.5113525390625,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.8141116257572174,
+          "max_loss": 1.254284381866455,
+          "lr": 0.00040587245046468345,
+          "duration_s": 350.2799663543701,
+          "eval": {
+            "mAP": 0.19677052968346923,
+            "mAP_50": 0.3199516193210264,
+            "mAP_75": 0.20297605472159036,
+            "mAP_small": 0.0513028756126052,
+            "mAP_medium": 0.2071671206889028,
+            "mAP_large": 0.32560472091909654,
+            "n_det": 496116
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.7944954145431519,
+          "max_loss": 1.3706483840942383,
+          "lr": 0.0003584709347793896,
+          "duration_s": 349.00040459632874,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.783283733329773,
+          "max_loss": 1.4475362300872803,
+          "lr": 0.00030563023348907864,
+          "duration_s": 349.0335419178009,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.7739787485027313,
+          "max_loss": 1.2458126544952393,
+          "lr": 0.00025,
+          "duration_s": 348.7137575149536,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.7634306045627594,
+          "max_loss": 1.2508175373077393,
+          "lr": 0.00019436976651092142,
+          "duration_s": 347.4583513736725,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.7599890068054199,
+          "max_loss": 1.3169114589691162,
+          "lr": 0.0001415290652206105,
+          "duration_s": 347.7008683681488,
+          "eval": {
+            "mAP": 0.21825557507552118,
+            "mAP_50": 0.3522457586090973,
+            "mAP_75": 0.2268163629079758,
+            "mAP_small": 0.0561239278267719,
+            "mAP_medium": 0.23180613875091408,
+            "mAP_large": 0.36850958499675196,
+            "n_det": 496849
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.7513508316898346,
+          "max_loss": 1.2082138061523438,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 347.6901903152466,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.7492726902770996,
+          "max_loss": 1.3084032535552979,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 347.79966044425964,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.743519309091568,
+          "max_loss": 1.2270433902740479,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 347.6852433681488,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.7427097176551819,
+          "max_loss": 1.2401630878448486,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 347.6900281906128,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.7440307137393951,
+          "max_loss": 1.2475334405899048,
+          "lr": 0.0,
+          "duration_s": 347.5581648349762,
+          "eval": {
+            "mAP": 0.2201120464956978,
+            "mAP_50": 0.35592491070685844,
+            "mAP_75": 0.22893714419595038,
+            "mAP_small": 0.0627205713597859,
+            "mAP_medium": 0.23179233833672985,
+            "mAP_large": 0.3728883304899264,
+            "n_det": 496436
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb50pct_magnitude_l2_globalF_ft15ep.pt",
+      "wall_min": 91.7
+    }
+  ]
+}

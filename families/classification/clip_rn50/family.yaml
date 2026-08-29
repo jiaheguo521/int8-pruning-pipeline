@@ -1,0 +1,29 @@
+family: clip_rn50
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: distill          # 1 - cos(student, teacher); teacher is a frozen deepcopy of the unpruned model
+  prune_modes: [independent, iterative]
+  worker: families/classification/clip_rn50/prune.py
+  part: A
+  models:
+  - clip_rn50
+  datasets:
+  - imagenet
+  note: 'imagenet-only: distillation on unlabeled ImageNet'
+convert:
+- name: clip_rn50
+  filename_pattern: ^clip_rn50(?:_imagenet)?(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.48145466
+  - 0.4578275
+  - 0.40821073
+  std:
+  - 0.26862954
+  - 0.26130258
+  - 0.27577711
+  dataset_subdir: Imagenet_1k
+  calib_loader: _calib_imagenet_train

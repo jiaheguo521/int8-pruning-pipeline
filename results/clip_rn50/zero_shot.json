@@ -1,0 +1,50 @@
+{
+  "measured_on": "onnx2tf (retired 2026-08-22)",
+  "measured_on_note": "Built with torch.onnx.export -> onnx2tf, the export path this repo retired on 2026-08-22 in favour of litert-torch + ai-edge-quantizer (see docs/PRUNING_HAZARDS.md section 4). The FP32 pruning-stage numbers are unaffected by that switch; the int8 figures here have NOT been re-measured on the current path. Applies to the int8 rows; the FP32 reference row is a torch forward and is path-independent.",
+  "measured": "2026-08-22 (copied from outputs/pruning_logs/clip_zs_*.json, which is gitignored)",
+  "what": "Imagenette zero-shot top-1/top-5 for the CLIP RN50 image tower, over the four configurations the family's prose quotes. Until now these numbers existed only under outputs/, which is not committed.",
+  "task": "10-class zero-shot classification against outputs/models/clip_rn50_text_imagenette.npy, input 224",
+  "rows": [
+    {
+      "config": "fp32 (PyTorch)",
+      "backend": "pt",
+      "src": "outputs/models/clip_rn50.pt",
+      "n_images": 9469,
+      "top1": 97.2859,
+      "top5": 99.8733,
+      "note": "The reference. outputs/models/clip_rn50.pt, no quantisation."
+    },
+    {
+      "config": "int8 per-tensor",
+      "backend": "tflite",
+      "n_images": 9469,
+      "top1": 18.8299,
+      "top5": 61.5693,
+      "note": "The default quant_type at src/etpu/convert/tflite.py. Zero-shot collapses -- this build is not deployable. WARNING: the path recorded at measurement time, outputs/tflite_int8/clip_rn50_int8.tflite, no longer holds this artifact. That path now holds the PER-CHANNEL build (113 tensors carry more than one scale, up to 6144), which scores about 93 on this eval, not 18.83. The per-tensor file was overwritten and 18.83 cannot be re-derived from the current tree.",
+      "src_at_measurement": "outputs/tflite_int8/clip_rn50_int8.tflite",
+      "src": null
+    },
+    {
+      "config": "int8 per-channel",
+      "backend": "tflite",
+      "n_images": 9469,
+      "top1": 94.1705,
+      "top5": 99.7254,
+      "note": "What the family pins in families/classification/clip_rn50/family.yaml. Recovers to within 3.1 points of fp32. Measured against outputs/tflite_int8/clip_rn50_perchannel_int8.tflite, which no longer exists; the equivalent artifact in the current tree is outputs/tflite_int8/clip_rn50_int8.tflite (37.34 MiB, per-channel per its .size.json).",
+      "src_at_measurement": "outputs/tflite_int8/clip_rn50_perchannel_int8.tflite",
+      "src": "outputs/tflite_int8/clip_rn50_int8.tflite"
+    },
+    {
+      "config": "int8 per-channel, -30% params",
+      "backend": "tflite",
+      "src": "outputs/tflite_int8/clip_rn50_imagenet_pruned30pct_magnitude_l2_int8.tflite",
+      "n_images": 1500,
+      "top1": 74.0667,
+      "top5": 92.1333,
+      "note": "magnitude_l2, local scope. NOTE: evaluated on 1500 images, not 9469 -- not directly comparable to the rows above."
+    }
+  ],
+  "finding": "Per-tensor int8 destroys this model: 97.29 -> 18.83 top-1, a 78.5-point drop, against 97.29 -> 94.17 for per-channel. This is the reason families/classification/clip_rn50/family.yaml pins quant_type: per-channel while the classification, effdet and ssdlite families take the per-tensor default. Re-ID does NOT show this collapse under per-tensor -- the failure is specific, not a general property of per-tensor int8.",
+  "comparability_caveat": "The -30% row was evaluated on 1500 images and the other three on 9469. Its 74.07 top-1 cannot be differenced against the 94.17 above it as if they were the same eval. What the -30% row supports is that the pruned model still classifies; the size of the drop is not established here.",
+  "missing_artifact": "Both int8 rows cite paths that have since been overwritten or deleted, and the two paths have swapped meaning. At measurement time outputs/tflite_int8/clip_rn50_int8.tflite was the PER-TENSOR build (18.83) and outputs/tflite_int8/clip_rn50_perchannel_int8.tflite was the PER-CHANNEL one (94.17). Today the first path holds the per-channel build and the second does not exist. Neither number is re-derivable from the current tree without rebuilding: the per-channel one reproduces to within subsample noise (an independent run on 1,000 images scored 92.70), the per-tensor one cannot be reproduced at all until someone re-converts with quant_type=per-tensor. Each row now records src_at_measurement separately from what, if anything, stands at that path now."
+}

@@ -1,0 +1,92 @@
+{
+ "produced_by": "results/capabilities.py",
+ "what": "What each families/*/family.yaml declares its worker implements: which recovery arm, which ladder modes, how many int8 convert configs, whether scripts/deliver.sh can package it, whether that package ships Edge TPU artifacts.",
+ "note": "Declared, NOT measured. A family listing `iterative` means its worker implements it, not that any committed ladder was produced with it -- see criterion_census.json for what has actually been run.",
+ "rendered_by": "python -m int8_pruning.manifest capabilities",
+ "rows": [
+  {
+   "family": "clip_rn50",
+   "recovery": "distill",
+   "prune_modes": [
+    "independent",
+    "iterative"
+   ],
+   "convert_configs": 1,
+   "deliver": false,
+   "ship_edgetpu": false
+  },
+  {
+   "family": "effdet",
+   "recovery": "labelled",
+   "prune_modes": [
+    "independent"
+   ],
+   "convert_configs": 2,
+   "deliver": true,
+   "ship_edgetpu": true
+  },
+  {
+   "family": "imagenet_backbones",
+   "recovery": "labelled",
+   "prune_modes": [
+    "independent",
+    "iterative"
+   ],
+   "convert_configs": 6,
+   "deliver": false,
+   "ship_edgetpu": false
+  },
+  {
+   "family": "line_seg",
+   "recovery": "labelled",
+   "prune_modes": [
+    "independent"
+   ],
+   "convert_configs": 3,
+   "deliver": true,
+   "ship_edgetpu": true
+  },
+  {
+   "family": "reid",
+   "recovery": "distill",
+   "prune_modes": [
+    "independent"
+   ],
+   "convert_configs": 6,
+   "deliver": true,
+   "ship_edgetpu": true
+  },
+  {
+   "family": "relu_clip",
+   "recovery": "distill",
+   "prune_modes": [
+    "independent",
+    "iterative"
+   ],
+   "convert_configs": 1,
+   "deliver": false,
+   "ship_edgetpu": false
+  },
+  {
+   "family": "ssdlite",
+   "recovery": "labelled",
+   "prune_modes": [
+    "independent"
+   ],
+   "convert_configs": 1,
+   "deliver": false,
+   "ship_edgetpu": false
+  }
+ ],
+ "rendered": [
+  "family              recovery  prune modes              int8   deliver  edgetpu",
+  "----------------------------------------------------------------------------------",
+  "clip_rn50           distill   independent iterative    1 cfg  --       --",
+  "effdet              labelled  independent              2 cfg  yes      yes",
+  "imagenet_backbones  labelled  independent iterative    6 cfg  --       --",
+  "line_seg            labelled  independent              3 cfg  yes      yes",
+  "reid                distill   independent              6 cfg  yes      yes",
+  "relu_clip           distill   independent iterative    1 cfg  --       --",
+  "ssdlite             labelled  independent              1 cfg  --       --"
+ ]
+}

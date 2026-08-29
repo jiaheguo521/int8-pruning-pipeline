@@ -1,0 +1,285 @@
+{
+ "produced_by": "results/protocol_audit/pipeline_provenance.py",
+ "what": "Per results file, which branches of the pipeline produced it: ratio scope, importance criteria, recovery arm and export path. Rendered into the 'Which part of the pipeline' table in results/README.md.",
+ "convention": "`scope_from` and `export_paths_from` name the key the value was read from; \"by family\" means it was derived from the family rather than recorded in the file. A null means the file records nothing on that axis, and the file is repeated under `unrecorded`.",
+ "note": "PRUNE_MODE comes from criterion_census.json, which tallies the label each worker wrote on the rung: 0 of 121 rungs are iterative. Beware the collision: `iterative_steps` in pruning_matrix.json and clip_rn50/global_allocation.json is torch_pruning's step count WITHIN one pruning call, and line_seg's `structured_incremental_param` is its parameter-target walk inside one call. Neither is PRUNE_MODE=iterative, which feeds a recovered model back into the next round of pruning.",
+ "files": 14,
+ "unrecorded": [],
+ "rows": [
+  {
+   "file": "results/detection/full_mapping_ladder_lite1.json",
+   "family": "effdet",
+   "scope": "full-model",
+   "scope_from": "rows",
+   "criteria": [
+    "lamp",
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert"
+   ],
+   "export_paths_from": [
+    "export.path"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "declared"
+  },
+  {
+   "file": "results/detection/full_mapping_ladder_lite2.json",
+   "family": "effdet",
+   "scope": "full-model",
+   "scope_from": "rows",
+   "criteria": [
+    "lamp",
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert"
+   ],
+   "export_paths_from": [
+    "export.path"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "declared"
+  },
+  {
+   "file": "results/detection/full_scope_grid.json",
+   "family": "effdet",
+   "scope": "full-model",
+   "scope_from": "scope",
+   "criteria": [
+    "lamp",
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "n/a"
+   ],
+   "export_paths_from": null,
+   "prune_mode": "independent",
+   "prune_mode_from": "declared"
+  },
+  {
+   "file": "results/detection/coral_latency.json",
+   "family": "effdet + ssdlite",
+   "scope": "backbone",
+   "scope_from": "scope_note",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert",
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path",
+    "measured_on"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "declared"
+  },
+  {
+   "file": "results/detection/compiled_size.json",
+   "family": "effdet",
+   "scope": "backbone",
+   "scope_from": "rows",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "declared"
+  },
+  {
+   "file": "results/detection/target_reachability.json",
+   "family": "effdet",
+   "scope": "full-model",
+   "scope_from": "what",
+   "criteria": [
+    "lamp",
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "n/a"
+   ],
+   "export_paths_from": null,
+   "prune_mode": "independent",
+   "prune_mode_from": "declared"
+  },
+  {
+   "file": "results/line_seg/param_ladder_oncar.json",
+   "family": "line_seg",
+   "scope": "full-model",
+   "scope_from": "ratio_semantics",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert",
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path_migration",
+    "tpu_ms_mean_onnx2tf"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/line_seg/w96_deep_rungs.json",
+   "family": "line_seg",
+   "scope": "full-model",
+   "scope_from": "ratio_semantics",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert",
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/line_seg/prune_sweep_10_90pct.json",
+   "family": "line_seg",
+   "scope": "channel",
+   "scope_from": "ratio_semantics",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/reid/coral_latency.json",
+   "family": "reid",
+   "scope": "full-model",
+   "scope_from": "rows",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "distill",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert",
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "backbones_measured_on",
+    "export_path_migration"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/reid/sweep_results.json",
+   "family": "reid",
+   "scope": "full-model",
+   "scope_from": "by family",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "distill",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/clip_rn50/coral_latency.json",
+   "family": "clip_rn50",
+   "scope": "full-model",
+   "scope_from": "by family",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "distill",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert",
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "export_path_migration",
+    "total_ops_onnx2tf"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/clip_rn50/zero_shot.json",
+   "family": "clip_rn50",
+   "scope": "full-model",
+   "scope_from": "by family",
+   "criteria": [
+    "magnitude_l2"
+   ],
+   "recovery": "distill",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "onnx2tf"
+   ],
+   "export_paths_from": [
+    "measured_on"
+   ],
+   "prune_mode": "independent",
+   "prune_mode_from": "logs"
+  },
+  {
+   "file": "results/classification/litert_stage0.json",
+   "family": "imagenet_backbones",
+   "scope": "full-model",
+   "scope_from": "by family",
+   "criteria": [
+    "n/a"
+   ],
+   "recovery": "labelled",
+   "recovery_from": "capabilities.json",
+   "export_paths": [
+    "litert"
+   ],
+   "export_paths_from": [
+    "export_path"
+   ],
+   "prune_mode": "n/a",
+   "prune_mode_from": "no rungs"
+  }
+ ]
+}

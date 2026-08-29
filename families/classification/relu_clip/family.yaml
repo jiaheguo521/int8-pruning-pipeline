@@ -1,0 +1,33 @@
+family: relu_clip
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: distill          # 1 - cos(student, teacher); teacher is a frozen deepcopy of the unpruned model
+  prune_modes: [independent, iterative]
+  worker: families/classification/relu_clip/prune.py
+  part: A
+  models:
+  - relu_clip
+  datasets:
+  - imagenet
+  note: 'imagenet-only: distillation on unlabeled ImageNet'
+convert:
+- name: relu_clip
+  filename_pattern: ^relu_clip(?:_imagenet)?(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.48145466
+  - 0.4578275
+  - 0.40821073
+  std:
+  - 0.26862954
+  - 0.26130258
+  - 0.27577711
+  dataset_subdir: Imagenet_1k
+  # Not _calib_imagenet_train: this family's published preprocessing is
+  # Resize(224, BICUBIC) + CenterCrop(224), with no 256/224 upscale and with the
+  # opposite rounding on both the resized long side and the crop offset. See the
+  # loader's docstring in int8_pruning.convert.tflite.
+  calib_loader: _calib_imagenet_train_reluclip

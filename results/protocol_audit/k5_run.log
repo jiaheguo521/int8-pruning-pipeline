@@ -1,0 +1,22 @@
+[base] total 4,248,318 | backbone 3,723,520 fpn 390,896 class_net 101,394 box_net 32,508
+
+[pruned] 149 steps, full -44.07%   (target 43.97%)
+  part             before      after      cut
+  backbone      3,723,520  1,851,443    50.3%
+  fpn             390,896    390,896     0.0%
+  class_net       101,394    101,394     0.0%
+  box_net          32,508     32,508     0.0%
+
+[contract] class_net out=810 (need 810)  box_net out=36 (need 36)  shared width 88 -> 88
+Traceback (most recent call last):
+  File "<scratch>/k5_narrow_ignore.py", line 77, in <module>
+    shapes = [tuple(t.shape) for t in (raw if isinstance(raw, (list, tuple)) else [raw])]
+                    ^^^^^^^
+AttributeError: 'list' object has no attribute 'shape'
+
+[redacted 2026-08-27] The path on the File line above was a /tmp scratch directory
+carrying a username, a disk UUID and a session id; it is replaced by <scratch>/.
+That is the only edit this file has ever had. The allocation table, the traceback
+and the AttributeError are byte-for-byte as the run printed them, and they are what
+results/protocol_audit/README.md cites -- the redacted path was never evidence of
+anything. The script itself is results/protocol_audit/k5_narrow_ignore.py.

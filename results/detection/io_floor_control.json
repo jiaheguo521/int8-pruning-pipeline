@@ -1,0 +1,72 @@
+{
+ "produced_by": "results/protocol_audit/export_litert/ built the models; benched with src/etpu/runtime/bench.py in the edgetpu_ros image, 15 warmup + 100 invokes, two independent passes",
+ "measured": "2026-08-22",
+ "device": "Coral USB Edge TPU (USB 3.0, 5000M), host AMD Ryzen 7 8845H / 16 threads",
+ "what": "The control that separates the Edge TPU's fixed I/O cost from everything else. The 19-rung EfficientDet ladder cannot do this: all 19 rungs return exactly 2.48 MiB and accept exactly 0.42 MiB, so the variable of interest has ZERO variance along the pruning axis and no regression on that ladder can attribute the 34.95 ms intercept to anything. These three models vary it deliberately.",
+ "models": [
+  {
+   "name": "feat",
+   "role": "baseline \u2014 narrow return",
+   "returns_mib": 0.2576,
+   "return_bytes": 270072,
+   "ops_total": 225,
+   "ops_on_cpu": 0,
+   "onchip_mib": 4.89,
+   "offchip": "0.00B",
+   "subgraphs": 1,
+   "tpu_ms_run1": 22.72,
+   "tpu_ms_run2": 22.784,
+   "tpu_ms_mean": 22.752
+  },
+  {
+   "name": "fat",
+   "role": "same wide tensor, but produced on the HOST \u2014 one RESIZE_NEAREST_NEIGHBOR falls back to CPU, so what crosses USB is still the narrow tensor",
+   "returns_mib": 0.2576,
+   "return_bytes": 270072,
+   "ops_total": 226,
+   "ops_on_cpu": 1,
+   "onchip_mib": 4.89,
+   "offchip": "0.00B",
+   "subgraphs": 1,
+   "tpu_ms_run1": 23.054,
+   "tpu_ms_run2": 22.888,
+   "tpu_ms_mean": 22.971
+  },
+  {
+   "name": "fatconv",
+   "role": "one extra 1x1 conv 88->810 at 48x48; the TPU now produces AND returns the wide tensor",
+   "returns_mib": 1.844,
+   "return_bytes": 1933560,
+   "ops_total": 226,
+   "ops_on_cpu": 0,
+   "onchip_mib": 4.97,
+   "offchip": "0.00B",
+   "subgraphs": 1,
+   "tpu_ms_run1": 42.462,
+   "tpu_ms_run2": 42.631,
+   "tpu_ms_mean": 42.547
+  }
+ ],
+ "controls_ruled_out": {
+  "weight_streaming": "all three compile to 0.00 B off-chip and a single subgraph; fatconv carries only +0.08 MiB more on-chip than feat",
+  "operator_partitioning": "feat and fatconv both run every operator on the TPU; the only model with a CPU operator is fat, and it is the CHEAP one",
+  "arithmetic": "fat produces the same 810-channel tensor as fatconv and costs +0.219 ms, because its widening op runs on the host and the TPU still returns the narrow tensor"
+ },
+ "derivation": {
+  "delta_return_mib": 1.5864,
+  "delta_latency_ms": 19.795,
+  "extra_conv_mmacs": 164.23,
+  "extra_conv_compute_ms": 1.525,
+  "note_on_compute": "charged at the ladder's own fitted 9.286 us/MMAC, not measured separately",
+  "return_attributable_ms": 18.27,
+  "return_bandwidth_mib_per_s": 86.8,
+  "host_side_cost_of_the_same_widening_ms": 0.219
+ },
+ "reading": "Two models with the same on-chip footprint, no off-chip traffic and one subgraph each, differing by one 1x1 conv and by what the TPU returns: 22.75 -> 42.55 ms, +19.79 ms for +1.586 MiB. The conv's own arithmetic accounts for 1.53 ms of that at the ladder's fitted rate, leaving 18.3 ms on the return path \u2014 87 MiB/s. A third model produces the identical wide tensor on the host instead and costs +0.22 ms, which is the same statement from the other side. Applied to the ladder: the 2.48 MiB every rung returns is 28.6 ms, and the 2.90 MiB it moves in total is 33.4 ms, against a fitted floor of 34.95 ms \u2014 96% of it. Pruning the backbone cannot reach any of that.",
+ "supersedes": "This file replaces the prose account in full_mapping_ladder_lite1.json's findings.latency_law.reading, which had three problems. It called the extra conv '~0.1 ms of compute' when 88*810*48*48 = 164.2 MMACs is 1.53 ms at the ladder's own slope \u2014 15x off. It gave the widened return as 1.78 MiB (it is 1.844) and the bandwidth as ~81 MB/s without subtracting the conv's arithmetic. And it described fat's role as 'producing the same bytes on the host', which is right in effect but not in mechanism: what happens is that one RESIZE falls back to CPU. The corrected 86.8 MiB/s also removes an embarrassment: at 81 MB/s the two directions together came to 37.4 ms, MORE than the 34.95 ms floor they were supposed to explain.",
+ "not_established": [
+  "The host->TPU direction was never varied. 0.42 MiB is charged at the return rate here, which is an assumption, not a measurement.",
+  "The residual ~1.5 ms between 33.4 ms of I/O and the 34.95 ms fitted floor is not attributed. It is small enough to be per-invoke overhead, the input direction running at a different rate, or fit error.",
+  "The 9.286 us/MMAC used to charge the conv's arithmetic comes from the ladder fit, whose own R^2 is 0.935. The return figure inherits that uncertainty."
+ ]
+}

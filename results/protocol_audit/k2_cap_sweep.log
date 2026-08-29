@@ -1,0 +1,163 @@
+[setup] building val2017 loader (5000 imgs)...
+loading annotations into memory...
+Done (t=0.22s)
+creating index...
+index created!
+loading annotations into memory...
+Done (t=0.21s)
+creating index...
+index created!
+  [Dataset COCO] subset=val2017  train: 5000 images, val: 5000 images, input=384, batch=16, workers=16
+
+eval:   0%|          | 1/313 [00:01<05:13,  1.01s/it]
+                                                       
+Loading and preparing results...
+DONE (t=0.83s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=20.26s).
+Accumulating evaluation results...
+DONE (t=7.51s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.021
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.021
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.022
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.046
+
+==============================================================================
+cap=0.9  steps=58 (48s eval, 3s prune)
+  backbone -10.27%   full-model -9.00%
+  min survival: blocks.1.2.conv_pw  8.3%
+      blocks.1.2.conv_dw                      144 ->   12     8.3%
+      blocks.1.2.conv_pw                      144 ->   12     8.3%
+      blocks.2.0.conv_dw                      144 ->   13     9.0%
+      blocks.2.0.conv_pw                      144 ->   13     9.0%
+      blocks.2.1.conv_dw                      240 ->   22     9.2%
+  ==> mAP=0.0003  mAP50=0.0005
+
+                                                       
+Loading and preparing results...
+DONE (t=0.22s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=10.18s).
+Accumulating evaluation results...
+DONE (t=3.26s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.002
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.003
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.003
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.009
+
+==============================================================================
+cap=0.5  steps=64 (37s eval, 3s prune)
+  backbone -10.29%   full-model -9.02%
+  min survival: blocks.1.0.conv_pw  37.5%
+      blocks.1.0.conv_dw                       96 ->   36    37.5%
+      blocks.1.0.conv_pw                       96 ->   36    37.5%
+      blocks.2.1.conv_dw                      240 ->  108    45.0%
+      blocks.2.1.conv_pw                      240 ->  108    45.0%
+      blocks.2.2.conv_dw                      240 ->  109    45.4%
+  ==> mAP=0.0000  mAP50=0.0002
+
+                                                       
+Loading and preparing results...
+DONE (t=0.88s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=15.87s).
+Accumulating evaluation results...
+DONE (t=5.18s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.014
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.015
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.015
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.030
+
+==============================================================================
+cap=0.3  steps=65 (48s eval, 3s prune)
+  backbone -10.06%   full-model -8.81%
+  min survival: blocks.1.0.conv_pw  56.2%
+      blocks.1.0.conv_dw                       96 ->   54    56.2%
+      blocks.1.0.conv_pw                       96 ->   54    56.2%
+      blocks.1.1.conv_dw                      144 ->   96    66.7%
+      blocks.1.1.conv_pw                      144 ->   96    66.7%
+      blocks.2.0.conv_dw                      144 ->   96    66.7%
+  ==> mAP=0.0003  mAP50=0.0006
+
+                                                       
+Loading and preparing results...
+DONE (t=0.91s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=15.00s).
+Accumulating evaluation results...
+DONE (t=5.07s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.016
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.009
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.003
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.016
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.024
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.026
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.042
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.044
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.006
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.048
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.098
+
+==============================================================================
+cap=0.1  steps=326 (48s eval, 11s prune)
+  backbone -10.11%   full-model -8.86%
+  min survival: blocks.1.0.conv_pw  76.0%
+      blocks.1.0.conv_dw                       96 ->   73    76.0%
+      blocks.1.0.conv_pw                       96 ->   73    76.0%
+      blocks.1.2.conv_dw                      144 ->  125    86.8%
+      blocks.1.2.conv_pw                      144 ->  125    86.8%
+      blocks.2.1.conv_dw                      240 ->  210    87.5%
+  ==> mAP=0.0091  mAP50=0.0158
+
+
+##############################################################################
+K2 SUMMARY  (efficientdet_lite1, COCO val2017 5000, global=True, magnitude_l2,
+             backbone target 10%, no finetune.  Baseline mAP 0.3220)
+##############################################################################
+  cap  steps     bb%   full%  minsurv      mAP   mAP50
+  0.9     58   10.27    9.00     8.3%   0.0003  0.0005
+  0.5     64   10.29    9.02    37.5%   0.0000  0.0002
+  0.3     65   10.06    8.81    56.2%   0.0003  0.0006
+  0.1    326   10.11    8.86    76.0%   0.0091  0.0158
+
+reference points from the audit (same target, no finetune):
+  global=True  lamp      minsurv 80.5%   mAP 0.1092
+  global=False magnitude minsurv 91.7%   mAP 0.0820
+  global=True  random    minsurv 87.5%   mAP 0.0674

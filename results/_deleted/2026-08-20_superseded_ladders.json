@@ -1,0 +1,405 @@
+{
+ "deleted_at": "2026-08-20T17:59:53",
+ "reason": "Protocol superseded. line_seg: per-layer CHANNEL ratio -> parameter ratio (_param, commit 161817c). Baselines (pruned0pct) are NOT touched -- 0% has no scope and anchors every curve. deliverables/line_seg_pruning/ and its HuggingFace copies are independent files (verified: distinct inodes, link count 1) and are NOT affected.",
+ "regenerate": "families/segmentation/line_seg/prune.py --ratio_semantics channel  (~84 s FT per rung)",
+ "total_mb": 603.7,
+ "files": [
+  {
+   "path": "outputs/_attic_backbone_scope/README.md",
+   "bytes": 2691
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pruning_logs/efficientdet_lite1_coco-minitrain_magnitude_l2_30pct.json",
+   "bytes": 15104
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pruning_logs/efficientdet_lite1_coco-minitrain_magnitude_l2_50pct.json",
+   "bytes": 15101
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pruning_logs/efficientdet_lite1_coco-minitrain_pruning_summary.json",
+   "bytes": 46835
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pruning_logs/ssdlite_mobilenetv3_coco-val2017_magnitude_l2_30pct.json",
+   "bytes": 16278
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pruning_logs/ssdlite_mobilenetv3_coco-val2017_magnitude_l2_50pct.json",
+   "bytes": 16280
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pruning_logs/ssdlite_mobilenetv3_coco-val2017_pruning_summary.json",
+   "bytes": 50440
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pytorch_pruned/efficientdet_lite1_coco-minitrain_pruned30pct_magnitude_l2.pt",
+   "bytes": 13206435
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pytorch_pruned/efficientdet_lite1_coco-minitrain_pruned50pct_magnitude_l2.pt",
+   "bytes": 10209379
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pytorch_pruned/ssdlite_mobilenetv3_coco-val2017_pruned30pct_magnitude_l2.pt",
+   "bytes": 11643595
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/pytorch_pruned/ssdlite_mobilenetv3_coco-val2017_pruned50pct_magnitude_l2.pt",
+   "bytes": 9976075
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/efficientdet_lite1_coco-minitrain_pruned30pct_magnitude_l2_int8.size.json",
+   "bytes": 1895
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/efficientdet_lite1_coco-minitrain_pruned30pct_magnitude_l2_int8.tflite",
+   "bytes": 11952968
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/efficientdet_lite1_coco-minitrain_pruned50pct_magnitude_l2_int8.size.json",
+   "bytes": 1895
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/efficientdet_lite1_coco-minitrain_pruned50pct_magnitude_l2_int8.tflite",
+   "bytes": 11203880
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/ssdlite_mobilenetv3_coco-val2017_pruned30pct_magnitude_l2_int8.size.json",
+   "bytes": 2171
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/ssdlite_mobilenetv3_coco-val2017_pruned30pct_magnitude_l2_int8.tflite",
+   "bytes": 2944424
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/ssdlite_mobilenetv3_coco-val2017_pruned50pct_magnitude_l2_int8.size.json",
+   "bytes": 2172
+  },
+  {
+   "path": "outputs/_attic_backbone_scope/tflite_int8/ssdlite_mobilenetv3_coco-val2017_pruned50pct_magnitude_l2_int8.tflite",
+   "bytes": 2524720
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_base128_pruned10pct_magnitude_l2_int8.size.json",
+   "bytes": 433
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_base128_pruned10pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 620
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_base128_pruned10pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 332416
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_link_r34_pruned10pct_magnitude_l2_int8.size.json",
+   "bytes": 438
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_link_r34_pruned10pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 744
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_link_r34_pruned10pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 26022528
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_link_r34_pruned60pct_magnitude_l2_int8.size.json",
+   "bytes": 436
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_link_r34_pruned60pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 744
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_link_r34_pruned60pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 5980800
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_w96_pruned10pct_magnitude_l2_int8.size.json",
+   "bytes": 426
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_w96_pruned10pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 612
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_w96_pruned10pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 7942784
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_w96_pruned30pct_magnitude_l2_int8.size.json",
+   "bytes": 426
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_w96_pruned30pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 612
+  },
+  {
+   "path": "outputs/edgetpu/single_20260812_140107/line_seg_w96_pruned30pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 5096064
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_base128_pruned90pct_magnitude_l2_int8.size.json",
+   "bytes": 432
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_base128_pruned90pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 599
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_base128_pruned90pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 70272
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_link_r34_pruned90pct_magnitude_l2_int8.size.json",
+   "bytes": 435
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_link_r34_pruned90pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 723
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_link_r34_pruned90pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 582272
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_w96_pruned90pct_magnitude_l2_int8.size.json",
+   "bytes": 423
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_w96_pruned90pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 591
+  },
+  {
+   "path": "outputs/edgetpu/single_20260814_191858/line_seg_w96_pruned90pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 176768
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned70pct_magnitude_l2.show_ops.txt",
+   "bytes": 1042
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned70pct_magnitude_l2_int8.size.json",
+   "bytes": 613
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned70pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 591
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned70pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 938624
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned80pct_magnitude_l2.show_ops.txt",
+   "bytes": 1041
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned80pct_magnitude_l2_int8.size.json",
+   "bytes": 613
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned80pct_magnitude_l2_int8_edgetpu.log",
+   "bytes": 591
+  },
+  {
+   "path": "outputs/edgetpu/single_20260820_154558/line_seg_w96_pruned80pct_magnitude_l2_int8_edgetpu.tflite",
+   "bytes": 524928
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned10pct_magnitude_l2.pt",
+   "bytes": 796029
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned20pct_magnitude_l2.pt",
+   "bytes": 633277
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned30pct_magnitude_l2.pt",
+   "bytes": 492797
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned40pct_magnitude_l2.pt",
+   "bytes": 368189
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned50pct_magnitude_l2.pt",
+   "bytes": 270077
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned60pct_magnitude_l2.pt",
+   "bytes": 176317
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned70pct_magnitude_l2.pt",
+   "bytes": 109757
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned80pct_magnitude_l2.pt",
+   "bytes": 63101
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_base128_pruned90pct_magnitude_l2.pt",
+   "bytes": 34813
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned10pct_magnitude_l2.pt",
+   "bytes": 92253299
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned20pct_magnitude_l2.pt",
+   "bytes": 72862323
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned30pct_magnitude_l2.pt",
+   "bytes": 55919027
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned40pct_magnitude_l2.pt",
+   "bytes": 41083571
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned50pct_magnitude_l2.pt",
+   "bytes": 28720563
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned60pct_magnitude_l2.pt",
+   "bytes": 18295731
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned70pct_magnitude_l2.pt",
+   "bytes": 10322867
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned80pct_magnitude_l2.pt",
+   "bytes": 4682995
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_link_r34_pruned90pct_magnitude_l2.pt",
+   "bytes": 1265651
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned10pct_magnitude_l2.pt",
+   "bytes": 27935389
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned20pct_magnitude_l2.pt",
+   "bytes": 22071069
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned30pct_magnitude_l2.pt",
+   "bytes": 16915869
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned40pct_magnitude_l2.pt",
+   "bytes": 12430557
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned50pct_magnitude_l2.pt",
+   "bytes": 8677213
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned60pct_magnitude_l2.pt",
+   "bytes": 5528925
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned70pct_magnitude_l2.pt",
+   "bytes": 3117149
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned80pct_magnitude_l2.pt",
+   "bytes": 1400669
+  },
+  {
+   "path": "outputs/pytorch_pruned/line_seg_w96_pruned90pct_magnitude_l2.pt",
+   "bytes": 367965
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_base128_pruned10pct_magnitude_l2_int8.size.json",
+   "bytes": 433
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_base128_pruned10pct_magnitude_l2_int8.tflite",
+   "bytes": 208320
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_base128_pruned90pct_magnitude_l2_int8.size.json",
+   "bytes": 432
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_base128_pruned90pct_magnitude_l2_int8.tflite",
+   "bytes": 10168
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_link_r34_pruned10pct_magnitude_l2_int8.size.json",
+   "bytes": 438
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_link_r34_pruned10pct_magnitude_l2_int8.tflite",
+   "bytes": 23306232
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_link_r34_pruned60pct_magnitude_l2_int8.size.json",
+   "bytes": 436
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_link_r34_pruned60pct_magnitude_l2_int8.tflite",
+   "bytes": 4680184
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_link_r34_pruned90pct_magnitude_l2_int8.size.json",
+   "bytes": 435
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_link_r34_pruned90pct_magnitude_l2_int8.tflite",
+   "bytes": 340160
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned10pct_magnitude_l2_int8.size.json",
+   "bytes": 426
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned10pct_magnitude_l2_int8.tflite",
+   "bytes": 7038320
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned30pct_magnitude_l2_int8.size.json",
+   "bytes": 426
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned30pct_magnitude_l2_int8.tflite",
+   "bytes": 4271552
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned70pct_magnitude_l2_int8.size.json",
+   "bytes": 613
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned70pct_magnitude_l2_int8.tflite",
+   "bytes": 797608
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned80pct_magnitude_l2_int8.size.json",
+   "bytes": 613
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned80pct_magnitude_l2_int8.tflite",
+   "bytes": 362736
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned90pct_magnitude_l2_int8.size.json",
+   "bytes": 423
+  },
+  {
+   "path": "outputs/tflite_int8/line_seg_w96_pruned90pct_magnitude_l2_int8.tflite",
+   "bytes": 98520
+  },
+  {
+   "path": "outputs/pytorch_pruned/efficientdet_lite1_coco-val2017_pruned20pct_lamp_full.pt",
+   "bytes": 14329707,
+   "extra_reason": "local --scope full smoke test: coco_subset=val2017 (the EVAL set) and final_eval == post_prune_eval byte-for-byte, i.e. the recovery fine-tune was a no-op. Its filename carries the _full suffix, so convert.sh's glob would have pulled it into the ladder as if it were a real 20% rung."
+  }
+ ]
+}

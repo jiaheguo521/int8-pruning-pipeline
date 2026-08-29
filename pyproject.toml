@@ -1,0 +1,168 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "int8-pruning-pipeline"
+version = "0.1.0"
+description = "Structured pruning -> int8 quantization -> Edge TPU compilation -> evaluation, across multiple model families"
+readme = "README.md"
+requires-python = ">=3.10"
+# No `license` field: the SPDX-string form (PEP 639) needs setuptools>=77 and
+# the {text=...} form is deprecated, so the licence is declared by the
+# LICENSE file alone. This package is not published to PyPI.
+keywords = ["edge-tpu", "coral", "structured-pruning", "quantization", "tflite", "torch-pruning"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# The core: what `import int8_pruning` and a prune -> int8 run need on ANY family.
+# Everything a single family needs and the others do not is an extra below, so a
+# bring-up on one model does not drag in six other model zoos.
+#
+# `torch` and `torchvision` are deliberately NOT pinned here: they are installed
+# first, from the CUDA-matched index, e.g.
+#   pip install torch==2.9.1 torchvision --index-url https://download.pytorch.org/whl/cu128
+# Putting them in this list would let the resolver pull a CPU wheel over them.
+#
+# `timm` stays in the core even though only three families import it. The reason is
+# the unpickling hazard, not the imports: several baselines under outputs/ are
+# full-module pickles of timm models (efficientnet_lite0.pt, the clip_rn50 tower),
+# so `torch.load` on them fails inside pickle -- not at an import site a reader can
+# see -- when timm is absent. Keep the major version aligned across machines for
+# the same reason.
+dependencies = [
+    "torch-pruning",
+    "timm>=1.0,<2",
+    "pyyaml",          # int8_pruning.manifest reads families/*/family.yaml
+    "tqdm>=4.65",
+]
+
+[project.optional-dependencies]
+# ---- per-family extras --------------------------------------------------------
+# Named after the directory under families/. `imagenet_backbones` and `line_seg` have
+# no entry on purpose: they need nothing beyond the core plus torchvision.
+#
+# None of these are imported by src/int8_pruning. What look like exceptions are
+# not: int8_pruning.convert.export_litert imports `effdet` and `timm.layers`
+# inside function bodies, and only for EfficientDet -- SSDLite reaches neither.
+effdet = [
+    "effdet",
+    "omegaconf",       # effdet's own config layer; not imported by this repo
+    "pycocotools",
+]
+ssdlite = ["pycocotools"]
+clip-rn50 = [
+    # CLIP text tower, offline only: families/classification/clip_rn50/text_embeddings.py uses
+    # open_clip RN50/openai to precompute text embeddings. NEVER imported on the
+    # TPU/runtime path -- the clip_rn50 IMAGE tower comes from timm.
+    "open_clip_torch>=3,<4",
+]
+relu-clip = ["huggingface_hub", "safetensors"]
+# Torchreid itself is NOT listed: its setup pins an old torch and would DOWNGRADE
+# the stack. Install it explicitly, without dependencies:
+#   pip install --no-deps 'git+https://github.com/KaiyangZhou/deep-person-reid.git'
+# What is listed is what torchreid imports at runtime but cannot pull in itself
+# under --no-deps. scripts/download_and_finetune_models.sh installs the same set
+# on ImportError, so the reid path still bootstraps without this extra.
+reid = [
+    "gdown",
+    "yacs",
+    "opencv-python-headless",
+    "h5py",
+    "imageio",
+    "tabulate",
+    "scipy",
+    "Cython",          # build-time, for torchreid's rank_cylib extension
+]
+
+# ---- export paths -------------------------------------------------------------
+# Stage 2 (PyTorch -> int8 TFLite -> Edge TPU), via litert-torch + ai-edge-quantizer.
+#
+# ADDITIVE, not an alternative to the base deps: the two sets coexist in one
+# environment (verified: torch 2.10.0+cu128, torch-pruning 1.6.1, litert-torch
+# 0.9.1 and ai-edge-quantizer 0.7.0 in the same site-packages, converting every
+# family end-to-end). It is a separate extra because the HPC/cluster bootstrap
+# only runs stage 1 and can skip these.
+#
+# No tensorflow and no onnx here. litert_torch.convert takes the nn.Module
+# directly, so there is no ONNX step; the flatbuffer rewrites in
+# int8_pruning.convert.flatbuffer and the byte-budget reader in int8_pruning.report.tflite_size
+# both take the schema from `ai_edge_litert`, and the CPU interpreters prefer it
+# over `tf.lite`. Verified by running a full convert_one() and asserting that
+# neither `tensorflow` nor `onnx2tf` ends up in sys.modules.
+#
+# Package names: the runtime and the quantizer are still under the older
+# `ai-edge-*` prefix on PyPI (`import ai_edge_litert`, `import ai_edge_quantizer`);
+# the torch converter line is `litert-*`. There is no PyPI package called plain
+# `litert`. "LiteRT" is the brand -- TensorFlow Lite's new name -- not an import.
+#
+# torch >= 2.10 is a hard floor, not a preference: on 2.9.1 the torchvision
+# SSDLite export dies inside torch's own functionalization pass with "tensor does
+# not have a device". Verified that torch-pruning 1.6.1 and every family here
+# work on 2.10, and that the int8 artifacts are byte-identical across the bump.
+convert = [
+    "torch>=2.10",
+    "litert-torch>=0.9.1",
+    "ai-edge-quantizer>=0.7",
+    "ai-edge-litert>=2.1",
+    "flatbuffers",
+    "Pillow>=10",
+]
+
+# The THIRD export path (`--export-path onnx`): fp32 ONNX and nothing after it.
+# One package, because that is all it takes -- torch's own exporter does the work,
+# but it refuses to run without `onnx` importable (OnnxExporterError, raised before
+# anything is written), so this is a hard requirement rather than a checker.
+#
+# Separate from `convert` on purpose: the litert path builds no ONNX graph, and
+# keeping `onnx` out of the default install is part of what makes that true and
+# checkable. Separate from `onnx2tf` because that one also drags in tensorflow,
+# which this path has no use for.
+onnx = ["onnx"]
+
+# The SECOND export path (`--export-path onnx2tf`), kept so artifacts built
+# before 2026-08-22 can be reproduced and compared against. Not part of
+# `convert` and not additive to it in the same sense: this one DOES pull
+# tensorflow and onnx, which is exactly what the switch to litert-torch removed
+# from the default path. Install it only if you need that comparison:
+#
+#   pip install -e '.[onnx2tf]'
+#
+# onnx2tf 1.29.24 is the version the committed onnx2tf artifacts were built with
+# (families/segmentation/line_seg/DELIVERABLE.md records it alongside opset 13). Its
+# `download_test_image_data()` is incompatible with numpy >= 2; the converter
+# works around that in int8_pruning.convert.export_onnx2tf._ensure_onnx2tf_test_data rather
+# than pinning numpy back, so the two extras stay co-installable.
+onnx2tf = [
+    "onnx2tf>=1.29.24,<2",
+    "onnx",
+    "onnxsim",
+    "tensorflow>=2.19",
+]
+
+# Every family, with no export path. This is what the separate onnx2tf-env needs
+# on top of `[onnx2tf]`: converting a family's .pt means unpickling it, and a
+# full-module pickle imports that family's package by name.
+families = [
+    "int8-pruning-pipeline[effdet,ssdlite,clip-rn50,relu-clip,reid]",
+]
+
+# What docs/SETUP.md installs by default: every family, plus the litert export
+# path. `onnx2tf` is deliberately NOT in here -- it pulls tensorflow and onnx,
+# needs its own venv, and exists only to reproduce artifacts built before
+# 2026-08-22. Add it on purpose or not at all.
+all = [
+    "int8-pruning-pipeline[families,convert,onnx]",
+]
+
+[project.urls]
+Homepage = "https://github.com/jiaheguo521/int8-pruning-pipeline"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# `families/` and `scripts/` are runnable pipeline stages, not importable library
+# code, so they stay top-level siblings of src/ rather than being packaged —
+# the layout PyPA's own src-layout example uses for `tools/`.

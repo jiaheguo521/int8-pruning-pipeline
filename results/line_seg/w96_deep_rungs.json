@@ -1,0 +1,109 @@
+{
+ "measured": "2026-08-20",
+ "device": "Coral USB Edge TPU (18d1:9302)",
+ "compiler": "Edge TPU Compiler 16.0.384591198",
+ "latency_protocol": "100 invokes, random input, tflite_runtime in edgetpu_ros image; families/segmentation/line_seg/bench.sh",
+ "ratio_semantics": "param - pruned<P>pct means the FULL MODEL lost P% of its parameters",
+ "what": "The four deep line_seg_w96 rungs that sit below ~1 MiB of parameters. They are the applicability limit of the weight-transfer latency law fitted in results/line_seg/param_ladder_oncar.json: all four are fully on-chip, so the law has only its on-chip term left, and it under-predicts because compute - not transfer - is now the binding cost.",
+ "latency_law": "lat_ms = 2.256*offchip_mib + 0.915*onchip_mib + 0.852 (fitted on the 30 rows of param_ladder_oncar.json by results/latency_law/fit_latency_law.py; refit 2026-08-22 onto the litert-torch tpu_ms_mean column -- this file previously carried the pre-refit 2.260/0.917/0.861)",
+ "reading": "Measured 1.383-2.097 ms against predicted 0.996-1.602 ms: the law under-predicts by 0.387-0.524 ms across all four. Use it as a weight-transfer model where transfer dominates, not as a general latency model.",
+ "provenance": {
+  "latency": "outputs/line_seg_eval/latency_w96_deep.json",
+  "onchip_offchip": "outputs/pruning_logs/compile_edgetpu_20260820_155850.log (edgetpu_compiler stdout)",
+  "sizes": "outputs/edgetpu/single_20260820_155850/*_int8.size.json"
+ },
+ "rows": [
+  {
+   "stem": "line_seg_w96_pruned92pct_magnitude_l2_param",
+   "param_target_pct": 92,
+   "int8_bytes": 709744,
+   "input_size": 192,
+   "onchip_mib": 0.8081,
+   "offchip_mib": 0.0,
+   "tpu_ms_mean": 2.097,
+   "tpu_ms_median": 2.074,
+   "tpu_ms_std": 0.086,
+   "tpu_ms_min": 1.946,
+   "latency_law_pred_ms": 1.592,
+   "residual_ms": 0.505
+  },
+  {
+   "stem": "line_seg_w96_pruned95pct_magnitude_l2_param",
+   "param_target_pct": 95,
+   "int8_bytes": 446544,
+   "input_size": 192,
+   "onchip_mib": 0.5232,
+   "offchip_mib": 0.0,
+   "tpu_ms_mean": 1.865,
+   "tpu_ms_median": 1.835,
+   "tpu_ms_std": 0.102,
+   "tpu_ms_min": 1.732,
+   "latency_law_pred_ms": 1.331,
+   "residual_ms": 0.534
+  },
+  {
+   "stem": "line_seg_w96_pruned97pct_magnitude_l2_param",
+   "param_target_pct": 97,
+   "int8_bytes": 274032,
+   "input_size": 192,
+   "onchip_mib": 0.4111,
+   "offchip_mib": 0.0,
+   "tpu_ms_mean": 1.645,
+   "tpu_ms_median": 1.604,
+   "tpu_ms_std": 0.086,
+   "tpu_ms_min": 1.546,
+   "latency_law_pred_ms": 1.228,
+   "residual_ms": 0.417
+  },
+  {
+   "stem": "line_seg_w96_pruned99pct_magnitude_l2_param",
+   "param_target_pct": 99,
+   "int8_bytes": 98520,
+   "input_size": 192,
+   "onchip_mib": 0.1467,
+   "offchip_mib": 0.0,
+   "tpu_ms_mean": 1.383,
+   "tpu_ms_median": 1.38,
+   "tpu_ms_std": 0.104,
+   "tpu_ms_min": 1.249,
+   "latency_law_pred_ms": 0.987,
+   "residual_ms": 0.396
+  }
+ ],
+ "int8_iou_by_export_path": {
+  "measured": "2026-08-28",
+  "protocol": "<upstream>/training/eval_int8_lane_seg.py via families/segmentation/line_seg/publish.sh: contiguous-block held-out split, native ROI resolution, IoU over 38 TRACK val frames, misfire rate over 58 FLOOR val frames, int8 graph on CPU.",
+  "what": "-95 and -99 were re-quantized through the litert-torch + ai-edge-quantizer path on 2026-08-28 and re-scored on the artifact that is now shipped. -92 and -97 still have onnx2tf builds only and their figures are unchanged.",
+  "control": "The same command, same venv, same session, run first against the onnx2tf graphs returned 0.5586 and 0.5457, reproducing the pre-existing figures exactly. The delta below is between export paths, not between setups.",
+  "rows": [
+   {
+    "param_target_pct": 92,
+    "export_path": "onnx2tf",
+    "int8_val_iou": 0.5701,
+    "floor_fire": 0.0
+   },
+   {
+    "param_target_pct": 95,
+    "export_path": "litert-torch+ai-edge-quantizer",
+    "int8_val_iou": 0.5585,
+    "floor_fire": 0.0,
+    "onnx2tf_int8_val_iou": 0.5586
+   },
+   {
+    "param_target_pct": 97,
+    "export_path": "onnx2tf",
+    "int8_val_iou": 0.5528,
+    "floor_fire": 0.0172
+   },
+   {
+    "param_target_pct": 99,
+    "export_path": "litert-torch+ai-edge-quantizer",
+    "int8_val_iou": 0.5457,
+    "floor_fire": 0.0,
+    "onnx2tf_int8_val_iou": 0.5457
+   }
+  ],
+  "finding": "The export path costs at most 0.0001 IoU on the two rungs where both were measured, and no misfire. Consistent with the byte side: the litert int8 file is a constant 11.72 KiB larger (metadata) and the compiled on-chip footprint is identical, 535.75 KiB and 150.25 KiB.",
+  "dense_reference_int8_val_iou": 0.6039
+ }
+}

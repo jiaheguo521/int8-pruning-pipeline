@@ -1,0 +1,320 @@
+{
+ "produced_by": "results/protocol_audit/criterion_census.py",
+ "what": "How many pruning rungs and local .pt artifacts exist per importance criterion, counted over every worker-produced run log. Backs the 'Five criteria are offered; two have been run' table in docs/PRUNING_HAZARDS.md section 3.",
+ "counted_over": {
+  "logs": [
+   "outputs/pruning_logs",
+   "outputs/_cluster_full_logs",
+   "outputs/_cluster_train2017_logs",
+   "outputs/_local_oneshot",
+   "outputs/_attic_backbone_scope"
+  ],
+  "checkpoints": {
+   "sweep_pt": [
+    "outputs/pytorch_pruned"
+   ],
+   "finetuned_pt": [
+    "outputs/k1_recovery",
+    "outputs/pareto_recovery"
+   ]
+  }
+ },
+ "note": "Source directories are under outputs/, which is gitignored; this JSON is the committed record. A rung is a worker log carrying an `importance` field. Files without one are eval/report artifacts and are listed in `non_rung_artifacts`.",
+ "json_files_scanned": 171,
+ "superseded_duplicates": [
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-val2017_lamp_20pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_20pct_full; kept the record with 40 recovery epochs"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_10pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_10pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_20pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_20pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_30pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_30pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_40pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_40pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_50pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_50pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_60pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_60pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_70pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_70pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_lamp_80pct_full.json",
+   "why": "same rung as efficientdet_lite1_lamp_80pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_10pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_10pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_20pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_20pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_30pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_30pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_40pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_40pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_50pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_50pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_60pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_60pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_70pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_70pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_80pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_80pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_magnitude_l2_90pct_full.json",
+   "why": "same rung as efficientdet_lite1_magnitude_l2_90pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_10pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_10pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_20pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_20pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_30pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_30pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_40pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_40pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_50pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_50pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_60pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_60pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_70pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_70pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_80pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_80pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_lamp_90pct_full.json",
+   "why": "same rung as efficientdet_lite2_lamp_90pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_10pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_10pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_20pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_20pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_30pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_30pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_40pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_40pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_50pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_50pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_60pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_60pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_70pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_70pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_80pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_80pct_full; kept the cluster record (identical result, local copy dropped)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_magnitude_l2_90pct_full.json",
+   "why": "same rung as efficientdet_lite2_magnitude_l2_90pct_full; kept the cluster record (identical result, local copy dropped)"
+  }
+ ],
+ "rungs_total": 121,
+ "prune_modes": {
+  "what": "The mode label each worker wrote on the rung. Backs the statement in both READMEs that no ladder here was built with PRUNE_MODE=iterative.",
+  "iterative_labels": [
+   "iterative",
+   "iterative_distill"
+  ],
+  "rungs_iterative": 0,
+  "by_family": {
+   "clip_rn50": {
+    "independent_distill": 1
+   },
+   "line_seg": {
+    "structured_incremental_param": 31,
+    "structured_one_shot_channel": 35
+   },
+   "reid": {
+    "structured_distill": 12
+   }
+  },
+  "rungs_without_a_label": {
+   "effdet": 41,
+   "ssdlite": 1
+  },
+  "note": "A rung with no label is not an unknown mode. Those families declare `independent` alone in families/*/family.yaml, and scripts/pruning.sh refuses a mode a family has not declared (via `manifest prune-mode`), so iterative was never reachable for them. `structured_incremental_param` is line_seg's parameter-target walk inside one pruning call, not this mode; the same warning applies to `iterative_steps` in results/detection/pruning_matrix.json."
+ },
+ "pt_files_scanned": 93,
+ "criteria_with_any_run": [
+  "magnitude_l2",
+  "lamp"
+ ],
+ "criteria_never_run": [
+  "magnitude_l1",
+  "fpgm",
+  "random"
+ ],
+ "table": [
+  {
+   "criterion": "magnitude_l1",
+   "rungs": 0,
+   "rungs_local": 0,
+   "rungs_cluster": 0,
+   "sweep_pt": 0,
+   "finetuned_pt": 0,
+   "families": []
+  },
+  {
+   "criterion": "magnitude_l2",
+   "rungs": 101,
+   "rungs_local": 79,
+   "rungs_cluster": 22,
+   "sweep_pt": 62,
+   "finetuned_pt": 3,
+   "families": [
+    "clip_rn50",
+    "effdet",
+    "line_seg",
+    "reid",
+    "ssdlite"
+   ]
+  },
+  {
+   "criterion": "fpgm",
+   "rungs": 0,
+   "rungs_local": 0,
+   "rungs_cluster": 0,
+   "sweep_pt": 0,
+   "finetuned_pt": 0,
+   "families": []
+  },
+  {
+   "criterion": "random",
+   "rungs": 0,
+   "rungs_local": 0,
+   "rungs_cluster": 0,
+   "sweep_pt": 0,
+   "finetuned_pt": 0,
+   "families": []
+  },
+  {
+   "criterion": "lamp",
+   "rungs": 20,
+   "rungs_local": 3,
+   "rungs_cluster": 17,
+   "sweep_pt": 18,
+   "finetuned_pt": 4,
+   "families": [
+    "effdet",
+    "reid"
+   ]
+  }
+ ],
+ "non_rung_artifacts": [
+  {
+   "file": "outputs/pruning_logs/clip_zs_fp32.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/clip_zs_int8.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/clip_zs_int8_perchannel.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/clip_zs_pruned30_int8.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-train2017_pruning_summary.json",
+   "why": "not an object"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite1_coco-val2017_pruning_summary.json",
+   "why": "not an object"
+  },
+  {
+   "file": "outputs/pruning_logs/efficientdet_lite2_coco-train2017_pruning_summary.json",
+   "why": "not an object"
+  },
+  {
+   "file": "outputs/pruning_logs/reid_edgetpu_report.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/reid_mobilenetv2_x1_0_market1501_discrim.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/reid_osnet_x0_5_discrim.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/reid_osnet_x0_75_market1501_discrim.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/reid_youtu_lite_map_baseline.json",
+   "why": "no importance field (eval/report artifact)"
+  },
+  {
+   "file": "outputs/pruning_logs/reid_youtu_lite_sweep_results.json",
+   "why": "not an object"
+  },
+  {
+   "file": "outputs/_local_oneshot/int8_dense_corrected.json",
+   "why": "no importance field (eval/report artifact)"
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+{
+ "produced_by": "results/protocol_audit/distill_vs_labelled_cost.py",
+ "what": "Per-step GPU cost of the two recovery arms on the same student, same batch, same optimizer. The difference between them is the frozen teacher's forward pass, which does not shrink with the student.",
+ "caveat": "Per-step cost only -- says nothing about epochs to converge. The labelled arm is a cost model: this family's real label space is unobtainable, which is why it distils. One GPU, one model.",
+ "teacher": {
+  "file": "outputs/models/reid_youtu_lite.pt",
+  "params": 26655296
+ },
+ "batch": 64,
+ "input_hw": [
+  256,
+  128
+ ],
+ "warmup_steps": 8,
+ "timed_steps": 30,
+ "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+ "torch": "2.10.0+cu128",
+ "rows": [
+  {
+   "student": "dense (0%)",
+   "checkpoint": "reid_youtu_lite_market1501_pruned0pct.pt",
+   "student_params": 26655296,
+   "ms_per_step_distill": 371.82,
+   "ms_per_step_labelled": 283.82,
+   "ms_teacher_forward_alone": 91.93,
+   "distill_over_labelled": 1.31,
+   "teacher_share_of_distill_step": 0.247
+  },
+  {
+   "student": "pruned 90%",
+   "checkpoint": "reid_youtu_lite_market1501_pruned90pct_magnitude_l2.pt",
+   "student_params": 2640194,
+   "ms_per_step_distill": 148.69,
+   "ms_per_step_labelled": 56.55,
+   "ms_teacher_forward_alone": 91.19,
+   "distill_over_labelled": 2.63,
+   "teacher_share_of_distill_step": 0.613
+  }
+ ]
+}

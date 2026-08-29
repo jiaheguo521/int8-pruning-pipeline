@@ -1,0 +1,114 @@
+family: reid
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: distill          # 1 - cos(student, teacher) or simmat; teacher is a frozen deepcopy of the unpruned model
+  prune_modes: [independent]
+  worker: families/re-identification/reid/prune.py
+  part: A
+  models:
+  - reid_youtu_lite
+  datasets:
+  - market1501
+  note: 'market1501-only: distillation on unlabeled Market crops'
+deliver:
+  dir: reid_youtu_lite_pruning_sweep
+  stem_glob: reid_youtu_lite*
+  reference_module: families/re-identification/reid/youreid_model.py
+  eval_dir: outputs/pruning_logs
+  reference_json:
+  - sweep_results.json
+  ship_edgetpu: true
+  edgetpu_note: 'These files are each the output of compiling ONE model on its own. That is valid only if the model runs on the Edge TPU alone. Next to a second model the two evict each other from the 8 MiB on-chip parameter cache and every latency number here becomes meaningless. The cost is measured, not theoretical: one detector and one segmenter compiled separately run 100.10 ms per cycle, and 81.86 ms when the same two are compiled in a single edgetpu_compiler invocation - 1.22x for no code, model or postprocess change. Pruned pairs reach 54.66 ms. Ready-made pairs are in the effdet_lite1_lineseg_w96_cocompile package; to build your own, pass both models to one call: edgetpu_compiler -s A_int8.tflite B_int8.tflite. A pair is only valid as a pair - mixing one file from here with one from a different compile run puts you back in the eviction regime.'
+convert:
+- name: reid_osnet_x0_5_market1501
+  filename_pattern: ^reid_osnet_x0_5_market1501(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 256
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: market1501
+  calib_loader: _calib_market1501
+  input_w: 128
+- name: reid_osnet_x0_75_market1501
+  filename_pattern: ^reid_osnet_x0_75_market1501(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 256
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: market1501
+  calib_loader: _calib_market1501
+  input_w: 128
+- name: reid_mobilenetv2_x1_0_market1501
+  filename_pattern: ^reid_mobilenetv2_x1_0_market1501(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 256
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: market1501
+  calib_loader: _calib_market1501
+  input_w: 128
+- name: reid_youtu_lite_market1501
+  filename_pattern: ^reid_youtu_lite_market1501(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 256
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: market1501
+  calib_loader: _calib_market1501
+  input_w: 128
+- name: reid_youtu_lite_e256_market1501
+  filename_pattern: ^reid_youtu_lite_e256_market1501(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 256
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: market1501
+  calib_loader: _calib_market1501
+  input_w: 128
+- name: reid_youtu_lite_simmat_market1501
+  filename_pattern: ^reid_youtu_lite_simmat_market1501(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 256
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: market1501
+  calib_loader: _calib_market1501
+  input_w: 128

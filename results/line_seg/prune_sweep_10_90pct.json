@@ -1,0 +1,666 @@
+{
+  "importance": "magnitude_l2",
+  "export_path": "onnx2tf",
+  "importance_and_path_evidence": "Neither was recorded on the rows, which carry `model` and `channel_ratio_pct` rather than a stem. Both are read off results/tflite_size_audit.json: the 18 channel-era line_seg artifacts (the stems WITHOUT the `_param` suffix that the round-2 parameter ladder added) all end in `_magnitude_l2` and all carry `export_path: onnx2tf`. The three rows here that carry `compiled` are the 90% rung of each backbone, which is line_seg_{base128,link_r34,w96}_pruned90pct_magnitude_l2 in that audit.",
+ "note": "Channel-ratio sweep for the three line-seg models. The 27 rows with finetuned=true are the full 10-90% grid from one HPC cluster batch job (2026-08-14, 48m23s, 27/27 OK), recovery FT = the upstream `mix` recipe verbatim (AdamW lr 8e-4, 30 ep, 3000 samples/ep, pos_weight 12). The 8 rows with finetuned=false are an earlier, un-finetuned dense sampling around the on-chip residency boundary (w96 22-28%, link_r34 52-58%); they carry byte/structure numbers only, which is why val_iou is null there.",
+ "superseded_by": "results/line_seg/param_ladder_oncar.json -- the round-2 ladder, on PARAMETER ratio semantics, compiled and timed on a Coral. This file is the retired round-1 CHANNEL-ratio ladder that the ratio-semantics section of docs/PRUNING_HAZARDS.md refers to as what `--ratio_semantics channel` reproduces; the section does not link it, and nothing in the repo reads it.",
+ "ratio_semantics": "channel_ratio_pct is a PER-LAYER CHANNEL ratio, not a parameter ratio; params fall as (1-r)^2. Compare families via param_reduction_pct.",
+ "metrics": "val_iou / floor_fire are FLOAT held-out numbers under the upstream protocol (n_track=38, n_floor=58). floor_fire is a count out of 58, so 0.0172 == exactly one frame.",
+ "compiled_note": "`compiled` present only where an Edge TPU build exists (the three 90% rows).",
+ "models": [
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 10,
+   "param_reduction_pct": 20.415364242809165,
+   "pre_params": 240897,
+   "post_params": 191717,
+   "compression_x": 1.2565239389308198,
+   "val_iou": 0.552737,
+   "floor_fire": 0.017241,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 75.9
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 20,
+   "param_reduction_pct": 37.27817282905143,
+   "pre_params": 240897,
+   "post_params": 151095,
+   "compression_x": 1.594341308448327,
+   "val_iou": 0.538962,
+   "floor_fire": 0.017241,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 72.3
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 30,
+   "param_reduction_pct": 51.79267487764481,
+   "pre_params": 240897,
+   "post_params": 116130,
+   "compression_x": 2.0743735468871094,
+   "val_iou": 0.539594,
+   "floor_fire": 0.068966,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 72.3
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 40,
+   "param_reduction_pct": 64.69528470674189,
+   "pre_params": 240897,
+   "post_params": 85048,
+   "compression_x": 2.832482833223591,
+   "val_iou": 0.500174,
+   "floor_fire": 0.017241,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 72.8
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 50,
+   "param_reduction_pct": 74.86685180803414,
+   "pre_params": 240897,
+   "post_params": 60545,
+   "compression_x": 3.9788091502188454,
+   "val_iou": 0.500018,
+   "floor_fire": 0.034483,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 71.8
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 60,
+   "param_reduction_pct": 84.52243074841115,
+   "pre_params": 240897,
+   "post_params": 37285,
+   "compression_x": 6.460962853694515,
+   "val_iou": 0.491855,
+   "floor_fire": 0.017241,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 71.5
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 70,
+   "param_reduction_pct": 91.40254963739689,
+   "pre_params": 240897,
+   "post_params": 20711,
+   "compression_x": 11.63135531842982,
+   "val_iou": 0.489821,
+   "floor_fire": 0.137931,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 70.5
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 80,
+   "param_reduction_pct": 96.17346832878782,
+   "pre_params": 240897,
+   "post_params": 9218,
+   "compression_x": 26.13332610110653,
+   "val_iou": 0.464847,
+   "floor_fire": 0.258621,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 70.8
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_base128",
+   "channel_ratio_pct": 90,
+   "param_reduction_pct": 99.0933884606284,
+   "pre_params": 240897,
+   "post_params": 2184,
+   "compression_x": 110.30082417582418,
+   "val_iou": 0.306445,
+   "floor_fire": 0.706897,
+   "input_size": 128,
+   "mask_size": 64,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 70.1
+   },
+   "seed": 0,
+   "compiled": {
+    "int8_bytes": 10168,
+    "edgetpu_bytes": 70272,
+    "total_ops": 16,
+    "cpu_ops": 0,
+    "subgraphs": 1,
+    "off_chip_bytes": 0
+   }
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 10,
+   "param_reduction_pct": 19.287862005035915,
+   "pre_params": 28507649,
+   "post_params": 23009133,
+   "compression_x": 1.2389710207681446,
+   "val_iou": 0.643866,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 213.9
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 20,
+   "param_reduction_pct": 36.285773688317825,
+   "pre_params": 28507649,
+   "post_params": 18163428,
+   "compression_x": 1.5695081897536083,
+   "val_iou": 0.64765,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 198.0
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 30,
+   "param_reduction_pct": 51.13601616183783,
+   "pre_params": 28507649,
+   "post_params": 13929973,
+   "compression_x": 2.0464970750481712,
+   "val_iou": 0.642153,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 170.5
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 40,
+   "param_reduction_pct": 64.13898599635488,
+   "pre_params": 28507649,
+   "post_params": 10223132,
+   "compression_x": 2.7885435696223038,
+   "val_iou": 0.637443,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 163.9
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 50,
+   "param_reduction_pct": 74.97171022415773,
+   "pre_params": 28507649,
+   "post_params": 7134977,
+   "compression_x": 3.9954787520688573,
+   "val_iou": 0.64808,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 107.8
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 52,
+   "param_reduction_pct": 77.15312125528135,
+   "pre_params": 28507649,
+   "post_params": 6513108,
+   "compression_x": 4.3769654978851875,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 54,
+   "param_reduction_pct": 78.99655632774207,
+   "pre_params": 28507649,
+   "post_params": 5987588,
+   "compression_x": 4.76112401187256,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 56,
+   "param_reduction_pct": 80.72437330766911,
+   "pre_params": 28507649,
+   "post_params": 5495028,
+   "compression_x": 5.1878987695786085,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 58,
+   "param_reduction_pct": 82.43059608317753,
+   "pre_params": 28507649,
+   "post_params": 5008624,
+   "compression_x": 5.69171273387661,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 60,
+   "param_reduction_pct": 84.10538518977837,
+   "pre_params": 28507649,
+   "post_params": 4531181,
+   "compression_x": 6.291439031016417,
+   "val_iou": 0.638492,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 109.1
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 70,
+   "param_reduction_pct": 91.09009655619093,
+   "pre_params": 28507649,
+   "post_params": 2540004,
+   "compression_x": 11.223466183517822,
+   "val_iou": 0.636705,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 102.8
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 80,
+   "param_reduction_pct": 96.02771522828839,
+   "pre_params": 28507649,
+   "post_params": 1132405,
+   "compression_x": 25.174428760028434,
+   "val_iou": 0.624428,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 102.1
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_link_r34",
+   "channel_ratio_pct": 90,
+   "param_reduction_pct": 99.01748474593607,
+   "pre_params": 28507649,
+   "post_params": 280092,
+   "compression_x": 101.77959027748025,
+   "val_iou": 0.597153,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 100.7
+   },
+   "seed": 0,
+   "compiled": {
+    "int8_bytes": 340160,
+    "edgetpu_bytes": 582272,
+    "total_ops": 79,
+    "cpu_ops": 0,
+    "subgraphs": 1,
+    "off_chip_bytes": 0
+   }
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 10,
+   "param_reduction_pct": 19.23696442968652,
+   "pre_params": 8633857,
+   "post_params": 6972965,
+   "compression_x": 1.2381902103337676,
+   "val_iou": 0.611052,
+   "floor_fire": 0.017241,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 141.1
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 20,
+   "param_reduction_pct": 36.213270615902026,
+   "pre_params": 8633857,
+   "post_params": 5507255,
+   "compression_x": 1.5677242110634064,
+   "val_iou": 0.611733,
+   "floor_fire": 0.017241,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 133.6
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 22,
+   "param_reduction_pct": 39.34032032265533,
+   "pre_params": 8633857,
+   "post_params": 5237270,
+   "compression_x": 1.648541511130799,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 24,
+   "param_reduction_pct": 42.54069762795469,
+   "pre_params": 8633857,
+   "post_params": 4960954,
+   "compression_x": 1.7403622367794582,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 26,
+   "param_reduction_pct": 45.2845118931203,
+   "pre_params": 8633857,
+   "post_params": 4724057,
+   "compression_x": 1.8276360763640236,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 28,
+   "param_reduction_pct": 48.32185661634192,
+   "pre_params": 8633857,
+   "post_params": 4461817,
+   "compression_x": 1.9350540374022511,
+   "val_iou": null,
+   "floor_fire": null,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": false,
+   "epochs": 0,
+   "duration_s": {
+    "finetune": null
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 30,
+   "param_reduction_pct": 51.132639792389426,
+   "pre_params": 8633857,
+   "post_params": 4219138,
+   "compression_x": 2.0463556773919223,
+   "val_iou": 0.606824,
+   "floor_fire": 0.017241,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 120.1
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 40,
+   "param_reduction_pct": 64.115690125514,
+   "pre_params": 8633857,
+   "post_params": 3098200,
+   "compression_x": 2.7867332644761476,
+   "val_iou": 0.602146,
+   "floor_fire": 0.017241,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 99.6
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 50,
+   "param_reduction_pct": 74.97775327990723,
+   "pre_params": 8633857,
+   "post_params": 2160385,
+   "compression_x": 3.996443689434985,
+   "val_iou": 0.594996,
+   "floor_fire": 0.017241,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 85.6
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 60,
+   "param_reduction_pct": 84.08751731699981,
+   "pre_params": 8633857,
+   "post_params": 1373861,
+   "compression_x": 6.284374474564749,
+   "val_iou": 0.580517,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 85.8
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 70,
+   "param_reduction_pct": 91.06671560578314,
+   "pre_params": 8633857,
+   "post_params": 771287,
+   "compression_x": 11.194091174880427,
+   "val_iou": 0.570784,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 83.4
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 80,
+   "param_reduction_pct": 96.02900534488815,
+   "pre_params": 8633857,
+   "post_params": 342850,
+   "compression_x": 25.182607554324047,
+   "val_iou": 0.557541,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 83.7
+   },
+   "seed": 0
+  },
+  {
+   "model": "line_seg_w96",
+   "channel_ratio_pct": 90,
+   "param_reduction_pct": 99.01494778058057,
+   "pre_params": 8633857,
+   "post_params": 85048,
+   "compression_x": 101.51746072805945,
+   "val_iou": 0.52742,
+   "floor_fire": 0.0,
+   "input_size": 192,
+   "mask_size": 96,
+   "finetuned": true,
+   "epochs": 30,
+   "duration_s": {
+    "finetune": 83.2
+   },
+   "seed": 0,
+   "compiled": {
+    "int8_bytes": 98520,
+    "edgetpu_bytes": 176768,
+    "total_ops": 16,
+    "cpu_ops": 0,
+    "subgraphs": 1,
+    "off_chip_bytes": 0
+   }
+  }
+ ]
+}

@@ -1,0 +1,100 @@
+{
+  "export_path": "litert-torch + ai-edge-quantizer. The full chain is in `pipeline` below.",
+  "measured": "2026-08-22",
+  "device": "Coral USB Accelerator (Google Inc. 18d1:9302), single inference",
+  "compiler": "Edge TPU Compiler 16.0.384591198",
+  "what": "Stage 0 of the litert migration: the five ImageNet classification backbones taken through litert-torch + ai-edge-quantizer instead of onnx2tf. This family had never produced an artifact or a measurement of any kind before today -- results/criterion_census.json lists five families under magnitude_l2 and classification is not among them, and there are no pruned classification checkpoints locally or on the cluster. These are its first numbers.",
+  "pipeline": "outputs/models/<name>.pt -> litert_torch.to_channel_last_io(m, args=[0]) -> litert_torch.convert -> ai_edge_quantizer static_wi8_ai8 with QSV_MINMAX=1 -> inline_buffers.py -> etpu_fixups.py -> edgetpu_compiler -s. All in one virtualenv, no tensorflow, no onnx2tf. ZERO model-side changes: no wrapper, no monkeypatch.",
+  "stage_order_warning": "inline_buffers.py MUST run before etpu_fixups.py. Reversed, the fixup pass re-serializes through ModelT, which cannot see ai-edge-quantizer's external buffers, and silently drops every large constant. Observed: mobilenetv2 came out 0.58 MiB instead of 3.89 MiB, 7.25 KiB on-chip, 4 of 70 operators mapped -- and it still loaded and still compiled.",
+  "rows": [
+    {
+      "model": "mobilenetv2_imagenet",
+      "arch": "MobileNetV2",
+      "params": 3504872,
+      "input_size": 224,
+      "operations": 70,
+      "tpu_ops": 70,
+      "cpu_ops": 0,
+      "tpu_subgraphs": 1,
+      "onchip": "3.89MiB",
+      "offchip": "0.00B",
+      "tpu_ms_mean": 4.474,
+      "tpu_ms_median": 4.493,
+      "tpu_ms_std": 0.23,
+      "fixups_applied": "identity_gather"
+    },
+    {
+      "model": "resnet50",
+      "arch": "ResNet-50",
+      "params": 25557032,
+      "input_size": 224,
+      "operations": 78,
+      "tpu_ops": 78,
+      "cpu_ops": 0,
+      "tpu_subgraphs": 1,
+      "onchip": "7.14MiB",
+      "offchip": "17.55MiB",
+      "tpu_ms_mean": 44.816,
+      "tpu_ms_median": 44.841,
+      "tpu_ms_std": 0.215,
+      "fixups_applied": "int64_paddings, padv2_to_pad, identity_gather"
+    },
+    {
+      "model": "squeezenet1_1",
+      "arch": "SqueezeNet 1.1",
+      "params": 1235496,
+      "input_size": 224,
+      "operations": 39,
+      "tpu_ops": 39,
+      "cpu_ops": 0,
+      "tpu_subgraphs": 1,
+      "onchip": "1.26MiB",
+      "offchip": "0.00B",
+      "tpu_ms_mean": 2.3,
+      "tpu_ms_median": 2.29,
+      "tpu_ms_std": 0.097,
+      "fixups_applied": "identity_gather"
+    },
+    {
+      "model": "efficientnet_lite0",
+      "arch": "EfficientNet-Lite0",
+      "params": 4652008,
+      "input_size": 224,
+      "operations": 61,
+      "tpu_ops": 61,
+      "cpu_ops": 0,
+      "tpu_subgraphs": 1,
+      "onchip": "5.33MiB",
+      "offchip": "0.00B",
+      "tpu_ms_mean": 5.722,
+      "tpu_ms_median": 5.753,
+      "tpu_ms_std": 0.236,
+      "fixups_applied": "identity_gather"
+    },
+    {
+      "model": "mnasnet1_0",
+      "arch": "MnasNet 1.0",
+      "params": 4383312,
+      "input_size": 224,
+      "operations": 70,
+      "tpu_ops": 70,
+      "cpu_ops": 0,
+      "tpu_subgraphs": 1,
+      "onchip": "4.99MiB",
+      "offchip": "128.00B",
+      "tpu_ms_mean": 6.294,
+      "tpu_ms_median": 6.326,
+      "tpu_ms_std": 0.198,
+      "fixups_applied": "(none)"
+    }
+  ],
+  "findings": {
+    "mapping": "All five map 100% to the Edge TPU with 0 CPU operators in a single subgraph. onnx2tf has no committed baseline for any of them -- this family was never converted -- so this is not a comparison, it is the first datum.",
+    "fixups_are_load_bearing": "Raw litert output does NOT map cleanly. resnet50 fails to compile outright (input->dims->data[3] != filter->dims->data[3], 65 != 64: litert emits PAD/PADV2 paddings as INT64 and the compiler's parser reads them as INT32, so a spatial pad lands on the channel axis). Four of the five strand their final FULLY_CONNECTED on the CPU behind a GATHER_ND that to_channel_last_io emits as an identity reshape. etpu_fixups.py repairs both; each rewrite refuses to fire unless its precondition holds, and mnasnet1_0 needed none.",
+    "resnet50_streams": "resnet50 is the only rung that exceeds the 8 MiB cache: 7.14 MiB on-chip plus 17.55 MiB streamed, and 44.8 ms against 2.3-6.3 ms for the other four. That is the model against the cache, not the export path."
+  },
+  "not_established": {
+    "accuracy": "NO accuracy number is reported and none should be inferred. There is no ILSVRC2012 tree on this machine or on the cluster: the directory the repo addresses as $DATASET_DIR/Imagenet_1k holds the 10-class Imagenette subset (9,469 images, train/ only, no val/), which families/classification/clip_rn50/eval.py:52 documents but nothing else did. A 1000-class top-1 is therefore not measurable here at all. src/etpu/data/classification.py now refuses a non-1000-class tree rather than loading it silently. Calibration used 100 real 224x224 photographs recovered from outputs/tflite_int8/calib_cache/clip_rn50_n100_seed42.npy -- un-normalised from CLIP statistics back to [0,1] pixels (round-trip range [-0.0000, 1.0000]) and re-normalised with ImageNet mean/std (resulting range [-2.117, 2.640] against the theoretical [-2.118, 2.640]). Real images with the wrong label distribution: enough to set activation ranges for a mapping test, not enough to quote top-1 from.",
+    "pruned_rungs": "Only the dense bases were converted. Zero pruned classification checkpoints exist anywhere, so the ladder the pipeline would actually process was not exercised. Pruning changes channel counts, which is exactly where the INT64-paddings misread lands differently."
+  }
+}

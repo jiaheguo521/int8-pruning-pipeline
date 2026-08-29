@@ -1,0 +1,76 @@
+cff-version: 1.2.0
+message: "If you use this pipeline or its published models, please cite it as below."
+title: "int8-pruning-pipeline"
+abstract: >-
+  A pipeline that takes PyTorch models through structured pruning, int8
+  quantization, Edge TPU compilation and evaluation, applied across several
+  model families (detection, classification, vision-language, person Re-ID,
+  lane segmentation) with measured Coral USB results. The pruning method is
+  DepGraph (Fang et al. 2023), applied through torch_pruning; what this
+  pipeline carries over is the Edge TPU evaluation protocol of Zouhdi et al.
+  (DSD 2026), established on CIFAR-100 classification, extended to four
+  further tasks.
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/jiaheguo521/int8-pruning-pipeline"
+# Author order reflects contribution to THIS software: Guo built and leads the
+# pipeline; Zouhdi's CIFAR-100 study is what the classification pipeline and the
+# Edge TPU benchmark path were built on, which is why he is an author here and
+# not only a citation (he is also the first author of the DSD 2026 entry below;
+# cite that one for the CIFAR-100 study itself); Kłoda supervised the work, recommended
+# its research direction, and is a co-author of that same DSD 2026 entry.
+#
+# NEITHER work proposes a pruning method. That is DepGraph, the second entry
+# below. Full per-criterion attribution is in ACKNOWLEDGEMENTS.md#references.
+authors:
+  - family-names: Guo
+    given-names: Jiahe
+  - family-names: Zouhdi
+    given-names: Mouad
+  - family-names: Kłoda
+    given-names: Tomasz
+#
+# Carried out at LAAS-CNRS, Toulouse, France. Kłoda is also a co-author of the
+# DSD 2026 entry below.
+
+# 1. The CIFAR-100 study whose Edge TPU evaluation protocol this pipeline
+#    follows. Cite this when referring to that study rather than to this
+#    pipeline. 2. The structured-pruning method every family here actually uses.
+references:
+  - type: conference-paper
+    title: "Pruning of Deep Neural Networks for Real-Time Execution on Edge TPU"
+    year: 2026
+    collection-title: "29th Euromicro Conference on Digital System Design (DSD)"
+    location:
+      name: "Kraków, Poland"
+    authors:
+      - family-names: Zouhdi
+        given-names: Mouad
+      - family-names: Guo
+        given-names: Jiahe
+      - family-names: Hammadi
+        given-names: Rafik
+      - family-names: Sun
+        given-names: Binqi
+      - family-names: Leleux
+        given-names: Philippe
+      - family-names: Kłoda
+        given-names: Tomasz
+      - family-names: Caccamo
+        given-names: Marco
+  - type: conference-paper
+    title: "DepGraph: Towards Any Structural Pruning"
+    year: 2023
+    collection-title: "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
+    url: "https://arxiv.org/abs/2301.12900"
+    authors:
+      - family-names: Fang
+        given-names: Gongfan
+      - family-names: Ma
+        given-names: Xinyin
+      - family-names: Song
+        given-names: Mingli
+      - family-names: Mi
+        given-names: Michael Bi
+      - family-names: Wang
+        given-names: Xinchao

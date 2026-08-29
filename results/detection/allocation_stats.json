@@ -1,0 +1,396 @@
+{
+ "produced_by": "results/protocol_audit/allocation_stats.py",
+ "what": "Per-group importance statistics for EfficientDet-Lite1's backbone under the published protocol (global ranking, magnitude_l2, torch_pruning's default normalizer='mean'). Backs the 'Why' subsection of docs/PRUNING_HAZARDS.md section 1. Allocation only, no forward pass.",
+ "model": "efficientdet_lite1",
+ "protocol": {
+  "importance": "magnitude_l2",
+  "normalizer": "mean",
+  "global_pruning": true,
+  "scope": "backbone"
+ },
+ "n_groups": 27,
+ "normalised_means_observed": [
+  1.0
+ ],
+ "reading": "normalizer='mean' makes every group's mean exactly 1.0, so cross-layer scale is already cancelled and cannot be the driver. What differs is the WITHIN-group shape: narrow early groups have a long left tail (high frac_below_half, high cv), wide late groups have almost none. A single global threshold therefore empties one narrow layer before it touches the wide ones.",
+ "groups": [
+  {
+   "group": "backbone.blocks.0.0.conv_pw (Conv2d(32, 16, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 16,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 15.3394,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.9177,
+    "median_per_out_l2": 0.9196,
+    "whole_tensor_l2_over_sqrt_n": 0.1653,
+    "mean_abs": 0.0946
+   },
+   "frac_below_half": 0.0625,
+   "cv": 0.3344
+  },
+  {
+   "group": "backbone.blocks.1.0.conv_dw (Conv2dSame(96, 96, kernel_size=(3, 3), stride=(2, 2), groups=96, bias=False))",
+   "channels": 96,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 1.0126,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.3928,
+    "median_per_out_l2": 0.3894,
+    "whole_tensor_l2_over_sqrt_n": 0.1357,
+    "mean_abs": 0.1134
+   },
+   "frac_below_half": 0.5938,
+   "cv": 1.6226
+  },
+  {
+   "group": "backbone.blocks.1.0.conv_pwl (Conv2d(96, 24, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 24,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 10.3601,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 1.1755,
+    "median_per_out_l2": 1.1024,
+    "whole_tensor_l2_over_sqrt_n": 0.1231,
+    "mean_abs": 0.0881
+   },
+   "frac_below_half": 0.0,
+   "cv": 0.241
+  },
+  {
+   "group": "backbone.blocks.1.1.conv_dw (Conv2d(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144, bias=False))",
+   "channels": 144,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 1.2775,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.3393,
+    "median_per_out_l2": 0.3298,
+    "whole_tensor_l2_over_sqrt_n": 0.1223,
+    "mean_abs": 0.0799
+   },
+   "frac_below_half": 0.2778,
+   "cv": 0.9875
+  },
+  {
+   "group": "backbone.blocks.1.2.conv_dw (Conv2d(144, 144, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=144, bias=False))",
+   "channels": 144,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 1.0038,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.2841,
+    "median_per_out_l2": 0.2929,
+    "whole_tensor_l2_over_sqrt_n": 0.0986,
+    "mean_abs": 0.0758
+   },
+   "frac_below_half": 0.2431,
+   "cv": 1.1742
+  },
+  {
+   "group": "backbone.blocks.2.0.conv_dw (Conv2dSame(144, 144, kernel_size=(5, 5), stride=(2, 2), groups=144, bias=False))",
+   "channels": 144,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.9445,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.374,
+    "median_per_out_l2": 0.3636,
+    "whole_tensor_l2_over_sqrt_n": 0.0768,
+    "mean_abs": 0.0537
+   },
+   "frac_below_half": 0.2361,
+   "cv": 1.1473
+  },
+  {
+   "group": "backbone.blocks.2.0.conv_pwl (Conv2d(144, 40, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 40,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 7.3329,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 1.0299,
+    "median_per_out_l2": 1.0622,
+    "whole_tensor_l2_over_sqrt_n": 0.0865,
+    "mean_abs": 0.0649
+   },
+   "frac_below_half": 0.0,
+   "cv": 0.3293
+  },
+  {
+   "group": "backbone.blocks.2.1.conv_dw (Conv2d(240, 240, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=240, bias=False))",
+   "channels": 240,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 1.1567,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.2695,
+    "median_per_out_l2": 0.2737,
+    "whole_tensor_l2_over_sqrt_n": 0.0552,
+    "mean_abs": 0.0343
+   },
+   "frac_below_half": 0.2833,
+   "cv": 1.6249
+  },
+  {
+   "group": "backbone.blocks.2.2.conv_dw (Conv2d(240, 240, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=240, bias=False))",
+   "channels": 240,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.9571,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.2426,
+    "median_per_out_l2": 0.2466,
+    "whole_tensor_l2_over_sqrt_n": 0.05,
+    "mean_abs": 0.0324
+   },
+   "frac_below_half": 0.1625,
+   "cv": 1.0299
+  },
+  {
+   "group": "backbone.blocks.3.0.conv_dw (Conv2dSame(240, 240, kernel_size=(3, 3), stride=(2, 2), groups=240, bias=False))",
+   "channels": 240,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.7547,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.2302,
+    "median_per_out_l2": 0.2318,
+    "whole_tensor_l2_over_sqrt_n": 0.0776,
+    "mean_abs": 0.0698
+   },
+   "frac_below_half": 0.1083,
+   "cv": 0.8775
+  },
+  {
+   "group": "backbone.blocks.3.0.conv_pwl (Conv2d(240, 80, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 80,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 3.9928,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.9038,
+    "median_per_out_l2": 0.8872,
+    "whole_tensor_l2_over_sqrt_n": 0.059,
+    "mean_abs": 0.0444
+   },
+   "frac_below_half": 0.0,
+   "cv": 0.2953
+  },
+  {
+   "group": "backbone.blocks.3.1.conv_dw (Conv2d(480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False))",
+   "channels": 480,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.662,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.132,
+    "median_per_out_l2": 0.1322,
+    "whole_tensor_l2_over_sqrt_n": 0.0454,
+    "mean_abs": 0.035
+   },
+   "frac_below_half": 0.0396,
+   "cv": 0.6263
+  },
+  {
+   "group": "backbone.blocks.3.2.conv_dw (Conv2d(480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False))",
+   "channels": 480,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.5752,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1272,
+    "median_per_out_l2": 0.1258,
+    "whole_tensor_l2_over_sqrt_n": 0.0437,
+    "mean_abs": 0.0333
+   },
+   "frac_below_half": 0.0312,
+   "cv": 0.6395
+  },
+  {
+   "group": "backbone.blocks.3.3.conv_dw (Conv2d(480, 480, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=480, bias=False))",
+   "channels": 480,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.515,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1192,
+    "median_per_out_l2": 0.1219,
+    "whole_tensor_l2_over_sqrt_n": 0.0409,
+    "mean_abs": 0.0309
+   },
+   "frac_below_half": 0.0479,
+   "cv": 0.6976
+  },
+  {
+   "group": "backbone.blocks.4.0.conv_dw (Conv2d(480, 480, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=480, bias=False))",
+   "channels": 480,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.9042,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.284,
+    "median_per_out_l2": 0.279,
+    "whole_tensor_l2_over_sqrt_n": 0.0588,
+    "mean_abs": 0.0312
+   },
+   "frac_below_half": 0.0729,
+   "cv": 0.9553
+  },
+  {
+   "group": "backbone.blocks.4.0.conv_pwl (Conv2d(480, 112, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 112,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 3.3091,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.9395,
+    "median_per_out_l2": 0.9188,
+    "whole_tensor_l2_over_sqrt_n": 0.0431,
+    "mean_abs": 0.033
+   },
+   "frac_below_half": 0.0,
+   "cv": 0.2373
+  },
+  {
+   "group": "backbone.blocks.4.1.conv_dw (Conv2d(672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False))",
+   "channels": 672,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.5864,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1607,
+    "median_per_out_l2": 0.1591,
+    "whole_tensor_l2_over_sqrt_n": 0.0328,
+    "mean_abs": 0.0222
+   },
+   "frac_below_half": 0.0804,
+   "cv": 0.6489
+  },
+  {
+   "group": "backbone.blocks.4.2.conv_dw (Conv2d(672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False))",
+   "channels": 672,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.5292,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1554,
+    "median_per_out_l2": 0.1553,
+    "whole_tensor_l2_over_sqrt_n": 0.0317,
+    "mean_abs": 0.0212
+   },
+   "frac_below_half": 0.0804,
+   "cv": 0.8263
+  },
+  {
+   "group": "backbone.blocks.4.3.conv_dw (Conv2d(672, 672, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=672, bias=False))",
+   "channels": 672,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.4561,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1534,
+    "median_per_out_l2": 0.1522,
+    "whole_tensor_l2_over_sqrt_n": 0.0313,
+    "mean_abs": 0.0206
+   },
+   "frac_below_half": 0.058,
+   "cv": 0.5403
+  },
+  {
+   "group": "backbone.blocks.5.0.conv_dw (Conv2dSame(672, 672, kernel_size=(5, 5), stride=(2, 2), groups=672, bias=False))",
+   "channels": 672,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.5938,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1938,
+    "median_per_out_l2": 0.1939,
+    "whole_tensor_l2_over_sqrt_n": 0.0392,
+    "mean_abs": 0.0305
+   },
+   "frac_below_half": 0.0074,
+   "cv": 0.5242
+  },
+  {
+   "group": "backbone.blocks.5.0.conv_pwl (Conv2d(672, 192, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 192,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 2.4864,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.8898,
+    "median_per_out_l2": 0.8893,
+    "whole_tensor_l2_over_sqrt_n": 0.0345,
+    "mean_abs": 0.0271
+   },
+   "frac_below_half": 0.0,
+   "cv": 0.2167
+  },
+  {
+   "group": "backbone.blocks.5.1.conv_dw (Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False))",
+   "channels": 1152,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.6121,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1351,
+    "median_per_out_l2": 0.1324,
+    "whole_tensor_l2_over_sqrt_n": 0.0277,
+    "mean_abs": 0.0214
+   },
+   "frac_below_half": 0.1094,
+   "cv": 0.6291
+  },
+  {
+   "group": "backbone.blocks.5.2.conv_dw (Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False))",
+   "channels": 1152,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.4904,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1309,
+    "median_per_out_l2": 0.1285,
+    "whole_tensor_l2_over_sqrt_n": 0.0272,
+    "mean_abs": 0.0205
+   },
+   "frac_below_half": 0.0547,
+   "cv": 0.6226
+  },
+  {
+   "group": "backbone.blocks.5.3.conv_dw (Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False))",
+   "channels": 1152,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.403,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1279,
+    "median_per_out_l2": 0.1287,
+    "whole_tensor_l2_over_sqrt_n": 0.0269,
+    "mean_abs": 0.0196
+   },
+   "frac_below_half": 0.0347,
+   "cv": 0.6182
+  },
+  {
+   "group": "backbone.blocks.5.4.conv_dw (Conv2d(1152, 1152, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2), groups=1152, bias=False))",
+   "channels": 1152,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.3765,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1228,
+    "median_per_out_l2": 0.128,
+    "whole_tensor_l2_over_sqrt_n": 0.0261,
+    "mean_abs": 0.0185
+   },
+   "frac_below_half": 0.0269,
+   "cv": 0.5507
+  },
+  {
+   "group": "backbone.blocks.6.0.conv_dw (Conv2d(1152, 1152, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1152, bias=False))",
+   "channels": 1152,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 0.5082,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.1283,
+    "median_per_out_l2": 0.1304,
+    "whole_tensor_l2_over_sqrt_n": 0.0437,
+    "mean_abs": 0.0313
+   },
+   "frac_below_half": 0.0582,
+   "cv": 0.7124
+  },
+  {
+   "group": "backbone.blocks.6.0.conv_pwl (Conv2d(1152, 320, kernel_size=(1, 1), stride=(1, 1), bias=False))",
+   "channels": 320,
+   "normalised_mean": 1.0,
+   "raw_l2_mean": 1.4737,
+   "raw_l2_variants": {
+    "mean_per_out_l2": 0.5449,
+    "median_per_out_l2": 0.5428,
+    "whole_tensor_l2_over_sqrt_n": 0.0161,
+    "mean_abs": 0.0127
+   },
+   "frac_below_half": 0.0,
+   "cv": 0.0901
+  }
+ ]
+}

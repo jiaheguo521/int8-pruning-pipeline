@@ -1,0 +1,36 @@
+name: checks
+
+# Re-derive the numbers this repository publishes, from a clean clone.
+#
+# This runs scripts/check.sh --clean-clone: the tier that imports the standard
+# library only and reads tracked files under results/. No pip install, no torch,
+# no dataset, no outputs/ tree (outputs/ is gitignored and absent here by design).
+# If this job is green, every figure it covers is re-derivable by anyone who
+# clones the repository -- which is the claim results/README.md makes.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  reproduce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          # pyproject.toml sets requires-python = ">=3.10"; check the floor, not
+          # whatever ubuntu-latest happens to ship.
+          python-version: "3.10"
+
+      - name: no third-party packages are installed
+        # Guards the claim this job exists to make. If torch or matplotlib were
+        # present, a check could pass here and still fail on a real clean clone.
+        run: |
+          ! python -c "import torch" 2>/dev/null
+          ! python -c "import matplotlib" 2>/dev/null
+
+      - run: ./scripts/check.sh --clean-clone

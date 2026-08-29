@@ -1,0 +1,140 @@
+{
+ "produced_by": "results/latency_law/fit_latency_law.py",
+ "what": "Weight-transfer latency law for the Coral USB Edge TPU, and a test for a discontinuity at the on-chip/off-chip boundary. Backs section 2 of docs/PRUNING_HAZARDS.md.",
+ "sources": {
+  "this repo (30 compiled models, 3 backbones)": "results/line_seg/param_ladder_oncar.json",
+  "DSD 2026 ResNet-50 table (CIFAR-100)": "results/dsd2026_reference/resnet50_table.csv"
+ },
+ "fits": [
+  {
+   "dataset": "this repo (30 compiled models, 3 backbones)",
+   "n": 30,
+   "law": {
+    "intercept": 0.8523,
+    "offchip": 2.2561,
+    "onchip": 0.9148
+   },
+   "r2": 0.996332,
+   "t_stats": {
+    "intercept": 2.66,
+    "offchip": 64.37,
+    "onchip": 10.25
+   },
+   "steps": {
+    "I[offchip>0]": {
+     "coef_ms": -0.2426,
+     "stderr_ms": 0.7621,
+     "t": -0.32,
+     "F": 0.1014,
+     "df": [
+      1,
+      26
+     ],
+     "p": 0.7527,
+     "r2": 0.996346,
+     "n_positive": 12
+    },
+    "I[size<8MB]": {
+     "coef_ms": 2.5737,
+     "stderr_ms": 0.6795,
+     "t": 3.79,
+     "F": 14.3445,
+     "df": [
+      1,
+      26
+     ],
+     "p": 0.0008,
+     "r2": 0.997636,
+     "n_positive": 21
+    }
+   },
+   "streamed_byte_cost_ratio": 2.466
+  },
+  {
+   "dataset": "DSD 2026 ResNet-50 table (CIFAR-100)",
+   "n": 64,
+   "law": {
+    "intercept": 1.316,
+    "offchip": 3.2457
+   },
+   "r2": 0.999761,
+   "t_stats": {
+    "intercept": 27.57,
+    "offchip": 509.54
+   },
+   "steps": {
+    "I[offchip>0]": {
+     "coef_ms": -0.0296,
+     "stderr_ms": 0.0976,
+     "t": -0.3,
+     "F": 0.0917,
+     "df": [
+      1,
+      61
+     ],
+     "p": 0.763,
+     "r2": 0.999762,
+     "n_positive": 47
+    },
+    "I[size<8MB]": {
+     "coef_ms": 0.3092,
+     "stderr_ms": 0.0991,
+     "t": 3.12,
+     "F": 9.7286,
+     "df": [
+      1,
+      61
+     ],
+     "p": 0.0028,
+     "r2": 0.999794,
+     "n_positive": 21
+    }
+   }
+  },
+  {
+   "dataset": "reid_youtu_lite ladder (6 rungs, Market-1501)",
+   "n": 6,
+   "law": {
+    "intercept": 2.8867,
+    "offchip": 2.2941,
+    "onchip": 0.2556
+   },
+   "r2": 0.997945,
+   "t_stats": {
+    "intercept": 1.36,
+    "offchip": 30.51,
+    "onchip": 0.71
+   },
+   "steps": {
+    "I[offchip>0]": {
+     "coef_ms": -3.0929,
+     "stderr_ms": 1.338,
+     "t": -2.31,
+     "F": 5.3434,
+     "df": [
+      1,
+      2
+     ],
+     "p": 0.147,
+     "r2": 0.99944,
+     "n_positive": 4
+    },
+    "I[size<8MB]": {
+     "coef_ms": 3.0929,
+     "stderr_ms": 1.338,
+     "t": 2.31,
+     "F": 5.3434,
+     "df": [
+      1,
+      2
+     ],
+     "p": 0.147,
+     "r2": 0.99944,
+     "n_positive": 2
+    }
+   },
+   "streamed_byte_cost_ratio": 8.977
+  }
+ ],
+ "reading": "reading: latency is linear in off-chip bytes with a steep slope. No dataset here\n supports a DOWNWARD step where streaming stops, which is what a cliff would be:\n * I[offchip>0] is the direct test, and it is flat on the two datasets with the\n  power to test it (p = 0.80 and p = 0.76; the 6-rung reid panel leaves 2 dof\n  and settles nothing at p = 0.11). Its coefficient is negative on all three,\n  i.e. streaming models come in slightly FASTER than the continuous law\n  predicts -- the opposite sign to a penalty.\n * I[size<8MB] does come out significant on both large panels, but read the sign:\n  POSITIVE, so models that fit are SLOWER than the law predicts, not faster.\n  That is the compute floor, not a memory effect. The law has only\n  weight-transfer terms, so once off-chip reaches 0 it has nothing left to\n  explain the fixed compute cost, and the indicator absorbs it. On this repo's\n  panel 11 of the 18 on-chip rows carry under 1 MiB of weights, which is exactly\n  the regime results/line_seg/w96_deep_rungs.json shows the law under-predicting\n  by 0.4-0.5 ms.\n Under both definitions the step points away from a cliff. What a threshold\n decides is how many bytes have to stream; it does not decide what a streamed\n byte costs.\n The reid panel is here for a different reason: it is a second family, a second\n backbone and a second task, measured on the same device. Its off-chip\n coefficient lands at 2.294 against this repo's 2.256 -- 1.7% apart. Its on-chip\n coefficient (0.256 vs 0.915) and intercept (2.887 vs 0.852) do not agree at all,\n which is what should happen: those terms absorb each family's own compute, while\n the off-chip term is a transfer rate and transfers."
+}

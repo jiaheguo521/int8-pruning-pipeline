@@ -1,0 +1,738 @@
+{
+ "deleted_at": "2026-08-22T00:33:46",
+ "reason": "EfficientDet-Lite1 superseded by the full-mapping build. (a) outputs/tflite_int8/efficientdet_lite1_coco-train2017_*: onnx2tf per-tensor, only 83 of 479 operators mapped to the Edge TPU. On the lamp -10% rung -- the one every ablation was run on -- that build scores int8 mAP 0.29167 against 0.31345 for the build that replaces it. Do not compare it against the ladder's dense 0.3175; that is a different rung. And most of the gap is quantization granularity, not the export path: an onnx2tf PER-CHANNEL build of the same rung reaches 0.31352, i.e. 0.00007 ABOVE what shipped. What the new export path bought is the 305/305 operator mapping, not mAP. (b) outputs/edgetpu/litert_20260821_210620 and _213819: the first two litert compile runs, both made before the ai-edge-quantizer calibration fix (worth 0.020 mAP). (c) outputs/edgetpu/single_20260821_182721: the four-model onnx2tf compile used to size up the problem. Every number these artifacts backed is recorded in results/detection/full_mapping_ladder_lite1.json.",
+ "kept": [
+  "outputs/tflite_int8_litert/ and outputs/edgetpu/litert_20260821_231846/ -- the current full-mapping build, 305/305 operators on the TPU",
+  "all efficientdet_lite2 artifacts -- that sweep has been stopped; what exists is all there will be, and the downstream deployment uses lite1",
+  "outputs/pytorch_pruned/*.pt -- the checkpoints, which nothing here regenerates"
+ ],
+ "regenerate": {
+  "current full-mapping build": "FORCE=1 aiedge-lab/run_ladder.sh   (float exports are kept under aiedge-lab/float/, so re-quantizing a rung is ~3 min)",
+  "the deleted onnx2tf build": "source pruning-env/bin/activate && DATASET_DIR=$PWD/data/datasets GLOB='efficientdet_lite1_coco-train2017_*.pt' ./scripts/convert.sh  then  GLOB='efficientdet_lite1_coco-train2017_*_int8.tflite' ./scripts/compile_edgetpu.sh",
+  "note": "The current-build command lives in aiedge-lab/, which is OUTSIDE this repository, and its inputs are under gitignored outputs/. See the not-reproducible table in docs/PRUNING_HAZARDS.md."
+ },
+ "total_mb": 299.8,
+ "n_files": 180,
+ "files": [
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8.tflite",
+   "bytes": 4232968
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2091
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8.tflite",
+   "bytes": 4224048
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8.tflite",
+   "bytes": 3805944
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2091
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_int8.tflite",
+   "bytes": 3789824
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_int8.tflite",
+   "bytes": 3371856
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2090
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_int8.tflite",
+   "bytes": 3359624
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_int8.tflite",
+   "bytes": 2941056
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2091
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_int8.tflite",
+   "bytes": 2940352
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_int8.tflite",
+   "bytes": 2511640
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2090
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_int8.tflite",
+   "bytes": 2505248
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_int8.tflite",
+   "bytes": 2084768
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2091
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_int8.tflite",
+   "bytes": 2075912
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_int8.tflite",
+   "bytes": 1651784
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2088
+  },
+  {
+   "path": "outputs/tflite_int8/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8.tflite",
+   "bytes": 847880
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 6719200
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 6641376
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 6199008
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 6047456
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 5691104
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 5543648
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 5129952
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 5039840
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 4581088
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 4454112
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 4048608
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 3905248
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 3430112
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned70pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned70pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned70pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 3327712
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned80pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned80pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned80pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 2877152
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned80pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned80pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned80pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 2811616
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned90pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned90pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned90pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 2369248
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 2344672
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned10pct_lamp_full_compile.log",
+   "bytes": 1436
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 8439520
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned10pct_magnitude_l2_full_compile.log",
+   "bytes": 1458
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 8353504
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned20pct_lamp_full_compile.log",
+   "bytes": 1435
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 7767776
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned20pct_magnitude_l2_full_compile.log",
+   "bytes": 1459
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/efficientdet_lite2_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 7636704
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_210620/mapping_summary.tsv",
+   "bytes": 2113
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned0pct_compile.log",
+   "bytes": 1400
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned0pct_int8_edgetpu.log",
+   "bytes": 734
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned0pct_int8_edgetpu.tflite",
+   "bytes": 7194336
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 6719200
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 6641376
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 6199008
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 6047456
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned30pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 5691104
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned30pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 5543648
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned40pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 5129952
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned40pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 5039840
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned50pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 4581088
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned50pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 4454112
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned60pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 4048608
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned60pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 3905248
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned70pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 3430112
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned70pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned70pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned70pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 3327712
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned80pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned80pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned80pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 2877152
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned80pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned80pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned80pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 2811616
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned90pct_lamp_full_compile.log",
+   "bytes": 1433
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned90pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned90pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 2369248
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_compile.log",
+   "bytes": 1457
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 2344672
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned0pct_compile.log",
+   "bytes": 1404
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned0pct_int8_edgetpu.log",
+   "bytes": 734
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned0pct_int8_edgetpu.tflite",
+   "bytes": 9127648
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned10pct_lamp_full_compile.log",
+   "bytes": 1436
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 8439520
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned10pct_magnitude_l2_full_compile.log",
+   "bytes": 1458
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 8353504
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned20pct_lamp_full_compile.log",
+   "bytes": 1435
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.log",
+   "bytes": 756
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 7767776
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned20pct_magnitude_l2_full_compile.log",
+   "bytes": 1459
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 772
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/efficientdet_lite2_coco-train2017_pruned20pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 7636704
+  },
+  {
+   "path": "outputs/edgetpu/litert_20260821_213819/mapping_summary.tsv",
+   "bytes": 2273
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.log",
+   "bytes": 1509
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned10pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 5263104
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2091
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 1525
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned10pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 5202240
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8.size.json",
+   "bytes": 2083
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.log",
+   "bytes": 1509
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned20pct_lamp_full_int8_edgetpu.tflite",
+   "bytes": 4759744
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8.size.json",
+   "bytes": 2088
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8_edgetpu.log",
+   "bytes": 1525
+  },
+  {
+   "path": "outputs/edgetpu/single_20260821_182721/efficientdet_lite1_coco-train2017_pruned90pct_magnitude_l2_full_int8_edgetpu.tflite",
+   "bytes": 1064864
+  }
+ ]
+}

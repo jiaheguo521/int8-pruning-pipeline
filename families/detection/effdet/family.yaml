@@ -1,0 +1,103 @@
+family: effdet
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: labelled          # the detector's own loss via DetBenchTrain, COCO
+  prune_modes: [independent]
+  worker: families/detection/effdet/prune.py
+  part: B
+  models:
+  - efficientdet_lite1
+  - efficientdet_lite2
+  datasets:
+  - coco
+  image_size: 384
+  num_classes: 90
+  baseline: efficientdet_lite1
+  # Lite1 is what the downstream robot deploys (changed 2026-08-22 -- Lite2 was
+  # the plan, and at the time its ladder was unfinished). Both ladders are now
+  # complete: Lite2's 19 pruning rungs finished 2026-08-26 and its int8 + Edge TPU
+  # artifacts were rebuilt 2026-08-27 (340/340 operators, 1 subgraph, every rung).
+  # So this is a choice, not a constraint. On-chip residency no longer separates
+  # them at the pruned rungs: Lite1 streams 0 B off-chip at every rung, and Lite2
+  # streams 701.62 KiB dense and 43.31 KiB at -10% lamp but 0 B from -10%
+  # magnitude_l2 and every rung at -20% or deeper. Lite2's int8 mAP and its 19
+  # on-device latency rungs were both measured 2026-08-28
+  # (results/detection/full_mapping_ladder_lite2.json), so every column is now
+  # filled for both models.
+  model_params:
+    efficientdet_lite2:
+      image_size: 448
+      baseline: efficientdet_lite2
+deliver:
+  dir: effdet_lite1_pruning
+  stem_glob: efficientdet_lite1_coco-train2017*
+  # No reference_module: unlike line_seg and reid, these pickles name pip packages
+  # (effdet, timm, omegaconf), not a module that lives in this repo. The pins travel
+  # in checkpoint_note instead.
+  eval_dir: results/detection
+  reference_json:
+  - full_mapping_ladder_lite1.json
+  - channel_census_lite1.json
+  - full_scope_grid.json
+  ship_edgetpu: true
+  edgetpu_note: "Every file here is the output of compiling ONE model on its own, and that is only valid if the model runs on the Edge TPU alone. Next to a second model the two evict each other from the 8 MiB on-chip parameter cache and every latency figure attached to these files stops being true. The cost is measured, not theoretical: this detector and a lane segmenter compiled separately run 100.10 ms per cycle; the same two passed to a single edgetpu_compiler invocation run 81.86 ms - 1.22x for no change to code, model or postprocess. Pruned pairs reach 54.66 ms. To build your own pair, pass both models to one call: edgetpu_compiler -s A_int8.tflite B_int8.tflite. A pair is only valid as a pair - mixing one file from here with one from a different compile run puts you back in the eviction regime. Second thing to know before you benchmark: the postprocess is not in these graphs. The model ends at the 10 raw head outputs (5 class + 5 box feature maps); anchor decode and NMS run on the host, exactly as they do in Coral's own detection examples. The per-model _compile.log next to each file carries the on-chip/off-chip split the compiler reported; _int8_edgetpu.log carries the operator table."
+  checkpoint_note: "These .pt files are full-module pickles, not state_dicts: torch.load rebuilds the pruned module graph, so the classes have to be importable at load time. Unlike the other families in this project the classes come from pip packages rather than a module shipped next to the weights, so install exactly effdet==0.4.1, timm==1.0.27, omegaconf==2.3.0 and then load with torch.load(path, map_location='cpu', weights_only=False). weights_only=True cannot work here: structured pruning gives every layer its own channel count, and no state_dict alone reconstructs that. Sanity anchors - the dense rung is 4,248,318 parameters at 384x384 over 90 COCO classes; lamp 90pct keeps 486,202 and magnitude_l2 90pct keeps 478,523. Normalisation is mean=std=0.5, NOT ImageNet statistics; using ImageNet values here costs about 3 mAP."
+  # No compiler_stdout_grep: this run wrote a per-model _compile.log next to every
+  # artifact, which is the same stdout at finer grain. The run-level grep exists for
+  # families whose compile runs predate that.
+  # Two shippable rungs share this family dir. Everything above is Lite1 @384;
+  # the variant below overrides only what differs, and manifest.py merges it over
+  # these defaults when deliver.sh is called as `effdet:lite2`. The notes cannot be
+  # inherited: both hard-code numbers that are wrong next to Lite2 weights.
+  variants:
+    lite2:
+      dir: effdet_lite2_pruning
+      stem_glob: efficientdet_lite2_coco-train2017*
+      reference_json:
+      - full_mapping_ladder_lite2.json
+      - channel_census_lite2.json
+      - full_scope_grid.json
+      edgetpu_note: "Every file here is the output of compiling ONE model on its own, and that is only valid if the model runs on the Edge TPU alone. Next to a second model the two evict each other from the 8 MiB on-chip parameter cache and every latency figure attached to these files stops being true. No co-compiled pair was measured for Lite2: the effdet_lite1_pruning package carries that experiment, and its numbers do not transfer here because this model starts larger. To build your own pair, pass both models to one call: edgetpu_compiler -s A_int8.tflite B_int8.tflite. A pair is only valid as a pair - mixing one file from here with one from a different compile run puts you back in the eviction regime. Second thing to know before you benchmark: the postprocess is not in these graphs. The model ends at the 10 raw head outputs (5 class + 5 box feature maps); anchor decode and NMS run on the host, exactly as they do in Coral's own detection examples. Third, and unlike Lite1, this ladder does not start fully resident: the dense rung streams 701.62 KiB off-chip and lamp -10% streams 43.31 KiB, reaching 0.00 B from lamp -20% and magnitude_l2 -10% onward. Every rung maps 340 of 340 operators to the TPU as a single subgraph. The per-model _compile.log next to each file carries the on-chip/off-chip split the compiler reported; _int8_edgetpu.log carries the operator table."
+      checkpoint_note: "These .pt files are full-module pickles, not state_dicts: torch.load rebuilds the pruned module graph, so the classes have to be importable at load time. Unlike the other families in this project the classes come from pip packages rather than a module shipped next to the weights, so install exactly effdet==0.4.1, timm==1.0.27, omegaconf==2.3.0 and then load with torch.load(path, map_location='cpu', weights_only=False). weights_only=True cannot work here: structured pruning gives every layer its own channel count, and no state_dict alone reconstructs that. Sanity anchors - the dense rung is 5,252,334 parameters at 448x448 over 90 COCO classes; lamp 90pct keeps 820,944 and magnitude_l2 90pct keeps 816,413. Normalisation is mean=std=0.5, NOT ImageNet statistics; using ImageNet values here costs about 3 mAP."
+
+convert:
+- name: efficientdet_lite1_coco
+  filename_pattern: ^efficientdet_lite1(?:_coco-[a-z0-9_]+)?_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 384
+  input_channels: 3
+  mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  std:
+  - 0.5
+  - 0.5
+  - 0.5
+  dataset_subdir: coco
+  calib_loader: _calib_coco_val2017
+  detection: true
+  # per-channel measured worth +0.0218 mAP over per-tensor on lite1
+  # (0.29167 -> 0.31352, same converter). NOTE this still does not reproduce the
+  # published ladder: that comes from litert-torch + ai-edge-quantizer, which maps
+  # 305/305 where this path maps 83/479. See docs/PRUNING_HAZARDS.md provenance.
+- name: efficientdet_lite2_coco
+  filename_pattern: ^efficientdet_lite2(?:_coco-[a-z0-9_]+)?_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 448
+  input_channels: 3
+  mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  std:
+  - 0.5
+  - 0.5
+  - 0.5
+  dataset_subdir: coco
+  calib_loader: _calib_coco_val2017
+  detection: true
+  # per-channel measured worth +0.0218 mAP over per-tensor on lite1
+  # (0.29167 -> 0.31352, same converter). NOTE this still does not reproduce the
+  # published ladder: that comes from litert-torch + ai-edge-quantizer, which maps
+  # 305/305 where this path maps 83/479. See docs/PRUNING_HAZARDS.md provenance.

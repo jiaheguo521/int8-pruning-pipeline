@@ -1,0 +1,41 @@
+{
+  "export_path": "onnx2tf. Every row is a pre-2026-08-22 artifact; `note` below says the same in prose, and this field is what results/pipeline_provenance.json reads.",
+  "produced_by": "os.path.getsize over outputs/edgetpu/single_20260619_153807/*_edgetpu.tflite, paired with results/tflite_size_audit.json",
+  "what": "Compiled vs intermediate file size for the EfficientDet-Lite1 rungs. Backs the 'Reporting model size' subsection of docs/PRUNING_HAZARDS.md section 2: the intermediate _int8.tflite carries a fixed floor of tensor-name strings that does not shrink with pruning, so a size column computed from it understates the cut by roughly 3x. The compiled artifact tracks the parameter cut.",
+  "reading": "A 50% backbone cut (-43.9% full-model parameters) reads as -13.8% on the intermediate file and -39.8% on the compiled one. Report the compiled size. But read pairing_caveat first: the size of the gap between the two columns here is not trustworthy, only the direction. And the gap is export-path-specific -- on the current litert-torch build the compiled file is the LOOSER proxy of the two.",
+  "note": "Sizes are backbone-scope rungs, pre-2026-08-19 ratio semantics. All rows are onnx2tf-era artifacts; the export path for effdet was retired 2026-08-22.",
+  "rows": [
+    {
+      "stem": "efficientdet_lite1_coco-minitrain_pruned0pct_magnitude_l2",
+      "backbone_pct": 0,
+      "params": 4248318,
+      "int8_bytes": 13000704,
+      "edgetpu_bytes": 5750624,
+      "params_reduction_pct": 0.0,
+      "int8_reduction_pct": 0.0,
+      "edgetpu_reduction_pct": 0.0
+    },
+    {
+      "stem": "efficientdet_lite1_coco-minitrain_pruned30pct_magnitude_l2",
+      "backbone_pct": 30,
+      "params": 3123076,
+      "int8_bytes": 11952968,
+      "edgetpu_bytes": 4349824,
+      "params_reduction_pct": 26.5,
+      "int8_reduction_pct": 8.1,
+      "edgetpu_reduction_pct": 24.4
+    },
+    {
+      "stem": "efficientdet_lite1_coco-minitrain_pruned50pct_magnitude_l2",
+      "backbone_pct": 50,
+      "params": 2382364,
+      "int8_bytes": 11203880,
+      "edgetpu_bytes": 3460800,
+      "params_reduction_pct": 43.9,
+      "int8_reduction_pct": 13.8,
+      "edgetpu_reduction_pct": 39.8
+    }
+  ],
+  "pairing_caveat": "The two byte columns do NOT come from the same file. edgetpu_bytes is the output of compile run single_20260619_153807, whose log records a 4.44 MiB input; int8_bytes is 13,000,704 B = 12.40 MiB, from the 2026-06-22 re-conversion. Same stem, different artifacts, three days apart. The 3x gap between the columns is therefore mostly a pairing artifact, not a property of the compiler: measured on the conversion that actually fed that compile, the intermediate reads -40.5% against -39.8% compiled -- no gap worth reporting.",
+  "what_survives_the_pairing_defect": "Read DOWN each column, never ACROSS. The edgetpu_bytes column is internally consistent -- all three values come from the same compile run (single_20260619_153807) -- so edgetpu_reduction_pct, including the -39.8% that docs/PRUNING_HAZARDS.md section 2 quotes, is a valid within-column measurement. The int8_bytes column is likewise internally consistent. What is NOT valid is any ratio between the two columns, because they are different artifacts three days apart. The pairing cannot be repaired: the 30% and 50% intermediate .tflite files were deleted (see results/_deleted/) and are not on the cluster either."
+}

@@ -1,0 +1,572 @@
+{
+  "generated": "2026-08-18",
+  "what": "Detection-family pruning matrix: does the DSD 2026 protocol (400 incremental steps under GLOBAL ranking, >=10% of channels retained per prunable layer) transfer from CIFAR-100 classification to COCO detection?",
+  "protocol_under_test": {
+    "source": "material/paper/experiments.tex:29",
+    "quote": "prune progressively over 400 incremental steps under global ranking, retaining at least 10% of the channels of every prunable layer",
+    "as_implemented": "families/detection/effdet/prune.py:127-133 -> iterative_steps=400, global_pruning=True, max_pruning_ratio=0.9",
+    "implementation_caveat": "max_pruning_ratio is a PER-GROUP pre-step admission gate, not a per-layer clamp; the realized floor is 8.33%, not 10%. It also applies to in-channels. torch_pruning base_pruner.py:351-374, call site :464."
+  },
+  "eval": {
+    "dataset": "COCO val2017",
+    "n_images": 5000,
+    "metric": "mAP@[.5:.95]",
+    "pycocotools": true,
+    "note": "ALL mAP below are POST-PRUNE / PRE-FINETUNE unless a row says otherwise; recovery fine-tuning is tracked separately in k1_recovery_summary.json"
+  },
+  "allocation_control_lite1": {
+    "baseline_mAP": 0.322,
+    "backbone_target_pct": 10,
+    "image_size": 384,
+    "rows": [
+      {
+        "criterion": "magnitude_l2",
+        "global": true,
+        "backbone_pct": 10.27,
+        "full_pct": 9.0,
+        "min_survival": 0.083,
+        "min_layer": "blocks.1.2.conv_pw",
+        "mAP": 0.0003,
+        "provenance": "audit agent + adversary + reproduced locally 2026-08-18"
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": false,
+        "backbone_pct": 10.3,
+        "full_pct": null,
+        "min_survival": 0.917,
+        "min_layer": null,
+        "mAP": 0.082,
+        "provenance": "audit agent + adversary"
+      },
+      {
+        "criterion": "random",
+        "global": true,
+        "backbone_pct": 10.01,
+        "full_pct": null,
+        "min_survival": 0.875,
+        "min_layer": null,
+        "mAP": 0.0674,
+        "provenance": "audit adversary"
+      },
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 10.04,
+        "full_pct": 8.8,
+        "min_survival": 0.805,
+        "min_layer": "blocks.5.1.conv_dw",
+        "mAP": 0.1092,
+        "provenance": "audit agent + adversary + reproduced locally 2026-08-18"
+      }
+    ],
+    "reading": "global_pruning=True is NOT the dividing line: the same global allocator with random scores 0.0674 and with LAMP scores 0.1092, BEATING the local control (0.0820) while cutting its worst layer deeper (80.5% vs 91.7%). mAP is not monotone in min-survival. LAMP wins because it never touches stages 0-4."
+  },
+  "allocation_control_lite2": {
+    "baseline_mAP": 0.3589,
+    "backbone_target_pct": 10,
+    "image_size": 448,
+    "note": "lite2 was the rung the downstream robot deployed when this control was run; the deployment target moved to lite1 on 2026-08-22, so do not read 'lite2' as 'the deployed rung' anywhere below. Baseline measured locally 2026-08-18; previously this number existed nowhere on disk.",
+    "rows": [
+      {
+        "criterion": "magnitude_l2",
+        "global": true,
+        "backbone_pct": 10.27,
+        "full_pct": 8.52,
+        "min_survival": 0.083,
+        "min_layer": "blocks.1.0.conv_dw",
+        "mAP": 0.0001,
+        "frac_of_base": 0.0003
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": false,
+        "backbone_pct": 10.09,
+        "full_pct": 8.53,
+        "min_survival": 0.917,
+        "min_layer": "blocks.1.0.conv_pwl",
+        "mAP": 0.0848,
+        "frac_of_base": 0.236
+      },
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 10.15,
+        "full_pct": 8.42,
+        "min_survival": 0.796,
+        "min_layer": "blocks.5.1.conv_dw",
+        "mAP": 0.1655,
+        "frac_of_base": 0.461
+      }
+    ],
+    "provenance": "measured locally 2026-08-18, results/protocol_audit/k4_lite2.py (+ k4_lite2.log)",
+    "reading": "Structure transfers point for point. LAMP is relatively BETTER on lite2 than on lite1 at this operating point: 46.1% of baseline retained vs 33.9%. This pre-FT control was the only lite2 evidence when it was written; the full lite2 ladder finished 2026-08-26 and is in results/detection/full_scope_grid.json, where the post-recovery ordering agrees with lite1 rung for rung."
+  },
+  "per_layer_floor_sweep_lite1": {
+    "criterion": "magnitude_l2",
+    "global": true,
+    "backbone_target_pct": 10,
+    "rows": [
+      {
+        "max_pruning_ratio": 0.9,
+        "steps": 58,
+        "backbone_pct": 10.27,
+        "min_survival": 0.083,
+        "mAP": 0.0003
+      },
+      {
+        "max_pruning_ratio": 0.5,
+        "steps": 64,
+        "backbone_pct": 10.29,
+        "min_survival": 0.375,
+        "mAP": 0.0
+      },
+      {
+        "max_pruning_ratio": 0.3,
+        "steps": 65,
+        "backbone_pct": 10.06,
+        "min_survival": 0.562,
+        "mAP": 0.0003
+      },
+      {
+        "max_pruning_ratio": 0.1,
+        "steps": 326,
+        "backbone_pct": 10.11,
+        "min_survival": 0.76,
+        "mAP": 0.0091
+      }
+    ],
+    "provenance": "measured locally 2026-08-18, results/protocol_audit/k2_cap_sweep.py (+ k2_cap_sweep.log)",
+    "reading": "NO. At every cap the five worst-hit layers are all in stages 1-2: the cap changes how DEEP the worst cut is, never WHERE it lands. cap=0.1 reaches a min survival (76.0%) comparable to LAMP's (80.5%) and is still 12x worse in mAP. Non-monotone in the cap itself (0.5 worse than 0.9). Consequence: the protocol sentence cannot be repaired by changing 10% to 50%."
+  },
+  "damage_saturation_lite1": {
+    "note": "Why 10/20/30% rungs all report the same post-prune mAP.",
+    "rows": [
+      {
+        "backbone_pct": 2.16,
+        "full_pct": 1.9,
+        "min_survival": 0.177,
+        "min_layer": "blocks.1.0.conv_pw",
+        "channels": "96 -> 17",
+        "mAP": 0.0002
+      },
+      {
+        "backbone_pct": 10.27,
+        "full_pct": 9.0,
+        "min_survival": 0.083,
+        "mAP": 0.0003
+      },
+      {
+        "backbone_pct": 30.31,
+        "full_pct": null,
+        "min_survival": null,
+        "mAP": 0.0006,
+        "criterion": "magnitude_l2",
+        "global": false
+      },
+      {
+        "backbone_pct": 30.3,
+        "full_pct": null,
+        "min_survival": null,
+        "mAP": 0.0086,
+        "criterion": "lamp",
+        "global": true
+      }
+    ],
+    "reading": "Damage is total by 2.2% backbone (1.90% full model, 80,594 params). By 30% the no-finetune regime is dead for every criterion including the controls."
+  },
+  "reachable_ceilings_full_model": {
+    "note": "Measured, not the naive 1 - ignored/total. Under the CURRENT ignored_layers.",
+    "efficientdet_lite1": {
+      "pruned_pct": 88.74,
+      "remaining_pct": 11.26,
+      "params": 4248318,
+      "ignored_frac": 0.12373
+    },
+    "efficientdet_lite2": {
+      "pruned_pct": 84.46,
+      "remaining_pct": 15.54,
+      "params": 5252334,
+      "ignored_frac": 0.17045
+    },
+    "ssdlite_mobilenetv3": {
+      "pruned_pct": 56.96,
+      "remaining_pct": 43.04,
+      "params": 3440060,
+      "cls_heads_frac": 0.37401,
+      "warning": "the naive ceiling 60.24% is OPTIMISTIC by 3.28pp; grid rungs at 40/30/20/10 remaining are unreachable and will [WARN]-exit as silent successes"
+    },
+    "unfreezing_fpn_buys": "0.00pp -- EfficientDet reuses one class_net/box_net conv set across all 5 levels (only BNs are per-level), and the BiFPN entry is pointwise so DepGraph freezes ZERO backbone convs"
+  },
+  "edgetpu_compiler_lite1": {
+    "source": "outputs/edgetpu/single_20260619_145918/*.show_ops.txt",
+    "rows": [
+      {
+        "backbone_pct": 0,
+        "on_chip_mib": 4.62,
+        "off_chip_b": 0,
+        "ops_total": 479,
+        "ops_tpu": 83,
+        "ops_cpu": 396
+      },
+      {
+        "backbone_pct": 30,
+        "on_chip_mib": 3.28,
+        "off_chip_b": 0,
+        "ops_total": 477,
+        "ops_tpu": 83,
+        "ops_cpu": 394
+      },
+      {
+        "backbone_pct": 50,
+        "on_chip_mib": 2.43,
+        "off_chip_b": 0,
+        "ops_total": 477,
+        "ops_tpu": 83,
+        "ops_cpu": 394
+      }
+    ],
+    "reading": "effdet is already fully on-chip unpruned, so the 8 MiB streaming-elimination mechanism has no room to operate here -- that part stands. The operator claim does not: only 83 of 479 operators ran on the TPU because of the onnx2tf EXPORT, not because of the graph. onnx2tf lowers the BiFPN fusion to a rank-5 CONCAT/SUM and timm's SAME-pool to PADV2, neither mappable, so the subgraph stopped at the backbone. Re-exported through litert-torch + ai-edge-quantizer the same checkpoints map 305/305 with 0 CPU operators at every rung (results/detection/full_mapping_ladder_lite1.json). The 83/396 vs 90/389 difference between the two 2026-06-19 compiles is not compiler nondeterminism either -- the tflite was re-converted between them (convert_20260619_151449.log; the compile logs record 4.45 vs 4.44 MiB for the same path). Keep this block only as the record of the retired onnx2tf build.",
+    "export_path": "onnx2tf per-tensor int8; RETIRED for effdet 2026-08-22",
+    "on_chip_caveat": "the on_chip_mib figures below count only the 83-90 operators this compile placed on the TPU, not the whole network. Re-exported so that the whole graph maps, the same unpruned 4,248,318-parameter checkpoint uses 6.29 MiB on-chip -- still 0.00 B off-chip. See results/detection/full_mapping_ladder_lite1.json."
+  },
+  "size_reporting": {
+    "warning": "Do NOT report raw _int8.tflite size for effdet UNDER THE ONNX2TF EXPORT: 54-64% of it is MLIR tensor-name strings, and those bytes are a FIXED floor because the BiFPN is in ignored_layers. That ratio is a property of onnx2tf, not of EfficientDet -- the current litert-torch export of the same network carries 7.3% name bytes (678 tensors, 305 operators) against 65% here (11,916 tensors, 3,171 operators). The RULE survives the change of export path even though the ratio does not: always report the compiled _edgetpu.tflite. See results/tflite_size_audit.json and etpu.report.tflite_size.",
+    "lite1_backbone_50pct_mapping": {
+      "backbone_params_pct": -50.1,
+      "full_params_pct": -43.9,
+      "raw_int8_bytes_pct": -13.8,
+      "const_data_bytes_pct": -41.9,
+      "edgetpu_tflite_bytes_pct": -39.8
+    },
+    "ssdlite_backbone_50pct_mapping": {
+      "backbone_params_pct": -50.1,
+      "full_params_pct": -30.2,
+      "raw_int8_bytes_pct": -29.4,
+      "edgetpu_tflite_bytes_pct": -25.3
+    },
+    "bytes_per_param_const": {
+      "efficientdet_lite1": 1.06,
+      "ssdlite_mobilenetv3": 1.02,
+      "clip_rn50": 1.0,
+      "paper_resnet50": 0.99
+    }
+  },
+  "open": {
+    "K3": "CLOSED. Coral latency is measured for ssdlite in results/detection/coral_latency.json (2026-08-20) and for all 19 efficientdet_lite1 rungs in results/detection/full_mapping_ladder_lite1.json (2026-08-22, two independent passes)."
+  },
+  "recovery_finetune_lite1": {
+    "setup": {
+      "epochs": 15,
+      "subset": "minitrain (25k)",
+      "batch_size": 8,
+      "lr": 0.0005,
+      "scheduler": "cosine + 1ep warmup",
+      "baseline_mAP": 0.322,
+      "deviations": [
+        "bs 16->8 (4070 OOM at 16)",
+        "lr 1e-3->5e-4 (linear scaling for bs8)",
+        "epochs 100->15 (time budget)"
+      ]
+    },
+    "rows": [
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 10.04,
+        "full_pct": 8.8,
+        "min_survival": 0.8047,
+        "min_layer": "blocks.5.1.conv_dw",
+        "pre_ft_mAP": 0.1091698557172642,
+        "post_ft_mAP": 0.30274980416845115,
+        "frac_of_baseline": 0.94,
+        "wall_min": 110.8
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": true,
+        "backbone_pct": 10.27,
+        "full_pct": 9.0,
+        "min_survival": 0.0833,
+        "min_layer": "blocks.1.2.conv_dw",
+        "pre_ft_mAP": 0.00026093575191268875,
+        "post_ft_mAP": 0.20426835378287356,
+        "frac_of_baseline": 0.634,
+        "wall_min": 83.9
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": false,
+        "backbone_pct": 10.3,
+        "full_pct": 9.17,
+        "min_survival": 0.9167,
+        "min_layer": "blocks.1.0.conv_pwl",
+        "pre_ft_mAP": 0.08200029293972425,
+        "post_ft_mAP": 0.2951815436875604,
+        "frac_of_baseline": 0.917,
+        "wall_min": 111.3
+      }
+    ],
+    "reading": "Recovery fine-tuning compresses the pre-FT 273x gap to 1.48x. Two groups emerge: any allocation that leaves early-stage capacity intact (LAMP 94.0%, local-uniform 91.7% of baseline) versus the one that guts it (global+magnitude, 63.4%). Which healthy allocation you pick barely matters -- LAMP and local differ by 2.5% while the local arm actually cut MORE (9.17% vs 8.80% full-model). The pre-FT metric mispredicts both the magnitude AND the ordering: pre-FT LAMP led local by 33% (0.1092 vs 0.0820), post-FT that inverts to a 2.5% edge. Convergence differs: healthy arms flatten by ep5, the damaged arm still climbs at ep15, so 1.48x is an EQUAL-BUDGET gap, not a terminal one.",
+    "cross_budget_comparison": "The cluster ran the same config (global+magnitude, full -9.0%) for 40 epochs on full train2017 and reached 0.2629. LAMP at 15 epochs on minitrain-25k reaches 0.3027: 4.7x less data, 2.7x fewer epochs, 15% higher mAP. Swapping the criterion beats scaling the training budget by an order of magnitude. Consistency check: this session's global+magnitude arm at the weaker budget gives 0.2043 < 0.2629, correct direction.",
+    "artifacts": "outputs/k1_recovery/ (3 finetuned .pt + k1_recovery_summary.json)"
+  },
+  "pareto_recovery_lite1": {
+    "setup": {
+      "epochs": 15,
+      "subset": "minitrain (25k)",
+      "batch_size": 8,
+      "lr": 0.0005,
+      "baseline_mAP": 0.322,
+      "note": "identical budget across all points"
+    },
+    "rows": [
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 10.04,
+        "full_pct": 8.8,
+        "min_survival": 0.8047,
+        "min_layer": "blocks.5.1.conv_dw",
+        "pre_ft_mAP": 0.1091698557172642,
+        "post_ft_mAP": 0.30274980416845115,
+        "frac_of_baseline": 0.94
+      },
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 20.17,
+        "full_pct": 17.68,
+        "min_survival": 0.6797,
+        "min_layer": "blocks.5.1.conv_dw",
+        "pre_ft_mAP": 0.06897970510061231,
+        "post_ft_mAP": 0.2966789254698656,
+        "frac_of_baseline": 0.921
+      },
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 30.3,
+        "full_pct": 26.56,
+        "min_survival": 0.5495,
+        "min_layer": "blocks.6.0.conv_dw",
+        "pre_ft_mAP": 0.008638534369986997,
+        "post_ft_mAP": 0.28716166018925954,
+        "frac_of_baseline": 0.892
+      },
+      {
+        "criterion": "lamp",
+        "global": true,
+        "backbone_pct": 50.17,
+        "full_pct": 43.97,
+        "min_survival": 0.3464,
+        "min_layer": "blocks.6.0.conv_dw",
+        "pre_ft_mAP": 0.0013974410726935987,
+        "post_ft_mAP": 0.25546143598919163,
+        "frac_of_baseline": 0.793
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": true,
+        "backbone_pct": 10.27,
+        "full_pct": 9.0,
+        "min_survival": 0.0833,
+        "min_layer": "blocks.1.2.conv_dw",
+        "pre_ft_mAP": 0.00026093575191268875,
+        "post_ft_mAP": 0.20426835378287356,
+        "frac_of_baseline": 0.634
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": false,
+        "backbone_pct": 10.3,
+        "full_pct": 9.17,
+        "min_survival": 0.9167,
+        "min_layer": "blocks.1.0.conv_pwl",
+        "pre_ft_mAP": 0.08200029293972425,
+        "post_ft_mAP": 0.2951815436875604,
+        "frac_of_baseline": 0.917
+      },
+      {
+        "criterion": "magnitude_l2",
+        "global": false,
+        "backbone_pct": 50.04,
+        "full_pct": 44.63,
+        "min_survival": 0.6667,
+        "min_layer": "blocks.1.0.conv_pwl",
+        "pre_ft_mAP": 0.00025447898585967616,
+        "post_ft_mAP": 0.2201120464956978,
+        "frac_of_baseline": 0.684
+      }
+    ],
+    "crossover_check": "reid's measured table warned that global+LAMP can RELOCATE starvation and lose to local ranking at high ratios. That does NOT reproduce on detection: at full -44% LAMP scores 0.2555 vs local's 0.2201. The LAMP advantage WIDENS with depth (2.5% at full -9%, 16.1% at full -44%), so LAMP is the correct recommendation across the whole measured range, not just near the top.",
+    "reading": "The recovered curve is far flatter than the pre-finetune numbers suggest: 8.8% -> 44.0% full-model reduction costs only 94.0% -> 79.3% of baseline mAP. The pre-FT metric diverges catastrophically with depth -- at full -44% it reads 0.0014 (0.4% of baseline) while the recovered model reaches 0.2555 (79.3%), a 180x discrepancy. Any Pareto or grid-truncation decision taken from pre-finetune numbers is wrong.",
+    "artifacts": "outputs/pareto_recovery/ (4 finetuned .pt + pareto_recovery_summary.json)"
+  },
+  "matched_pairs_vs_cluster": {
+    "what": "Head-to-head at near-identical full-model reduction: the cluster ran the published protocol (global ranking + magnitude_l2) for 40 epochs on full train2017 (118k); this session ran LAMP for 15 epochs on minitrain (25k).",
+    "rows": [
+      {
+        "cluster_full_reduction_pct": -9.0,
+        "ours_full_reduction_pct": -8.8,
+        "cluster_global_magnitude_40ep_train2017": 0.2629,
+        "ours_lamp_15ep_minitrain": 0.3027,
+        "relative_gain_pct": 15.1
+      },
+      {
+        "cluster_full_reduction_pct": -17.57,
+        "ours_full_reduction_pct": -17.68,
+        "cluster_global_magnitude_40ep_train2017": 0.248,
+        "ours_lamp_15ep_minitrain": 0.2967,
+        "relative_gain_pct": 19.6
+      },
+      {
+        "cluster_full_reduction_pct": -26.49,
+        "ours_full_reduction_pct": -26.56,
+        "cluster_global_magnitude_40ep_train2017": 0.2149,
+        "ours_lamp_15ep_minitrain": 0.2872,
+        "relative_gain_pct": 33.6
+      }
+    ],
+    "reading": "At matched reduction, swapping the criterion beats a 4.7x larger training set plus 2.7x more epochs -- and the margin WIDENS with depth (15% -> 20% -> 34%). Criterion choice matters more the harder you prune.",
+    "provenance": "RESOLVED 2026-08-19: source JSONs fetched, all four values verified exact."
+  },
+  "cluster_published_protocol_runs": {
+    "what": "The published protocol run as-is (global ranking + magnitude_l2, cap 0.9) with the full 40-epoch recovery on complete train2017. Fetched first-hand from the cluster run logs on 2026-08-19; mirrored locally under outputs/_attic_backbone_scope/pruning_logs/",
+    "provenance": "VERIFIED. All four values match the prior session's transcript exactly. ft_history has 40 entries, confirming the epoch budget was fully spent, and pruning_protocol confirms global_pruning=True / max_pruning_ratio=0.9.",
+    "runs": {
+      "efficientdet_lite1_10pct": {
+        "backbone_reduction_pct": 10.27,
+        "full_model_reduction_pct": 9.0,
+        "baseline_mAP": 0.3219900156122382,
+        "pre_ft_mAP": 0.0002593110168478028,
+        "post_ft_mAP": 0.2628892620855142,
+        "epochs_run": 40,
+        "protocol": {
+          "iterative_steps": 400,
+          "global_pruning": true,
+          "max_pruning_ratio": 0.9,
+          "ref": "PruningBench progressive_pruning + 10% protection (backbone-only)"
+        },
+        "subset": "train2017 (118k)",
+        "source_file": "efficientdet_lite1_coco-train2017_magnitude_l2_10pct.json"
+      },
+      "efficientdet_lite1_20pct": {
+        "backbone_reduction_pct": 20.04,
+        "full_model_reduction_pct": 17.57,
+        "baseline_mAP": 0.3219900156122382,
+        "pre_ft_mAP": 0.00029217874763280574,
+        "post_ft_mAP": 0.24801688319384896,
+        "epochs_run": 40,
+        "protocol": {
+          "iterative_steps": 400,
+          "global_pruning": true,
+          "max_pruning_ratio": 0.9,
+          "ref": "PruningBench progressive_pruning + 10% protection (backbone-only)"
+        },
+        "subset": "train2017 (118k)",
+        "source_file": "efficientdet_lite1_coco-train2017_magnitude_l2_20pct.json"
+      },
+      "efficientdet_lite1_30pct": {
+        "backbone_reduction_pct": 30.22,
+        "full_model_reduction_pct": 26.49,
+        "baseline_mAP": 0.3219900156122382,
+        "pre_ft_mAP": 0.000249101825064729,
+        "post_ft_mAP": 0.21492030431808118,
+        "epochs_run": 40,
+        "protocol": {
+          "iterative_steps": 400,
+          "global_pruning": true,
+          "max_pruning_ratio": 0.9,
+          "ref": "PruningBench progressive_pruning + 10% protection (backbone-only)"
+        },
+        "subset": "train2017 (118k)",
+        "source_file": "efficientdet_lite1_coco-train2017_magnitude_l2_30pct.json"
+      },
+      "efficientdet_lite2_10pct": {
+        "backbone_reduction_pct": 10.27,
+        "full_model_reduction_pct": 8.52,
+        "baseline_mAP": 0.3588393783076833,
+        "pre_ft_mAP": 9.240579953489609e-05,
+        "post_ft_mAP": 0.2976495169715264,
+        "epochs_run": 40,
+        "protocol": {
+          "iterative_steps": 400,
+          "global_pruning": true,
+          "max_pruning_ratio": 0.9,
+          "ref": "PruningBench progressive_pruning + 10% protection (backbone-only)"
+        },
+        "subset": "train2017 (118k)",
+        "source_file": "efficientdet_lite2_coco-train2017_magnitude_l2_10pct.json"
+      }
+    },
+    "lite2_baseline_cross_check": "cluster JSON says 0.3588; this session measured 0.3589 locally and independently. Two paths agree."
+  },
+  "K5_narrowed_ignored_layers": {
+    "question": "Does narrowing ignored_layers to only the two output convs preserve accuracy, and does it actually free up capacity?",
+    "answer": "NO BENEFIT for the recommended criterion. Closed 2026-08-19 in ~10 GPU-minutes without needing a fine-tune, because the allocation itself settles it.",
+    "output_contract": {
+      "locked": {
+        "class_net.predict.conv_pw": "88 -> 810 = 9 anchors x 90 classes",
+        "box_net.predict.conv_pw": "88 -> 36 = 9 anchors x 4 coords"
+      },
+      "free": "their INPUT width (88, shared with the BiFPN) may shrink",
+      "verified": "out=810/36 held in every narrowed run"
+    },
+    "allocation_at_full_minus_44pct": [
+      {
+        "criterion": "lamp",
+        "ignore": "narrow",
+        "backbone": 50.3,
+        "fpn": 0.0,
+        "class_net": 0.0,
+        "box_net": 0.0,
+        "shared_width": 88,
+        "note": "IDENTICAL to the current ignore list -- LAMP never uses the freedom"
+      },
+      {
+        "criterion": "magnitude_l2",
+        "ignore": "narrow",
+        "backbone": 49.3,
+        "fpn": 0.0,
+        "class_net": 23.5,
+        "box_net": 31.2,
+        "shared_width": 72,
+        "note": "heads do get cut, contract intact"
+      },
+      {
+        "criterion": "magnitude_l2",
+        "ignore": "current",
+        "backbone": 50.4,
+        "fpn": 0.0,
+        "class_net": 0.0,
+        "box_net": 0.0,
+        "shared_width": 88
+      },
+      {
+        "criterion": "magnitude_l2",
+        "ignore": "none (contract-breaking, diagnostic only)",
+        "backbone": 49.1,
+        "fpn": 0.0,
+        "class_net": 30.7,
+        "box_net": 38.1,
+        "shared_width": 72,
+        "note": "cls_out fell to 709 -- confirms why the output convs must stay frozen"
+      }
+    ],
+    "prunable_group_count": {
+      "current_ignore": 27,
+      "narrowed_ignore": 34,
+      "groups_touching_fpn": 4,
+      "note": "and the 4 that touch fpn reach BatchNorms and resample convs, not the BiFPN trunk"
+    },
+    "findings": [
+      "With LAMP the narrowed and current ignore lists produce the SAME allocation, part for part. The extra freedom is never exercised, so narrowing is a no-op for the recommended criterion.",
+      "The BiFPN convolution trunk reads 0.0% cut under EVERY configuration tested, including one where nothing but the stem was ignored. It is not ignored_layers that protects it.",
+      "Narrowing IS mechanically safe for the output contract: out=810/36 held while the shared width fell 88 -> 72 and the head internals lost 23.5%/31.2%.",
+      "CAVEAT: the audit's claimed 98.29% ceiling from narrowing was NOT reproduced here. A deep-target run to check it timed out at 3000 iterative_steps and remains unverified. Since the BiFPN trunk never moves, that ceiling would have to come from head internals plus deeper backbone cuts, not from freeing the FPN."
+    ],
+    "recommendation": "Leave ignored_layers as it is. Narrowing adds risk and code churn for zero measured gain under the criterion we recommend.",
+    "artifacts": "outputs/k5_narrow_ignore/ (script + log)"
+  }
+}

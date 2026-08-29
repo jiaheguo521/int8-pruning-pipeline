@@ -1,0 +1,619 @@
+{
+  "what": "Audit K1, the allocation control: EfficientDet-Lite1 cut to a 10% backbone target under three arms (lamp global, magnitude_l2 global, magnitude_l2 per-layer), each given the same 15-epoch recovery, with the layer the allocation squeezes hardest recorded per arm. The global arms are what finding 6 of both READMEs reports.",
+  "produced_by": "results/protocol_audit/k1_recovery.py; captured stdout in results/protocol_audit/k1_run.log",
+  "baseline_mAP": 0.322,
+  "model": "efficientdet_lite1",
+  "image_size": 384,
+  "backbone_target_pct": 10,
+  "finetune": {
+    "epochs": 15,
+    "batch_size": 8,
+    "lr": 0.0005,
+    "eval_every": 5,
+    "subset": "minitrain",
+    "deviations": [
+      "bs 16->8 (4070 OOM at 16)",
+      "lr 1e-3->5e-4 (linear scaling for bs8)",
+      "epochs 100->15 (time budget)"
+    ]
+  },
+  "arms": [
+    {
+      "importance": "lamp",
+      "global_pruning": true,
+      "steps": 28,
+      "backbone_reduction_pct": 10.04,
+      "full_model_reduction_pct": 8.8,
+      "params_full": 3874618,
+      "params_backbone": 3349820,
+      "min_survival": {
+        "layer": "blocks.5.1.conv_dw",
+        "ratio": 0.8047,
+        "from": 1152,
+        "to": 927
+      },
+      "worst5": [
+        {
+          "layer": "blocks.5.1.conv_dw",
+          "from": 1152,
+          "to": 927,
+          "ratio": 0.8047
+        },
+        {
+          "layer": "blocks.5.1.conv_pw",
+          "from": 1152,
+          "to": 927,
+          "ratio": 0.8047
+        },
+        {
+          "layer": "blocks.6.0.conv_dw",
+          "from": 1152,
+          "to": 977,
+          "ratio": 0.8481
+        },
+        {
+          "layer": "blocks.6.0.conv_pw",
+          "from": 1152,
+          "to": 977,
+          "ratio": 0.8481
+        },
+        {
+          "layer": "blocks.5.2.conv_dw",
+          "from": 1152,
+          "to": 981,
+          "ratio": 0.8516
+        }
+      ],
+      "pre_ft_mAP": 0.1091698557172642,
+      "post_ft_mAP": 0.30274980416845115,
+      "post_ft_mAP50": 0.47616712385808,
+      "best_ft_mAP": 0.30274980416845115,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.6591396069717407,
+          "max_loss": 1.2863140106201172,
+          "lr": 0.0005,
+          "duration_s": 413.7249529361725,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.631715136461258,
+          "max_loss": 1.1556121110916138,
+          "lr": 0.0004937319780454559,
+          "duration_s": 423.0004177093506,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.6150825171089173,
+          "max_loss": 1.1026897430419922,
+          "lr": 0.0004752422169756048,
+          "duration_s": 428.83975648880005,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.6086751212692261,
+          "max_loss": 1.1269370317459106,
+          "lr": 0.00044545787061700754,
+          "duration_s": 429.49262142181396,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.6020938607311249,
+          "max_loss": 1.0199942588806152,
+          "lr": 0.00040587245046468345,
+          "duration_s": 440.96010661125183,
+          "eval": {
+            "mAP": 0.3004489503855399,
+            "mAP_50": 0.47254730242474713,
+            "mAP_75": 0.3116473619514798,
+            "mAP_small": 0.10172187034191947,
+            "mAP_medium": 0.347366887209511,
+            "mAP_large": 0.4846218663377622,
+            "n_det": 481625
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.595956917066574,
+          "max_loss": 1.2277369499206543,
+          "lr": 0.0003584709347793896,
+          "duration_s": 430.53288102149963,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.5930013407278061,
+          "max_loss": 1.2492071390151978,
+          "lr": 0.00030563023348907864,
+          "duration_s": 421.1515414714813,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.5893564438056946,
+          "max_loss": 1.0569262504577637,
+          "lr": 0.00025,
+          "duration_s": 427.7996349334717,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.5847207572746277,
+          "max_loss": 1.0110516548156738,
+          "lr": 0.00019436976651092142,
+          "duration_s": 418.0128948688507,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.584282852435112,
+          "max_loss": 1.2503960132598877,
+          "lr": 0.0001415290652206105,
+          "duration_s": 414.33093190193176,
+          "eval": {
+            "mAP": 0.30229809730978224,
+            "mAP_50": 0.4749838292732304,
+            "mAP_75": 0.3146934509978372,
+            "mAP_small": 0.10165900584270719,
+            "mAP_medium": 0.35124963655821617,
+            "mAP_large": 0.4798786491017636,
+            "n_det": 492246
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.5810524639606476,
+          "max_loss": 1.0768089294433594,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 425.89155411720276,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.5799091714000701,
+          "max_loss": 1.1351139545440674,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 429.5596458911896,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.5750844211578369,
+          "max_loss": 1.138084888458252,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 429.2930624485016,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.5750108947753906,
+          "max_loss": 1.1245338916778564,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 424.87815046310425,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.5767818213081359,
+          "max_loss": 1.0418411493301392,
+          "lr": 0.0,
+          "duration_s": 411.883526802063,
+          "eval": {
+            "mAP": 0.30274980416845115,
+            "mAP_50": 0.47616712385808,
+            "mAP_75": 0.3141794974048835,
+            "mAP_small": 0.10151347897958962,
+            "mAP_medium": 0.35148245025706015,
+            "mAP_large": 0.4841469099672396,
+            "n_det": 489109
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb10pct_lamp_globalT_ft15ep.pt",
+      "wall_min": 110.8
+    },
+    {
+      "importance": "magnitude_l2",
+      "global_pruning": true,
+      "steps": 58,
+      "backbone_reduction_pct": 10.27,
+      "full_model_reduction_pct": 9.0,
+      "params_full": 3866078,
+      "params_backbone": 3341280,
+      "min_survival": {
+        "layer": "blocks.1.2.conv_dw",
+        "ratio": 0.0833,
+        "from": 144,
+        "to": 12
+      },
+      "worst5": [
+        {
+          "layer": "blocks.1.2.conv_dw",
+          "from": 144,
+          "to": 12,
+          "ratio": 0.0833
+        },
+        {
+          "layer": "blocks.1.2.conv_pw",
+          "from": 144,
+          "to": 12,
+          "ratio": 0.0833
+        },
+        {
+          "layer": "blocks.2.0.conv_dw",
+          "from": 144,
+          "to": 13,
+          "ratio": 0.0903
+        },
+        {
+          "layer": "blocks.2.0.conv_pw",
+          "from": 144,
+          "to": 13,
+          "ratio": 0.0903
+        },
+        {
+          "layer": "blocks.2.1.conv_dw",
+          "from": 240,
+          "to": 22,
+          "ratio": 0.0917
+        }
+      ],
+      "pre_ft_mAP": 0.00026093575191268875,
+      "post_ft_mAP": 0.20426835378287356,
+      "post_ft_mAP50": 0.3400583053400476,
+      "best_ft_mAP": 0.20426835378287356,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 1.9395202680587769,
+          "max_loss": 3.167994976043701,
+          "lr": 0.0005,
+          "duration_s": 313.8161590099335,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 1.1759843003463746,
+          "max_loss": 2.0858469009399414,
+          "lr": 0.0004937319780454559,
+          "duration_s": 315.6882243156433,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.9825130452346802,
+          "max_loss": 1.6700830459594727,
+          "lr": 0.0004752422169756048,
+          "duration_s": 314.2514839172363,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.932408595867157,
+          "max_loss": 1.542759656906128,
+          "lr": 0.00044545787061700754,
+          "duration_s": 317.89070773124695,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.8996051192092895,
+          "max_loss": 1.4104207754135132,
+          "lr": 0.00040587245046468345,
+          "duration_s": 315.61572551727295,
+          "eval": {
+            "mAP": 0.17982388823946352,
+            "mAP_50": 0.30058498521015115,
+            "mAP_75": 0.1837790287755831,
+            "mAP_small": 0.030757106588107576,
+            "mAP_medium": 0.17103656449029997,
+            "mAP_large": 0.3362668448315117,
+            "n_det": 496105
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.8733535812091827,
+          "max_loss": 1.5375971794128418,
+          "lr": 0.0003584709347793896,
+          "duration_s": 315.86336040496826,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.857556310710907,
+          "max_loss": 1.4992108345031738,
+          "lr": 0.00030563023348907864,
+          "duration_s": 317.86767077445984,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.8444167760849,
+          "max_loss": 1.4199554920196533,
+          "lr": 0.00025,
+          "duration_s": 317.1255145072937,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.8326077797222138,
+          "max_loss": 1.4593586921691895,
+          "lr": 0.00019436976651092142,
+          "duration_s": 317.3042685985565,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.8249168152809143,
+          "max_loss": 1.3461759090423584,
+          "lr": 0.0001415290652206105,
+          "duration_s": 316.91948318481445,
+          "eval": {
+            "mAP": 0.19935027294808272,
+            "mAP_50": 0.33436455093102074,
+            "mAP_75": 0.20093318816204872,
+            "mAP_small": 0.0413370095391158,
+            "mAP_medium": 0.19865353419308995,
+            "mAP_large": 0.3682296281720055,
+            "n_det": 498521
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.8151609946918488,
+          "max_loss": 1.3549525737762451,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 312.90690422058105,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.8117256446933746,
+          "max_loss": 1.449712872505188,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 318.33610463142395,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.8066317890453338,
+          "max_loss": 1.5072476863861084,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 317.88607835769653,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.8031609994125366,
+          "max_loss": 1.393111228942871,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 316.2516701221466,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.803852704744339,
+          "max_loss": 1.4119329452514648,
+          "lr": 0.0,
+          "duration_s": 314.06270813941956,
+          "eval": {
+            "mAP": 0.20426835378287356,
+            "mAP_50": 0.3400583053400476,
+            "mAP_75": 0.20740931040132865,
+            "mAP_small": 0.04275067766690608,
+            "mAP_medium": 0.202215373234724,
+            "mAP_large": 0.3760454436087561,
+            "n_det": 496889
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb10pct_magnitude_l2_globalT_ft15ep.pt",
+      "wall_min": 83.9
+    },
+    {
+      "importance": "magnitude_l2",
+      "global_pruning": false,
+      "steps": 21,
+      "backbone_reduction_pct": 10.3,
+      "full_model_reduction_pct": 9.17,
+      "params_full": 3858808,
+      "params_backbone": 3339818,
+      "min_survival": {
+        "layer": "blocks.1.0.conv_pwl",
+        "ratio": 0.9167,
+        "from": 24,
+        "to": 22
+      },
+      "worst5": [
+        {
+          "layer": "blocks.1.0.conv_pwl",
+          "from": 24,
+          "to": 22,
+          "ratio": 0.9167
+        },
+        {
+          "layer": "blocks.1.1.conv_pwl",
+          "from": 24,
+          "to": 22,
+          "ratio": 0.9167
+        },
+        {
+          "layer": "blocks.1.2.conv_pwl",
+          "from": 24,
+          "to": 22,
+          "ratio": 0.9167
+        },
+        {
+          "layer": "blocks.2.0.conv_pwl",
+          "from": 40,
+          "to": 37,
+          "ratio": 0.925
+        },
+        {
+          "layer": "blocks.2.1.conv_pwl",
+          "from": 40,
+          "to": 37,
+          "ratio": 0.925
+        }
+      ],
+      "pre_ft_mAP": 0.08200029293972425,
+      "post_ft_mAP": 0.2951815436875604,
+      "post_ft_mAP50": 0.4673618595124125,
+      "best_ft_mAP": 0.2951815436875604,
+      "ft_history": [
+        {
+          "epoch": 1,
+          "train_loss": 0.7138284662342071,
+          "max_loss": 1.4355281591415405,
+          "lr": 0.0005,
+          "duration_s": 420.40773487091064,
+          "eval": null
+        },
+        {
+          "epoch": 2,
+          "train_loss": 0.6647952819538117,
+          "max_loss": 1.2232633829116821,
+          "lr": 0.0004937319780454559,
+          "duration_s": 425.85061502456665,
+          "eval": null
+        },
+        {
+          "epoch": 3,
+          "train_loss": 0.6398965462875367,
+          "max_loss": 1.1694769859313965,
+          "lr": 0.0004752422169756048,
+          "duration_s": 424.328337430954,
+          "eval": null
+        },
+        {
+          "epoch": 4,
+          "train_loss": 0.6307052005672454,
+          "max_loss": 1.1475194692611694,
+          "lr": 0.00044545787061700754,
+          "duration_s": 424.99291706085205,
+          "eval": null
+        },
+        {
+          "epoch": 5,
+          "train_loss": 0.6220968395519256,
+          "max_loss": 1.0564113855361938,
+          "lr": 0.00040587245046468345,
+          "duration_s": 425.0846028327942,
+          "eval": {
+            "mAP": 0.2921453609429999,
+            "mAP_50": 0.4616758196827846,
+            "mAP_75": 0.30239554943598895,
+            "mAP_small": 0.1073658758383154,
+            "mAP_medium": 0.3378999187706696,
+            "mAP_large": 0.46893086685440444,
+            "n_det": 475821
+          }
+        },
+        {
+          "epoch": 6,
+          "train_loss": 0.6147559841537475,
+          "max_loss": 1.1836612224578857,
+          "lr": 0.0003584709347793896,
+          "duration_s": 422.22119212150574,
+          "eval": null
+        },
+        {
+          "epoch": 7,
+          "train_loss": 0.6104362002754211,
+          "max_loss": 1.17256760597229,
+          "lr": 0.00030563023348907864,
+          "duration_s": 422.85555839538574,
+          "eval": null
+        },
+        {
+          "epoch": 8,
+          "train_loss": 0.6068620060062409,
+          "max_loss": 1.1070642471313477,
+          "lr": 0.00025,
+          "duration_s": 424.7404661178589,
+          "eval": null
+        },
+        {
+          "epoch": 9,
+          "train_loss": 0.600682066707611,
+          "max_loss": 1.0401129722595215,
+          "lr": 0.00019436976651092142,
+          "duration_s": 425.56527280807495,
+          "eval": null
+        },
+        {
+          "epoch": 10,
+          "train_loss": 0.6009699656486511,
+          "max_loss": 1.2295933961868286,
+          "lr": 0.0001415290652206105,
+          "duration_s": 424.01695799827576,
+          "eval": {
+            "mAP": 0.29386800436865823,
+            "mAP_50": 0.4651843827164532,
+            "mAP_75": 0.30170454515387085,
+            "mAP_small": 0.10623217641369777,
+            "mAP_medium": 0.336047604610865,
+            "mAP_large": 0.47062190576205226,
+            "n_det": 492448
+          }
+        },
+        {
+          "epoch": 11,
+          "train_loss": 0.5963312982368469,
+          "max_loss": 1.1056106090545654,
+          "lr": 9.412754953531664e-05,
+          "duration_s": 420.3656876087189,
+          "eval": null
+        },
+        {
+          "epoch": 12,
+          "train_loss": 0.5961289957237244,
+          "max_loss": 1.1510493755340576,
+          "lr": 5.454212938299264e-05,
+          "duration_s": 426.9626667499542,
+          "eval": null
+        },
+        {
+          "epoch": 13,
+          "train_loss": 0.5915398464488983,
+          "max_loss": 1.1144120693206787,
+          "lr": 2.4757783024395246e-05,
+          "duration_s": 425.63557624816895,
+          "eval": null
+        },
+        {
+          "epoch": 14,
+          "train_loss": 0.5903359886264801,
+          "max_loss": 1.143723487854004,
+          "lr": 6.2680219545440685e-06,
+          "duration_s": 423.4658889770508,
+          "eval": null
+        },
+        {
+          "epoch": 15,
+          "train_loss": 0.5929469480323791,
+          "max_loss": 1.0627490282058716,
+          "lr": 0.0,
+          "duration_s": 423.8928220272064,
+          "eval": {
+            "mAP": 0.2951815436875604,
+            "mAP_50": 0.4673618595124125,
+            "mAP_75": 0.3044872781535576,
+            "mAP_small": 0.10024689964659567,
+            "mAP_medium": 0.3375109591132657,
+            "mAP_large": 0.4745022473330823,
+            "n_det": 492705
+          }
+        }
+      ],
+      "artifact": "efficientdet_lite1_bb10pct_magnitude_l2_globalF_ft15ep.pt",
+      "wall_min": 111.3
+    }
+  ]
+}

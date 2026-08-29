@@ -1,0 +1,996 @@
+{
+ "produced_by": "results/protocol_audit/edgetpu_census.py",
+ "what": "How many models and compiled artifacts this repository has timed on a Coral USB Accelerator. Backs the Edge TPU half of the scale sentence on the first screen of both READMEs.",
+ "convention": "A timed artifact is one (model, export path) pair carrying a measured Coral latency in a committed file under results/. Re-measuring the same artifact on a later date counts once. A model converted through both export paths is two artifacts: two compiles, two bench sessions. The synthetic I/O controls are counted apart from the models.",
+ "counted_over": [
+  "results/clip_rn50/coral_latency.json",
+  "results/detection/coral_latency.json",
+  "results/detection/full_mapping_ladder_lite1.json",
+  "results/detection/full_mapping_ladder_lite2.json",
+  "results/detection/io_floor_control.json",
+  "results/line_seg/param_ladder_oncar.json",
+  "results/line_seg/w96_deep_rungs.json",
+  "results/reid/coral_latency.json"
+ ],
+ "note": "Every source is tracked in git, so this recounts on a clean clone. Export path is taken from each file's own metadata, never inferred from a date; the attribution is commented per source in the script.",
+ "artifacts_timed": 131,
+ "models_timed": 89,
+ "io_controls_timed": 3,
+ "by_export_path": {
+  "litert-torch + ai-edge-quantizer": 80,
+  "onnx2tf": 51
+ },
+ "by_family": [
+  {
+   "family": "clip_rn50",
+   "models": 2,
+   "artifacts": 4,
+   "export_paths": [
+    "litert-torch + ai-edge-quantizer",
+    "onnx2tf"
+   ]
+  },
+  {
+   "family": "effdet",
+   "models": 38,
+   "artifacts": 38,
+   "export_paths": [
+    "litert-torch + ai-edge-quantizer"
+   ]
+  },
+  {
+   "family": "effdet + ssdlite (retired path)",
+   "models": 6,
+   "artifacts": 7,
+   "export_paths": [
+    "litert-torch + ai-edge-quantizer",
+    "onnx2tf"
+   ]
+  },
+  {
+   "family": "io control",
+   "models": 3,
+   "artifacts": 3,
+   "export_paths": [
+    "litert-torch + ai-edge-quantizer"
+   ]
+  },
+  {
+   "family": "line_seg",
+   "models": 34,
+   "artifacts": 64,
+   "export_paths": [
+    "litert-torch + ai-edge-quantizer",
+    "onnx2tf"
+   ]
+  },
+  {
+   "family": "reid",
+   "models": 9,
+   "artifacts": 15,
+   "export_paths": [
+    "litert-torch + ai-edge-quantizer",
+    "onnx2tf"
+   ]
+  }
+ ],
+ "entries": [
+  {
+   "model": "clip_rn50_magnitude_l2 -30% params, local scope",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "clip_rn50",
+   "control": false,
+   "source": "results/clip_rn50/coral_latency.json#rows"
+  },
+  {
+   "model": "clip_rn50_magnitude_l2 -30% params, local scope",
+   "export_path": "onnx2tf",
+   "family": "clip_rn50",
+   "control": false,
+   "source": "results/clip_rn50/coral_latency.json#rows"
+  },
+  {
+   "model": "clip_rn50_unpruned",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "clip_rn50",
+   "control": false,
+   "source": "results/clip_rn50/coral_latency.json#rows"
+  },
+  {
+   "model": "clip_rn50_unpruned",
+   "export_path": "onnx2tf",
+   "family": "clip_rn50",
+   "control": false,
+   "source": "results/clip_rn50/coral_latency.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_dense_0",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_10",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_20",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_30",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_40",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_50",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_60",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_70",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_80",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_lamp_90",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_10",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_20",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_30",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_40",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_50",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_60",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_70",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_80",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_magnitude_l2_90",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite1.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_dense_0",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_10",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_20",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_30",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_40",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_50",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_60",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_70",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_80",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_lamp_90",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_10",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_20",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_30",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_40",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_50",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_60",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_70",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_80",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite2_magnitude_l2_90",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet",
+   "control": false,
+   "source": "results/detection/full_mapping_ladder_lite2.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_coco-minitrain_pruned0pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_coco-minitrain_pruned30pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#rows"
+  },
+  {
+   "model": "efficientdet_lite1_coco-minitrain_pruned50pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#rows"
+  },
+  {
+   "model": "ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#ssdlite_litert_migration"
+  },
+  {
+   "model": "ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#rows"
+  },
+  {
+   "model": "ssdlite_mobilenetv3_coco-val2017_pruned30pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#rows"
+  },
+  {
+   "model": "ssdlite_mobilenetv3_coco-val2017_pruned50pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "effdet + ssdlite (retired path)",
+   "control": false,
+   "source": "results/detection/coral_latency.json#rows"
+  },
+  {
+   "model": "io_floor_control_fat",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "io control",
+   "control": true,
+   "source": "results/detection/io_floor_control.json#models"
+  },
+  {
+   "model": "io_floor_control_fatconv",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "io control",
+   "control": true,
+   "source": "results/detection/io_floor_control.json#models"
+  },
+  {
+   "model": "io_floor_control_feat",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "io control",
+   "control": true,
+   "source": "results/detection/io_floor_control.json#models"
+  },
+  {
+   "model": "line_seg_base128_pruned0pct",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned0pct",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned10pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned10pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned20pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned20pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned30pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned30pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned40pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned40pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned50pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned50pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned60pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned60pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned70pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned70pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned80pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned80pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned90pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_base128_pruned90pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned0pct",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned0pct",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned10pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned10pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned20pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned20pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned30pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned30pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned40pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned40pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned50pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned50pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned60pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned60pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned70pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned70pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned80pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned80pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned90pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_link_r34_pruned90pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned0pct",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned0pct",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned10pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned10pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned20pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned20pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned30pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned30pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned40pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned40pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned50pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned50pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned60pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned60pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned70pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned70pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned80pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned80pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned90pct_magnitude_l2_param",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned90pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/param_ladder_oncar.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned92pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/w96_deep_rungs.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned95pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/w96_deep_rungs.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned97pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/w96_deep_rungs.json#rows"
+  },
+  {
+   "model": "line_seg_w96_pruned99pct_magnitude_l2_param",
+   "export_path": "onnx2tf",
+   "family": "line_seg",
+   "control": false,
+   "source": "results/line_seg/w96_deep_rungs.json#rows"
+  },
+  {
+   "model": "reid_mobilenetv2_x1_0",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#backbones"
+  },
+  {
+   "model": "reid_osnet_x0_5",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#backbones"
+  },
+  {
+   "model": "reid_osnet_x0_75",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#backbones"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned0pct",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned0pct",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned20pct_magnitude_l2",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned20pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned50pct_magnitude_l2",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned50pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned70pct_magnitude_l2",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned70pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned80pct_magnitude_l2",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned80pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned90pct_magnitude_l2",
+   "export_path": "litert-torch + ai-edge-quantizer",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  },
+  {
+   "model": "reid_youtu_lite_market1501_pruned90pct_magnitude_l2",
+   "export_path": "onnx2tf",
+   "family": "reid",
+   "control": false,
+   "source": "results/reid/coral_latency.json#pruning_ladder"
+  }
+ ]
+}

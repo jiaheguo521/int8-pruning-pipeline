@@ -1,0 +1,32 @@
+family: ssdlite
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: labelled          # the detector's own loss, COCO
+  prune_modes: [independent]
+  worker: families/detection/ssdlite/prune.py
+  part: B
+  models:
+  - ssdlite_mobilenetv3
+  datasets:
+  - coco
+  image_size: 320
+  num_classes: 91
+  baseline: ssdlite_mobilenetv3
+convert:
+- name: ssdlite_mobilenetv3_coco
+  filename_pattern: ^ssdlite_mobilenetv3(?:_coco-[a-z0-9_]+)?_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 320
+  input_channels: 3
+  mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  std:
+  - 0.5
+  - 0.5
+  - 0.5
+  dataset_subdir: coco
+  calib_loader: _calib_coco_val2017
+  detection: true

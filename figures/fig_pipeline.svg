@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1115 300" width="1115" height="300"
+ font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+ role="img" aria-labelledby="t d">
+<title id="t">结构化剪枝 → 恢复 → 导出：int8 TFLite 与 FP32 ONNX 两个出口，再编译成 Edge TPU 产物</title>
+<desc id="d">FP32 的 PyTorch 模型先用 torch_pruning 做结构化剪枝，再恢复：或用任务自己的标签做微调，或向剪枝前冻结的自身副本蒸馏，也就是说教师就是未剪枝的原模型本身。开了 PRUNE_MODE=iterative 时，恢复后的模型会回流进下一轮剪枝。恢复后的模型有三个导出出口：litert-torch 配 ai-edge-quantizer（推荐）和 torch.onnx.export 配 onnx2tf 都产出 int8 TFLite 模型，再由 edgetpu_compiler 编译成 Edge TPU 产物；torch.onnx.export 单独一条产出 FP32 ONNX 模型，不量化。</desc>
+<defs><style>
+ .h{font-size:12px;font-weight:600;fill:#1f2328}
+ .s{font-size:10.5px;fill:#57606a}
+ .st{font-size:11px;font-weight:600;fill:#57606a}
+ .box{fill:#ffffff;stroke:#7f93a8;stroke-width:1.4;rx:6}
+ .io{fill:#f6f8fa;stroke:#adb8c3;stroke-width:1.4;stroke-dasharray:4 3;rx:6}
+ .e{stroke:#7f93a8;stroke-width:1.6;fill:none}
+ .fb{stroke:#adb8c3;stroke-width:1.3;stroke-dasharray:5 4;fill:none}
+ @media (prefers-color-scheme:dark){
+  .h{fill:#e6edf3} .s,.st{fill:#9198a1}
+  .box{fill:#0d1117;stroke:#8b949e} .io{fill:#161b22;stroke:#6e7681}
+  .fb{stroke:#6e7681}
+  .e{stroke:#8b949e}
+ }
+</style>
+<marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+ <path d="M0,0 L10,5 L0,10 z" fill="#7f93a8"/></marker>
+<marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+ <path d="M0,0 L10,5 L0,10 z" fill="#adb8c3"/></marker>
+</defs>
+
+<text class="st" x="258"  y="20" text-anchor="middle">结构化剪枝</text>
+<text class="st" x="450"  y="20" text-anchor="middle">恢复</text>
+<text class="st" x="672"  y="20" text-anchor="middle">导出（量化）</text>
+<text class="st" x="1038" y="20" text-anchor="middle">Edge TPU 编译</text>
+
+<rect class="io" x="10" y="74" width="156" height="52"/>
+<text class="h" x="88" y="105" text-anchor="middle">PyTorch 模型（FP32）</text>
+<path class="e" d="M166,100 L192,100" marker-end="url(#a)"/>
+
+<rect class="box" x="198" y="74" width="120" height="52"/>
+<text class="h" x="258" y="105" text-anchor="middle">torch_pruning</text>
+
+<path class="e" d="M318,100 L344,100"/>
+<path class="e" d="M344,100 L344,64 L358,64" marker-end="url(#a)"/>
+<path class="e" d="M344,100 L344,136 L358,136" marker-end="url(#a)"/>
+<rect class="box" x="358" y="33" width="185" height="62"/>
+<text class="h" x="450" y="60" text-anchor="middle">有标签微调</text>
+<text class="s" x="450" y="77" text-anchor="middle">用数据集自己的标签</text>
+<rect class="box" x="358" y="105" width="185" height="62"/>
+<text class="h" x="450" y="124" text-anchor="middle">蒸馏</text>
+<text class="s" x="450" y="141" text-anchor="middle">教师 = 未剪枝的原始 FP32 模型</text>
+<text class="s" x="450" y="158" text-anchor="middle">（全程冻结，不随档位更新）</text>
+<path class="e" d="M543,64 L557,64 L557,100"/>
+<path class="e" d="M543,136 L557,136 L557,100"/>
+
+<path class="fb" d="M570,100 L570,272 L258,272 L258,126" marker-end="url(#b)"/>
+<text class="s" x="414" y="288" text-anchor="middle">可选：PRUNE_MODE=iterative</text>
+
+<path class="e" d="M557,100 L583,100"/>
+<path class="e" d="M583,100 L583,64 L597,64" marker-end="url(#a)"/>
+<path class="e" d="M583,100 L583,136 L597,136" marker-end="url(#a)"/>
+<rect class="box" x="597" y="33" width="150" height="62"/>
+<text class="h" x="672" y="52" text-anchor="middle">litert-torch、</text>
+<text class="h" x="672" y="69" text-anchor="middle">ai-edge-quantizer</text>
+<text class="s" x="672" y="86" text-anchor="middle">int8，推荐</text>
+<rect class="box" x="597" y="105" width="150" height="62"/>
+<text class="h" x="672" y="124" text-anchor="middle">torch.onnx.export、</text>
+<text class="h" x="672" y="141" text-anchor="middle">onnx2tf</text>
+<text class="s" x="672" y="158" text-anchor="middle">int8</text>
+<path class="e" d="M747,64 L761,64 L761,100"/>
+<path class="e" d="M747,136 L761,136 L761,100"/>
+<path class="e" d="M761,100 L787,100" marker-end="url(#a)"/>
+
+<path class="e" d="M583,100 L583,208 L597,208" marker-end="url(#a)"/>
+<rect class="box" x="597" y="177" width="150" height="62"/>
+<text class="h" x="672" y="204" text-anchor="middle">torch.onnx.export</text>
+<text class="s" x="672" y="221" text-anchor="middle">fp32，不量化</text>
+<path class="e" d="M747,208 L787,208" marker-end="url(#a)"/>
+<rect class="io" x="793" y="182" width="140" height="52"/>
+<text class="h" x="863" y="213" text-anchor="middle">ONNX 模型（FP32）</text>
+
+<rect class="io" x="793" y="74" width="140" height="52"/>
+<text class="h" x="863" y="105" text-anchor="middle">TFLite 模型（INT8）</text>
+<path class="e" d="M933,100 L965,100" marker-end="url(#a)"/>
+
+<rect class="box" x="971" y="74" width="134" height="52"/>
+<text class="h" x="1038" y="105" text-anchor="middle">edgetpu_compiler</text>
+</svg>

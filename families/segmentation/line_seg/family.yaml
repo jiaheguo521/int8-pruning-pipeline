@@ -1,0 +1,81 @@
+family: line_seg
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: labelled          # dice + BCE (pos_weight=12) on the lane masks
+  prune_modes: [independent]
+  worker: families/segmentation/line_seg/prune.py
+  part: A
+  models:
+  - line_seg_base128
+  - line_seg_w96
+  - line_seg_link_r34
+  datasets:
+  - line_seg
+  note: 'line_seg-only: recovery FT uses the upstream self-collected set'
+deliver:
+  dir: line_seg_pruning
+  stem_glob: line_seg_*
+  reference_module: families/segmentation/line_seg/lane_seg_models.py
+  eval_dir: outputs/line_seg_eval_param
+  reference_json:
+  - results_w96_param.json
+  - results_base128_param.json
+  - results_link_r34_param.json
+  - results_w96_deep.json
+  ship_edgetpu: true
+  edgetpu_note: 'These files are each the output of compiling ONE model on its own. That is valid only if the model runs on the Edge TPU alone. Next to a second model the two evict each other from the 8 MiB on-chip parameter cache and every latency number here becomes meaningless. The cost is measured, not theoretical: one detector and one segmenter compiled separately run 100.10 ms per cycle, and 81.86 ms when the same two are compiled in a single edgetpu_compiler invocation - 1.22x for no code, model or postprocess change. Pruned pairs reach 54.66 ms. Ready-made pairs are in the effdet_lite1_lineseg_w96_cocompile package; to build your own, pass both models to one call: edgetpu_compiler -s A_int8.tflite B_int8.tflite. A pair is only valid as a pair - mixing one file from here with one from a different compile run puts you back in the eviction regime.'
+  compiler_stdout_grep: line_seg_
+convert:
+- name: line_seg_base128
+  filename_pattern: ^line_seg_base128(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 128
+  input_channels: 3
+  mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  std:
+  - 0.5
+  - 0.5
+  - 0.5
+  dataset_subdir: line_seg/line_seg_base128
+  calib_loader: _calib_line_seg
+  # onnx2tf path only (the litert path builds no ONNX graph): match the opset
+  # the upstream repo's own torch->onnx->onnx2tf->edgetpu chain was gated at.
+  onnx_opset: 13
+- name: line_seg_w96
+  filename_pattern: ^line_seg_w96(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 192
+  input_channels: 3
+  mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  std:
+  - 0.5
+  - 0.5
+  - 0.5
+  dataset_subdir: line_seg/line_seg_w96
+  calib_loader: _calib_line_seg
+  # onnx2tf path only (the litert path builds no ONNX graph): match the opset
+  # the upstream repo's own torch->onnx->onnx2tf->edgetpu chain was gated at.
+  onnx_opset: 13
+- name: line_seg_link_r34
+  filename_pattern: ^line_seg_link_r34(?:_pruned\d+pct(?:_\w+)?)?\.pt$
+  input_size: 192
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: line_seg/line_seg_link_r34
+  calib_loader: _calib_line_seg
+  # onnx2tf path only (the litert path builds no ONNX graph): match the opset
+  # the upstream repo's own torch->onnx->onnx2tf->edgetpu chain was gated at.
+  onnx_opset: 13

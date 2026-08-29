@@ -1,0 +1,149 @@
+{
+  "measured_on": "onnx2tf (retired 2026-08-22)",
+  "measured_on_note": "Built with torch.onnx.export -> onnx2tf, the export path this repo retired on 2026-08-22 in favour of litert-torch + ai-edge-quantizer (see docs/PRUNING_HAZARDS.md section 4). The FP32 pruning-stage numbers are unaffected by that switch; the int8 figures here have NOT been re-measured on the current path. These are the partially-mapped detection builds (83/479 operators on the TPU); results/detection/full_mapping_ladder_lite1.json is the current source for efficientdet_lite1.",
+  "measured": "2026-08-20",
+  "device": "Coral USB Edge TPU",
+  "protocol": "100 invokes, random input, tflite_runtime in edgetpu_ros image; two independent passes",
+  "compile": "edgetpu_compiler 16.0.384591198, run 20260619_153807 for efficientdet_lite1 and 20260622_162456 for ssdlite. Operator counts below are that compile's. An earlier compile of lite1 (20260619_145918, recorded in results/detection/pruning_matrix.json/edgetpu_compiler_lite1) partitioned 83/396 instead of 90/389. That is NOT compiler nondeterminism: the tflite was re-converted in between (outputs/pruning_logs/convert_20260619_151449.log, 15:14:49, whose [done] line reports 4.44 MiB for pruned0pct), and the two compile logs record 4.45 MiB and 4.44 MiB for the same path. Two different inputs. The rows here are the compile that was actually benchmarked.",
+  "export_path": "onnx2tf -> per-tensor int8 -> edgetpu_compiler 16.0. RETIRED repo-wide on 2026-08-22. efficientdet_lite1 is superseded by results/detection/full_mapping_ladder_lite1.json. The ssdlite rows are the only committed Coral latency for that family and stay here, but the pruned0pct rung HAS been re-measured on the current path -- see ssdlite_litert_migration in this file. The 30% and 50% checkpoints no longer exist locally, so those two rows have no litert counterpart.",
+  "superseded_for": "efficientdet_lite1 -- see results/detection/full_mapping_ladder_lite1.json. Keep this file: it is the only committed source of measured Coral latency for ssdlite, and the only record of what the partially-mapped detection builds cost.",
+  "host_note": "The bench host was not recorded and could not be recovered from the logs. 389 of 479 operators in the lite1 rows ran on the host CPU, so those latencies are host-dependent. The 2026-08-22 ladder was measured on an AMD Ryzen 7 8845H / 16 threads.",
+  "scope_note": "These rungs are BACKBONE-scope (pre-2026-08-19 semantics). backbone -50% == full-model -43.9% for lite1.",
+  "closes": "K3 — the repo had no measured Coral latency for any detection model until now.",
+  "finding": "The streaming-elimination mechanism has no room to operate on this family. efficientdet_lite1 reports 0.00 B off-chip at every rung including 0%, and ssdlite is within 50 KiB of it (0.00 B at 0%, 49.62 KiB at 30%, 49.12 KiB at 50%), so there is essentially no weight streaming to remove. THAT conclusion stands. Two things stated alongside it do not. (1) The 389-of-479 CPU fallback was an artifact of the onnx2tf export, not of the architecture: re-exported through litert-torch + ai-edge-quantizer the same checkpoints map 305/305 with 0 CPU operators at every rung (results/detection/full_mapping_ladder_lite1.json). (2) '1.35x for a 50% backbone cut' is the return of that partially mapped build and must not be quoted as this family's pruning return; on the fully mapped ladder a -50.2% FULL-model cut buys 1.20x (52.404 -> 43.624 ms) and the deepest rung (-88.7%) buys 1.29x. Nor is it the same law as the line-seg one: with the starting distance at zero the off-chip law predicts a 0 ms gain, yet 1.29x is measured. What governs here is a fixed I/O floor of 34.95 ms -- 67% of the unpruned 52.404 ms, from 0.42 MiB in and 2.48 MiB out per inference at ~81 MB/s on the return path -- plus a term linear in tile-padded MACs. Which relation binds depends on whether weights stream at all.",
+  "speedup": {
+    "efficientdet_lite1_backbone_50pct": 1.35,
+    "ssdlite_mobilenetv3_backbone_50pct": 1.304
+  },
+  "rows": [
+    {
+      "stem": "efficientdet_lite1_coco-minitrain_pruned0pct_magnitude_l2",
+      "tpu_ms_run1": 33.56,
+      "tpu_ms_run2": 33.295,
+      "tpu_ms_mean": 33.428,
+      "onchip": "4.62MiB",
+      "offchip": "0.00B",
+      "tpu_ops": 90,
+      "cpu_ops": 389,
+      "log": "compile_edgetpu_20260619_153807.log"
+    },
+    {
+      "stem": "efficientdet_lite1_coco-minitrain_pruned30pct_magnitude_l2",
+      "tpu_ms_run1": 26.415,
+      "tpu_ms_run2": 25.505,
+      "tpu_ms_mean": 25.96,
+      "onchip": "3.28MiB",
+      "offchip": "0.00B",
+      "tpu_ops": 90,
+      "cpu_ops": 388,
+      "log": "compile_edgetpu_20260619_153807.log"
+    },
+    {
+      "stem": "efficientdet_lite1_coco-minitrain_pruned50pct_magnitude_l2",
+      "tpu_ms_run1": 24.984,
+      "tpu_ms_run2": 24.549,
+      "tpu_ms_mean": 24.767,
+      "onchip": "2.43MiB",
+      "offchip": "0.00B",
+      "tpu_ops": 90,
+      "cpu_ops": 387,
+      "log": "compile_edgetpu_20260619_153807.log"
+    },
+    {
+      "stem": "ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2",
+      "tpu_ms_run1": 18.204,
+      "tpu_ms_run2": 17.98,
+      "tpu_ms_mean": 18.092,
+      "onchip": "4.06MiB",
+      "offchip": "0.00B",
+      "tpu_ops": 239,
+      "cpu_ops": 0,
+      "log": "compile_edgetpu_20260622_162456.log",
+      "note": "operator split not captured for this compile; no committed record of tpu/cpu op counts for ssdlite.",
+      "tpu_subgraphs": 1,
+      "mapping_source": "outputs/edgetpu/single_20260619_145922/ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2_int8_edgetpu.log -- 239 operators all 'Mapped to Edge TPU' and no CPU-fallback block printed, which is how edgetpu_compiler 16.0 reports a full map. Independently reproduced on a litert rebuild (also 239/239, 2026-08-22). Recorded per-rung because the compile logs cover the 0% rung and the mapping does not change with the backbone cut."
+    },
+    {
+      "stem": "ssdlite_mobilenetv3_coco-val2017_pruned30pct_magnitude_l2",
+      "tpu_ms_run1": 16.861,
+      "tpu_ms_run2": 16.779,
+      "tpu_ms_mean": 16.82,
+      "onchip": "3.47MiB",
+      "offchip": "49.62KiB",
+      "tpu_ops": 239,
+      "cpu_ops": 0,
+      "log": "compile_edgetpu_20260622_162456.log",
+      "note": "operator split not captured for this compile; no committed record of tpu/cpu op counts for ssdlite.",
+      "tpu_subgraphs": 1,
+      "mapping_source": "outputs/edgetpu/single_20260619_145922/ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2_int8_edgetpu.log -- 239 operators all 'Mapped to Edge TPU' and no CPU-fallback block printed, which is how edgetpu_compiler 16.0 reports a full map. Independently reproduced on a litert rebuild (also 239/239, 2026-08-22). Recorded per-rung because the compile logs cover the 0% rung and the mapping does not change with the backbone cut.",
+      "source_present": false,
+      "unreproducible": "The .pt this rung was built from is gone. outputs/pytorch_pruned/ holds only ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2.pt, and there is no ssdlite artifact of any kind on the cluster (verified 2026-08-22: find outputs -iname '*ssdlite*' returns 0). These two rows cannot be re-derived on ANY export path, now or later. They stand as the measurement that was made."
+    },
+    {
+      "stem": "ssdlite_mobilenetv3_coco-val2017_pruned50pct_magnitude_l2",
+      "tpu_ms_run1": 14.034,
+      "tpu_ms_run2": 13.712,
+      "tpu_ms_mean": 13.873,
+      "onchip": "3.02MiB",
+      "offchip": "49.12KiB",
+      "tpu_ops": 239,
+      "cpu_ops": 0,
+      "log": "compile_edgetpu_20260622_162456.log",
+      "note": "operator split not captured for this compile; no committed record of tpu/cpu op counts for ssdlite.",
+      "tpu_subgraphs": 1,
+      "mapping_source": "outputs/edgetpu/single_20260619_145922/ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2_int8_edgetpu.log -- 239 operators all 'Mapped to Edge TPU' and no CPU-fallback block printed, which is how edgetpu_compiler 16.0 reports a full map. Independently reproduced on a litert rebuild (also 239/239, 2026-08-22). Recorded per-rung because the compile logs cover the 0% rung and the mapping does not change with the backbone cut.",
+      "source_present": false,
+      "unreproducible": "The .pt this rung was built from is gone. outputs/pytorch_pruned/ holds only ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2.pt, and there is no ssdlite artifact of any kind on the cluster (verified 2026-08-22: find outputs -iname '*ssdlite*' returns 0). These two rows cannot be re-derived on ANY export path, now or later. They stand as the measurement that was made."
+    }
+  ],
+  "ssdlite_scope": "This family is a second-architecture control for the byte-budget claim, not a pruning study. All three rungs were fine-tuned on coco-val2017 -- the split scripts/pruning.sh:42 itself labels \"smoke-test, leaky\", because the fine-tune set is the eval set -- so this family contributes NO accuracy evidence and no mAP for it is committed anywhere. What it does contribute is latency and byte budget, which leakage does not affect, and which is what lets the 'detection has no weight streaming to remove' finding rest on two architectures instead of one. The 30% and 50% checkpoints no longer exist; see the per-row note.",
+  "ssdlite_litert_migration": {
+    "date": "2026-08-22",
+    "stem": "ssdlite_mobilenetv3_coco-val2017_pruned0pct_magnitude_l2",
+    "what": "The one rung still on disk, re-converted through litert-torch + ai-edge-quantizer, re-compiled and re-benched on the same Coral. The 30% and 50% rungs in the rows above no longer exist locally and were not re-run.",
+    "result": {
+      "onnx2tf": "239 operations, 0 on CPU, 4.06 MiB on-chip, 0 B off-chip, 18.092 ms",
+      "litert": "275 operations, 0 on CPU, 4.25 MiB on-chip, 0 B off-chip, 20.106 ms (std 0.354, n=100)",
+      "reading": "Both paths map the whole network. litert-torch lowers it into 36 more operators and is 2.014 ms / 11.1% slower. This is the only family in the repo where the migration costs measured latency. Nothing runs on the CPU on either path, and neither build streams a byte, so the comparison is clean: no host in it, and the off-chip term -- the only term finding 1 shows to transfer between families -- is zero on both."
+    },
+    "two_model_side_rewrites_were_needed": {
+      "hardswish_upper_clamp": "ai-edge-quantizer leaves MINIMUM in float, so each of mobilenetv3-large's 20 hardswish sites came out as DEQUANTIZE -> MINIMUM -> QUANTIZE and cut the subgraph: 4 of 305 operators mapped. Spelling min(t,3) as t - relu(t-3) keeps it int8 (RELU folds into the preceding op, SUB maps). families/detection/ssdlite/export.py. Verified against nn.Hardswish over [-8,8]: max abs diff 4.8e-07.",
+      "squeeze_excitation_pool": "litert-torch's channel-last propagation stops at nn.AdaptiveAvgPool2d, so all five SE blocks came out wrapped in NHWC->NCHW->NHWC transpose pairs that edgetpu_compiler declines: 161 of 285 operators on the CPU. Replacing the pool with x.mean(dim=(2,3), keepdim=True) stays channel-last. etpu.convert.tflite._patch_squeeze_excitation_pool. Bit-exact: max abs diff 0.0.",
+      "both_are_export_time_only": "Neither touches a checkpoint. The pruning worker still saves stock torchvision modules."
+    },
+    "accuracy": "NOT measured on either path. This family's three rungs were fine-tuned on coco-val2017, the split scripts/pruning.sh labels 'smoke-test, leaky', so no mAP for it is committed.",
+    "where_the_36_operators_come_from": {
+      "method": "Operator histograms of the two int8 flatbuffers, read directly from the schema (outputs/tflite_int8/ vs outputs/tflite_int8_litert/, same stem).",
+      "table": {
+        "MINIMUM": "20 -> 0   (-20)",
+        "SUB": "0 -> 40   (+40)",
+        "MEAN": "8 -> 0    (-8)",
+        "SUM": "0 -> 8    (+8)",
+        "RESHAPE": "0 -> 8    (+8)",
+        "MUL": "76 -> 84  (+8)",
+        "CONV_2D": "67 -> 67  (unchanged)",
+        "DEPTHWISE_CONV_2D": "31 -> 31  (unchanged)",
+        "ADD": "30 -> 30  (unchanged)",
+        "PAD": "7 -> 7    (unchanged)",
+        "TOTAL": "239 -> 275 (+36)"
+      },
+      "attribution": "Every one of the 36 traces to the two model-side rewrites below, and the convolutional body is untouched: CONV_2D, DEPTHWISE_CONV_2D, ADD and PAD are identical counts on both paths. The hardswish rewrite is +20 (20 MINIMUM out, 40 SUB in, the RELUs folding into their producers). The SE-pool rewrite is +16 (8 MEAN out; 8 SUM + 8 MUL + 8 RESHAPE in). 20 + 16 = 36.",
+      "what_this_means": "The 2.014 ms is the price of making this family map on the new path, NOT evidence that litert-torch lowers networks more verbosely than onnx2tf. It does not: the network body is operator-for-operator identical. Neither rewrite was needed before, because onnx2tf's MINIMUM and MEAN both compiled and mapped. Two gaps in the new toolchain -- ai-edge-quantizer not quantizing MINIMUM, and litert-torch's channel-last pass not propagating through AdaptiveAvgPool2d -- forced the rewrites, and the rewrites cost the time. Close either gap upstream and the 2 ms goes away.",
+      "per_operator_cost": "2.014 ms / 36 operators = 0.056 ms each, on a graph whose 239 original operators average 0.076 ms. The added operators are all cheap elementwise ones, so that is the right order for per-operator dispatch rather than arithmetic.",
+      "not_weight_transfer": "On-chip grows 4.06 -> 4.25 MiB (+4.6%) while latency grows 11.1%, and off-chip is 0 B on both. The extra on-chip bytes are the 36 operators' own footprint, not new weights -- no parameter tensor changed."
+    },
+    "output_correspondence_gate": {
+      "status": "CLOSED 2026-08-22. Was open: nothing had ever checked that the 12 head tensors eval.py groups are the tensors it thinks they are.",
+      "script": "families/detection/ssdlite/check_output_order.py <int8.tflite>",
+      "why_it_mattered": "families/detection/ssdlite/eval.py does not trust the exporter's output order -- it groups by channel count (num_anchors*num_classes vs num_anchors*4) and sorts by feature-map size. That is robust IF the grouping is forced. Nobody had checked that it is.",
+      "result": {
+        "shapes_unique": "all 12 output shapes are distinct, so the grouping is forced, not merely plausible: [1,H,W,546] for H in 20,10,5,3,2,1 and [1,H,W,24] for the same six",
+        "identity_pairing": "each PyTorch head tensor's best-correlating tflite tensor is its own, for all 12",
+        "level_order": "eval.py's grouping recovers torchvision's order exactly (20,10,5,3,2,1 for both cls and box)",
+        "concatenation": "reaches torchvision's [1,3234,91] and [1,3234,4]"
+      },
+      "head_fidelity_int8_vs_fp32": "cos 0.92-0.97 (class) and 0.96-0.97 (box) over four calibration frames; the argmax class agrees on 99.66-100% of the 3234 anchors. Reported, not asserted -- this is a correspondence gate, not an accuracy claim.",
+      "same_script_on_the_onnx2tf_build": "cos 0.82-0.95 (class) and 0.94-0.96 (box), worse on every frame. The largest single-tensor divergence -- the 1x1 box head, off by ~106 quantisation steps -- shows on BOTH builds (105.7 litert, 110.7 onnx2tf), so it is a property of quantising this model to int8, not something the new path introduced. litert being uniformly better is the direction per-channel weights predict: the retired ssdlite build was per-tensor."
+    }
+  }
+}

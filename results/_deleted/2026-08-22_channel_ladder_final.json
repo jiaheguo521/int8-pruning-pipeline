@@ -1,0 +1,172 @@
+{
+  "deleted_at": "2026-08-22T18:00:00",
+  "reason": "Round-1 CHANNEL-ratio ladder retired in full. The 2026-08-20 pass (2026-08-20_superseded_ladders.json) switched line_seg to the parameter ratio but deliberately spared deliverables/line_seg_pruning/ and its HuggingFace copies, because they were the round-1 handoff. The downstream project has since stopped consuming them, and the unit is actively misleading -- `pruned60pct` on link_r34 is an 84.1% parameter cut. Everything now follows the DSD 2026 paper's parameter axis (_param). The remaining reason prune.py gave for keeping the channel ladder -- the 2%-granularity on-chip threshold sweep for link_r34 -- was itself removed with outputs/line_seg_cliff/ earlier today. Baselines (pruned0pct) are NOT touched: 0% has no scope and anchors every curve. results/line_seg/{results,report,latency}.json were cited by no document.",
+  "regenerate": "families/segmentation/line_seg/prune.py --ratio_semantics channel  (~84 s FT per rung)",
+  "total_mb": 326.0,
+  "files": [
+    {
+      "path": "deliverables/line_seg_pruning/checkpoints_pytorch/line_seg_base128_pruned10pct_magnitude_l2.pt",
+      "bytes": 796029
+    },
+    {
+      "path": "deliverables/line_seg_pruning/checkpoints_pytorch/line_seg_link_r34_pruned10pct_magnitude_l2.pt",
+      "bytes": 92253299
+    },
+    {
+      "path": "deliverables/line_seg_pruning/checkpoints_pytorch/line_seg_link_r34_pruned60pct_magnitude_l2.pt",
+      "bytes": 18295731
+    },
+    {
+      "path": "deliverables/line_seg_pruning/checkpoints_pytorch/line_seg_w96_pruned10pct_magnitude_l2.pt",
+      "bytes": 27935389
+    },
+    {
+      "path": "deliverables/line_seg_pruning/checkpoints_pytorch/line_seg_w96_pruned30pct_magnitude_l2.pt",
+      "bytes": 16915869
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_base128_pruned10pct_magnitude_l2_int8_edgetpu.log",
+      "bytes": 544
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_base128_pruned10pct_magnitude_l2_int8_edgetpu.tflite",
+      "bytes": 332416
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_link_r34_pruned10pct_magnitude_l2_int8_edgetpu.log",
+      "bytes": 668
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_link_r34_pruned10pct_magnitude_l2_int8_edgetpu.tflite",
+      "bytes": 26022528
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_link_r34_pruned60pct_magnitude_l2_int8_edgetpu.log",
+      "bytes": 668
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_link_r34_pruned60pct_magnitude_l2_int8_edgetpu.tflite",
+      "bytes": 5980800
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_w96_pruned10pct_magnitude_l2_int8_edgetpu.log",
+      "bytes": 536
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_w96_pruned10pct_magnitude_l2_int8_edgetpu.tflite",
+      "bytes": 7942784
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_w96_pruned30pct_magnitude_l2_int8_edgetpu.log",
+      "bytes": 536
+    },
+    {
+      "path": "deliverables/line_seg_pruning/edgetpu/line_seg_w96_pruned30pct_magnitude_l2_int8_edgetpu.tflite",
+      "bytes": 5096064
+    },
+    {
+      "path": "deliverables/line_seg_pruning/models_int8_tflite/line_seg_base128_pruned10pct_magnitude_l2_int8.tflite",
+      "bytes": 208320
+    },
+    {
+      "path": "deliverables/line_seg_pruning/models_int8_tflite/line_seg_link_r34_pruned10pct_magnitude_l2_int8.tflite",
+      "bytes": 23306232
+    },
+    {
+      "path": "deliverables/line_seg_pruning/models_int8_tflite/line_seg_link_r34_pruned60pct_magnitude_l2_int8.tflite",
+      "bytes": 4680184
+    },
+    {
+      "path": "deliverables/line_seg_pruning/models_int8_tflite/line_seg_w96_pruned10pct_magnitude_l2_int8.tflite",
+      "bytes": 7038320
+    },
+    {
+      "path": "deliverables/line_seg_pruning/models_int8_tflite/line_seg_w96_pruned30pct_magnitude_l2_int8.tflite",
+      "bytes": 4271552
+    },
+    {
+      "path": "outputs/line_seg_eval/latency.json",
+      "bytes": 2055
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_base128_pruned10pct_magnitude_l2/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_base128_pruned10pct_magnitude_l2/model_edgetpu.tflite",
+      "bytes": 332416
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_base128_pruned10pct_magnitude_l2/tf/line_seg_base128_pruned10pct_magnitude_l2_full_integer_quant.tflite",
+      "bytes": 208320
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_link_r34_pruned10pct_magnitude_l2/meta.json",
+      "bytes": 211
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_link_r34_pruned10pct_magnitude_l2/model_edgetpu.tflite",
+      "bytes": 26022528
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_link_r34_pruned10pct_magnitude_l2/tf/line_seg_link_r34_pruned10pct_magnitude_l2_full_integer_quant.tflite",
+      "bytes": 23306232
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_link_r34_pruned60pct_magnitude_l2/meta.json",
+      "bytes": 211
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_link_r34_pruned60pct_magnitude_l2/model_edgetpu.tflite",
+      "bytes": 5980800
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_link_r34_pruned60pct_magnitude_l2/tf/line_seg_link_r34_pruned60pct_magnitude_l2_full_integer_quant.tflite",
+      "bytes": 4680184
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_w96_pruned10pct_magnitude_l2/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_w96_pruned10pct_magnitude_l2/model_edgetpu.tflite",
+      "bytes": 7942784
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_w96_pruned10pct_magnitude_l2/tf/line_seg_w96_pruned10pct_magnitude_l2_full_integer_quant.tflite",
+      "bytes": 7038320
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_w96_pruned30pct_magnitude_l2/meta.json",
+      "bytes": 205
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_w96_pruned30pct_magnitude_l2/model_edgetpu.tflite",
+      "bytes": 5096064
+    },
+    {
+      "path": "outputs/line_seg_eval/line_seg_w96_pruned30pct_magnitude_l2/tf/line_seg_w96_pruned30pct_magnitude_l2_full_integer_quant.tflite",
+      "bytes": 4271552
+    },
+    {
+      "path": "outputs/line_seg_eval/report.json",
+      "bytes": 11582
+    },
+    {
+      "path": "outputs/line_seg_eval/results.json",
+      "bytes": 1932
+    },
+    {
+      "path": "results/line_seg/latency.json",
+      "bytes": 2055
+    },
+    {
+      "path": "results/line_seg/report.json",
+      "bytes": 11582
+    },
+    {
+      "path": "results/line_seg/results.json",
+      "bytes": 1932
+    }
+  ]
+}

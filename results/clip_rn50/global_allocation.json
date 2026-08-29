@@ -1,0 +1,95 @@
+{
+ "model": "clip_rn50_imagenet_pruned30pct_magnitude_l2",
+ "protocol": {
+  "global_pruning": true,
+  "importance": "magnitude_l2",
+  "max_pruning_ratio": 0.9,
+  "iterative_steps": 200
+ },
+ "param_reduction_pct": 30.24,
+ "zeroshot": {
+  "dense": 99.0,
+  "post_prune": 0.0,
+  "after_ft": 70.75,
+  "n_eval": 400,
+  "ft_epochs": 5
+ },
+ "per_stage": {
+  "stage0": {
+   "dense": 1408,
+   "pruned": 579,
+   "kept": 0.4112
+  },
+  "stage1": {
+   "dense": 3584,
+   "pruned": 1675,
+   "kept": 0.4674
+  },
+  "stage2": {
+   "dense": 10240,
+   "pruned": 4146,
+   "kept": 0.4049
+  },
+  "stage3": {
+   "dense": 11264,
+   "pruned": 9511,
+   "kept": 0.8444
+  },
+  "stem": {
+   "dense": 128,
+   "pruned": 60,
+   "kept": 0.4688
+  }
+ },
+ "worst_layers": [
+  {
+   "layer": "stages.0.0.conv2_kxk.conv",
+   "dense": 64,
+   "pruned": 5,
+   "kept": 0.0781
+  },
+  {
+   "layer": "stem.conv1.conv",
+   "dense": 32,
+   "pruned": 3,
+   "kept": 0.0938
+  },
+  {
+   "layer": "stages.0.0.conv1_1x1.conv",
+   "dense": 64,
+   "pruned": 9,
+   "kept": 0.1406
+  },
+  {
+   "layer": "stages.0.1.conv1_1x1.conv",
+   "dense": 64,
+   "pruned": 16,
+   "kept": 0.25
+  },
+  {
+   "layer": "stages.2.0.shortcut.conv.conv",
+   "dense": 1024,
+   "pruned": 261,
+   "kept": 0.2549
+  },
+  {
+   "layer": "stages.2.0.conv3_1x1.conv",
+   "dense": 1024,
+   "pruned": 261,
+   "kept": 0.2549
+  },
+  {
+   "layer": "stages.2.1.conv3_1x1.conv",
+   "dense": 1024,
+   "pruned": 261,
+   "kept": 0.2549
+  },
+  {
+   "layer": "stages.2.2.conv3_1x1.conv",
+   "dense": 1024,
+   "pruned": 261,
+   "kept": 0.2549
+  }
+ ],
+ "note": "ResNet-50 is NOT an inverted-residual backbone, yet global ranking x mean-normalised magnitude concentrates the cut in the narrow early layers exactly as on EfficientDet-Lite and the Re-ID OSNet. The common factor is layer WIDTH, not the inverted-residual block."
+}

@@ -1,0 +1,109 @@
+family: imagenet_backbones
+prune:
+  # What this family actually implements. `manifest capabilities` reads these,
+  # and scripts/pruning.sh refuses PRUNE_MODE for a family that does not list it
+  # rather than silently dropping the flag.
+  recovery: labelled          # CrossEntropy on the dataset's own labels (finetune_pruningbench)
+  prune_modes: [independent, iterative]
+  worker: families/classification/imagenet_backbones/prune.py
+  part: A
+  models:
+  - mobilenetv2
+  - efficientnet_lite0
+  - mnasnet1_0
+  - squeezenet1_1
+  - resnet50
+  datasets:
+  - imagenet
+  - flowers102
+  - inat_plant
+  dataset_restrictions:
+    flowers102:
+    - mobilenetv2
+    inat_plant:
+    - mobilenetv2
+convert:
+- name: mobilenetv2_imagenet
+  filename_pattern: ^mobilenetv2_imagenet_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: Imagenet_1k
+  calib_loader: _calib_imagenet_train
+- name: mobilenetv2_flowers102
+  filename_pattern: ^mobilenetv2_flowers102_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: flowers102
+  calib_loader: _calib_flowers102_train
+- name: efficientnet_lite0_imagenet
+  filename_pattern: ^efficientnet_lite0_imagenet_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.5
+  - 0.5
+  - 0.5
+  std:
+  - 0.5
+  - 0.5
+  - 0.5
+  dataset_subdir: Imagenet_1k
+  calib_loader: _calib_imagenet_train
+- name: mnasnet1_0_imagenet
+  filename_pattern: ^mnasnet1_0_imagenet_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: Imagenet_1k
+  calib_loader: _calib_imagenet_train
+- name: squeezenet1_1_imagenet
+  filename_pattern: ^squeezenet1_1_imagenet_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: Imagenet_1k
+  calib_loader: _calib_imagenet_train
+- name: resnet50_imagenet
+  filename_pattern: ^resnet50_imagenet_pruned\d+pct(?:_\w+)?\.pt$
+  input_size: 224
+  input_channels: 3
+  mean:
+  - 0.485
+  - 0.456
+  - 0.406
+  std:
+  - 0.229
+  - 0.224
+  - 0.225
+  dataset_subdir: Imagenet_1k
+  calib_loader: _calib_imagenet_train

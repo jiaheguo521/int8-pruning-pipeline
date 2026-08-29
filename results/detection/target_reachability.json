@@ -1,0 +1,286 @@
+{
+ "what": "Per (model, criterion) the deepest full-model parameter reduction the pruner actually reached, against the target that was asked for. The per-layer floor saturates before 90% on effdet, which is why the deepest rungs land at 88.56% (lamp) and 88.74% (magnitude_l2) on Lite1, and at 84.37% / 84.46% on Lite2 -- Lite2 protects a larger ignored fraction, so its floor binds sooner. Compare rungs on realized reduction, never on the target in the filename, and never across the two models on the 90% row.",
+ "produced_by": "not committed -- these numbers were read off the worker logs under outputs/pruning_logs/ by hand. Listed in the Provenance table of docs/PRUNING_HAZARDS.md for that reason. Corroborated 2026-08-27: every full_realized value here matches results/detection/full_scope_grid.json to the decimal place, including the 14 Lite2 rungs that had not finished fine-tuning when this file was written -- the reachability probe predicted them exactly.",
+ "measured": "2026-08-21",
+ "superseded_by": "results/detection/pruning_matrix.json -- its reachable_ceilings_full_model measures the same per-(model, criterion) ceilings, and the deepest realized rungs are quoted from full_scope_grid.json in section 3 of docs/PRUNING_HAZARDS.md to four decimals (88.5554 / 88.7362) rather than the two here. NOTE: the produced_by line above is stale -- that Provenance table no longer lists this file, and nothing else in the repo reads it either. Kept because it records the per-target rows, which both successors summarise away.",
+ "efficientdet_lite1|lamp": {
+  "max_full": 88.56,
+  "max_bb": 98.41,
+  "steps_used": 400,
+  "rows": [
+   {
+    "target": 10,
+    "full_reachable": true,
+    "full_realized": 10.05,
+    "bb_reachable": true,
+    "bb_realized": 10.04
+   },
+   {
+    "target": 20,
+    "full_reachable": true,
+    "full_realized": 20.02,
+    "bb_reachable": true,
+    "bb_realized": 20.17
+   },
+   {
+    "target": 30,
+    "full_reachable": true,
+    "full_realized": 30.13,
+    "bb_reachable": true,
+    "bb_realized": 30.3
+   },
+   {
+    "target": 40,
+    "full_reachable": true,
+    "full_realized": 40.16,
+    "bb_reachable": true,
+    "bb_realized": 40.06
+   },
+   {
+    "target": 50,
+    "full_reachable": true,
+    "full_realized": 50.15,
+    "bb_reachable": true,
+    "bb_realized": 50.17
+   },
+   {
+    "target": 60,
+    "full_reachable": true,
+    "full_realized": 60.06,
+    "bb_reachable": true,
+    "bb_realized": 60.24
+   },
+   {
+    "target": 70,
+    "full_reachable": true,
+    "full_realized": 70.09,
+    "bb_reachable": true,
+    "bb_realized": 70.12
+   },
+   {
+    "target": 80,
+    "full_reachable": true,
+    "full_realized": 80.07,
+    "bb_reachable": true,
+    "bb_realized": 80.1
+   },
+   {
+    "target": 90,
+    "full_reachable": false,
+    "full_realized": 88.56,
+    "bb_reachable": true,
+    "bb_realized": 90.08
+   }
+  ]
+ },
+ "efficientdet_lite1|magnitude_l2": {
+  "max_full": 88.74,
+  "max_bb": 98.61,
+  "steps_used": 400,
+  "rows": [
+   {
+    "target": 10,
+    "full_reachable": true,
+    "full_realized": 10.19,
+    "bb_reachable": true,
+    "bb_realized": 10.27
+   },
+   {
+    "target": 20,
+    "full_reachable": true,
+    "full_realized": 20.28,
+    "bb_reachable": true,
+    "bb_realized": 20.04
+   },
+   {
+    "target": 30,
+    "full_reachable": true,
+    "full_realized": 30.3,
+    "bb_reachable": true,
+    "bb_realized": 30.22
+   },
+   {
+    "target": 40,
+    "full_reachable": true,
+    "full_realized": 40.07,
+    "bb_reachable": true,
+    "bb_realized": 40.05
+   },
+   {
+    "target": 50,
+    "full_reachable": true,
+    "full_realized": 50.17,
+    "bb_reachable": true,
+    "bb_realized": 50.11
+   },
+   {
+    "target": 60,
+    "full_reachable": true,
+    "full_realized": 60.09,
+    "bb_reachable": true,
+    "bb_realized": 60.13
+   },
+   {
+    "target": 70,
+    "full_reachable": true,
+    "full_realized": 70.25,
+    "bb_reachable": true,
+    "bb_realized": 70.24
+   },
+   {
+    "target": 80,
+    "full_reachable": true,
+    "full_realized": 80.19,
+    "bb_reachable": true,
+    "bb_realized": 80.15
+   },
+   {
+    "target": 90,
+    "full_reachable": false,
+    "full_realized": 88.74,
+    "bb_reachable": true,
+    "bb_realized": 90.2
+   }
+  ]
+ },
+ "efficientdet_lite2|lamp": {
+  "max_full": 84.37,
+  "max_bb": 98.51,
+  "steps_used": 400,
+  "rows": [
+   {
+    "target": 10,
+    "full_reachable": true,
+    "full_realized": 10.2,
+    "bb_reachable": true,
+    "bb_realized": 10.15
+   },
+   {
+    "target": 20,
+    "full_reachable": true,
+    "full_realized": 20.02,
+    "bb_reachable": true,
+    "bb_realized": 20.05
+   },
+   {
+    "target": 30,
+    "full_reachable": true,
+    "full_realized": 30.1,
+    "bb_reachable": true,
+    "bb_realized": 30.25
+   },
+   {
+    "target": 40,
+    "full_reachable": true,
+    "full_realized": 40.02,
+    "bb_reachable": true,
+    "bb_realized": 40.12
+   },
+   {
+    "target": 50,
+    "full_reachable": true,
+    "full_realized": 50.05,
+    "bb_reachable": true,
+    "bb_realized": 50.11
+   },
+   {
+    "target": 60,
+    "full_reachable": true,
+    "full_realized": 60.02,
+    "bb_reachable": true,
+    "bb_realized": 60.06
+   },
+   {
+    "target": 70,
+    "full_reachable": true,
+    "full_realized": 70.15,
+    "bb_reachable": true,
+    "bb_realized": 70.03
+   },
+   {
+    "target": 80,
+    "full_reachable": true,
+    "full_realized": 80.08,
+    "bb_reachable": true,
+    "bb_realized": 80.09
+   },
+   {
+    "target": 90,
+    "full_reachable": false,
+    "full_realized": 84.37,
+    "bb_reachable": true,
+    "bb_realized": 90.1
+   }
+  ]
+ },
+ "efficientdet_lite2|magnitude_l2": {
+  "max_full": 84.46,
+  "max_bb": 98.65,
+  "steps_used": 400,
+  "rows": [
+   {
+    "target": 10,
+    "full_reachable": true,
+    "full_realized": 10.1,
+    "bb_reachable": true,
+    "bb_realized": 10.27
+   },
+   {
+    "target": 20,
+    "full_reachable": true,
+    "full_realized": 20.21,
+    "bb_reachable": true,
+    "bb_realized": 20.27
+   },
+   {
+    "target": 30,
+    "full_reachable": true,
+    "full_realized": 30.09,
+    "bb_reachable": true,
+    "bb_realized": 30.31
+   },
+   {
+    "target": 40,
+    "full_reachable": true,
+    "full_realized": 40.1,
+    "bb_reachable": true,
+    "bb_realized": 40.13
+   },
+   {
+    "target": 50,
+    "full_reachable": true,
+    "full_realized": 50.06,
+    "bb_reachable": true,
+    "bb_realized": 50.12
+   },
+   {
+    "target": 60,
+    "full_reachable": true,
+    "full_realized": 60.19,
+    "bb_reachable": true,
+    "bb_realized": 60.07
+   },
+   {
+    "target": 70,
+    "full_reachable": true,
+    "full_realized": 70.11,
+    "bb_reachable": true,
+    "bb_realized": 70.09
+   },
+   {
+    "target": 80,
+    "full_reachable": true,
+    "full_realized": 80.22,
+    "bb_reachable": true,
+    "bb_realized": 80.01
+   },
+   {
+    "target": 90,
+    "full_reachable": false,
+    "full_realized": 84.46,
+    "bb_reachable": true,
+    "bb_realized": 90.26
+   }
+  ]
+ }
+}
